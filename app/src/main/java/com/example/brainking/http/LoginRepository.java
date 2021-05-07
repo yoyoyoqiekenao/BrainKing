@@ -41,4 +41,9 @@ public class LoginRepository extends BaseModel implements HttpDataSource {
     public Observable<Object> login() {
         return mHttpDataSource.login();
     }
+
+    @Override
+    public Observable<Object> getVerificationCode() {
+        return mHttpDataSource.getVerificationCode();
+    }
 }

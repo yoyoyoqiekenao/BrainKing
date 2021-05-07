@@ -11,4 +11,7 @@ public interface HttpDataSource {
 
     //模拟登录
     Observable<Object> login();
+
+    //获取验证码
+    Observable<Object> getVerificationCode();
 }

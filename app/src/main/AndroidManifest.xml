@@ -40,9 +40,10 @@
         <activity
             android:name=".MainActivity"
             android:hardwareAccelerated="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

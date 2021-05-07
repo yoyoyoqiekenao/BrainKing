@@ -1,6 +1,6 @@
 package com.example.brainking.http;
 
- import io.reactivex.Observable;
+import io.reactivex.Observable;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +37,11 @@ public class HttpDataSourceImpl implements HttpDataSource {
 
     @Override
     public Observable<Object> login() {
-        return  Observable.just(new Object()).delay(3, TimeUnit.SECONDS); //延迟3秒
+        return Observable.just(new Object()).delay(3, TimeUnit.SECONDS); //延迟3秒
+    }
+
+    @Override
+    public Observable<Object> getVerificationCode() {
+        return null;
     }
 }

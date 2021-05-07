@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
 import com.example.brainking.http.LoginRepository;
+import com.example.brainking.login.LoginActivity;
 
 import me.goldze.mvvmhabit.base.BaseViewModel;
+import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
 
@@ -27,17 +29,17 @@ public class SplashViewModel extends BaseViewModel<LoginRepository> {
     }
 
     //手机登录按钮的点击事件
-    public BindingCommand loginOnClickCommand = new BindingCommand(new BindingConsumer() {
+    public BindingCommand loginOnClickCommand = new BindingCommand(new BindingAction() {
         @Override
-        public void call(Object o) {
+        public void call() {
             jump();
-            Log.d("xuwudi", "跳转到登录界面");
-             
         }
+
+
     });
 
     private void jump() {
-
+        startActivity(LoginActivity.class);
     }
 
 

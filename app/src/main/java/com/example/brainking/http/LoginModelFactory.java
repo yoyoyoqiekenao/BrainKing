@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.brainking.login.LoginViewModel;
 import com.example.brainking.splash.SplashViewModel;
 
 /**
@@ -46,6 +47,8 @@ public class LoginModelFactory extends ViewModelProvider.NewInstanceFactory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(SplashViewModel.class)) {
             return (T) new SplashViewModel(mApplication);
+        }else if(modelClass.isAssignableFrom(LoginViewModel.class)){
+            return (T) new LoginViewModel(mApplication);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
