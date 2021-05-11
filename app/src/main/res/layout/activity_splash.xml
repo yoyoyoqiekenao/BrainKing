@@ -1,99 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:binding="http://schemas.android.com/apk/res-auto">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_splash"
+    android:fitsSystemWindows="true">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.brainking.splash.SplashViewModel" />
-    </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/bg_splash"
-        android:fitsSystemWindows="true">
+        android:id="@+id/rl_agreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp">
 
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/iv_check"></ImageView>
 
-        <RelativeLayout
-            android:id="@+id/rl_agreement"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp">
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/check"
+            android:text="注册即表示你已同意用户协议及隐私条款"
+            android:textColor="@color/color_EEEEEE"
+            android:textSize="12dp"></TextView>
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/check"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/iv_check"></ImageView>
+    <RelativeLayout
+        android:id="@+id/rl_wx"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@id/rl_agreement"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rectangle_3b4dd0_50"
+        android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/check"
-                android:text="注册即表示你已同意用户协议及隐私条款"
-                android:textColor="@color/white"
-                android:textSize="12dp"></TextView>
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_wx"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/wx_logo"></ImageView>
 
-        <RelativeLayout
-            android:id="@+id/rl_wx"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_above="@id/rl_agreement"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rectangle_3b4dd0_50"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_wx"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@mipmap/wx_logo"></ImageView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/iv_wx"
-                android:gravity="center"
-                android:text="微信登录"
-                android:textColor="@color/white"
-                android:textSize="16dp"></TextView>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_phone"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_above="@id/rl_wx"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/rectangle_ffffff_50"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/iv_wx"
             android:gravity="center"
-            binding:onClickCommand="@{viewModel.loginOnClickCommand}">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:gravity="center"
-                android:text="手机号码登录"
-                android:textColor="@color/color_004bd2"
-                android:textSize="16dp"></TextView>
-
-        </RelativeLayout>
+            android:text="微信登录"
+            android:textColor="@color/color_EEEEEE"
+            android:textSize="16dp"></TextView>
 
     </RelativeLayout>
-</layout>
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@id/rl_wx"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rectangle_ffffff_50"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="手机号码登录"
+            android:textColor="@color/color_004bd2"
+            android:textSize="16dp"></TextView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

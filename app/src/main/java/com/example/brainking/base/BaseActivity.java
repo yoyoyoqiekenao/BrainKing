@@ -23,6 +23,9 @@ import com.example.brainking.action.KeyboardAction;
 import java.util.List;
 import java.util.Random;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * @author : 徐无敌
@@ -36,10 +39,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Keyboard
      */
     private SparseArray<OnActivityCallback> mActivityCallbacks;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initActivity();
+
+
     }
 
     protected void initActivity() {
