@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.brainking.MainActivity;
 import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
 
@@ -50,7 +51,7 @@ public class LoginActivity extends BaseActivity {
         } else if (view.getId() == R.id.tv_verCode) {
             Toast.makeText(this, "发送验证码", Toast.LENGTH_SHORT).show();
         } else if (view.getId() == R.id.tv_submit) {
-            Toast.makeText(this, "登陆", Toast.LENGTH_SHORT).show();
+            startActivity(MainActivity.class);
         }
     }
 }
