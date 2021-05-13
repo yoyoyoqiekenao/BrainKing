@@ -19,6 +19,7 @@ import com.example.brainking.action.BundleAction;
 import com.example.brainking.action.ClickAction;
 import com.example.brainking.action.HandlerAction;
 import com.example.brainking.action.KeyboardAction;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.List;
 import java.util.Random;
@@ -44,8 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Keyboard
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initActivity();
-
-
+        ImmersionBar.with(this).init();
     }
 
     protected void initActivity() {
