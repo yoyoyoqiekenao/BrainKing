@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.home.poems.PomesActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -26,6 +27,8 @@ public class HomeFragment extends BaseFragment {
     RelativeLayout rl_language;
     @BindView(R.id.rootView)
     LinearLayout rootView;
+    @BindView(R.id.rl_poems)
+    RelativeLayout rl_poems;
 
     private PopupWindow mPop;
 
@@ -41,6 +44,7 @@ public class HomeFragment extends BaseFragment {
         ImmersionBar.with(getActivity()).statusBarView(mView).init();
 
         rl_language.setOnClickListener(this);
+        rl_poems.setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +56,8 @@ public class HomeFragment extends BaseFragment {
     public void onClick(View view) {
         if (view.getId() == R.id.rl_language) {
             showPop();
+        } else if (view.getId() == R.id.rl_poems) {
+            startActivity(PomesActivity.class);
         }
     }
 

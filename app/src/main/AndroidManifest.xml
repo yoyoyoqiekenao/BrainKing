@@ -49,6 +49,9 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".home.poems.PomesActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
