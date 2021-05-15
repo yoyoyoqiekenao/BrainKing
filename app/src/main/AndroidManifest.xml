@@ -52,6 +52,9 @@
         <activity
             android:name=".home.poems.PomesActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.friend.FriendActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
