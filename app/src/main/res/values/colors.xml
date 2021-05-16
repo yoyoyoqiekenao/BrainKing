@@ -12,6 +12,8 @@
     <color name="color_ffffff">#FFFFFF</color>
     <color name="color_00AEE9">#00AEE9</color>
     <color name="color_E1F7FF">#E1F7FF</color>
+    <color name="color_8E4938">#8E4938</color>
+    <color name="color_F2CB51">#F2CB51</color>
 
     <!-- 透明色 -->
     <color name="transparent">#00000000</color>
