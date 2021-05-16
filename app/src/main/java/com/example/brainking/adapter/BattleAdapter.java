@@ -1,10 +1,9 @@
 package com.example.brainking.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.brainking.R;
 
-import org.jetbrains.annotations.NotNull;
 
 public class BattleAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public BattleAdapter() {
@@ -12,8 +11,7 @@ public class BattleAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
-
-
+    protected void convert(BaseViewHolder baseViewHolder, String s) {
+        baseViewHolder.addOnClickListener(R.id.tv_pk);
     }
 }
