@@ -64,6 +64,9 @@
         <activity
             android:name=".mine.timeteam.TimeTeamActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.about.AboutActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

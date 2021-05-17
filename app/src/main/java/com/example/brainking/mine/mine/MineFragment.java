@@ -5,6 +5,7 @@ import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.record.RecordActivity;
 import com.example.brainking.mine.timeteam.TimeTeamActivity;
@@ -20,6 +21,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rl_record;
     @BindView(R.id.rl_timeTeam)
     RelativeLayout rl_timeTeam;
+    @BindView(R.id.rl_about)
+    RelativeLayout rl_about;
 
     @Override
     protected int getLayoutId() {
@@ -33,6 +36,7 @@ public class MineFragment extends BaseFragment {
         setOnClickListener(R.id.rl_friend);
         setOnClickListener(R.id.rl_record);
         setOnClickListener(R.id.rl_timeTeam);
+        setOnClickListener(R.id.rl_about);
     }
 
     @Override
@@ -48,6 +52,8 @@ public class MineFragment extends BaseFragment {
             startActivity(RecordActivity.class);
         } else if (view.getId() == R.id.rl_timeTeam) {
             startActivity(TimeTeamActivity.class);
+        } else if (view.getId() == R.id.rl_about) {
+            startActivity(AboutActivity.class);
         }
     }
 }
