@@ -58,6 +58,9 @@
         <activity
             android:name=".battle.friend_pk.FriendPkActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.record.RecordActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.mine.friend.FriendActivity;
+import com.example.brainking.mine.record.RecordActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,6 +15,8 @@ public class MineFragment extends BaseFragment {
 
     @BindView(R.id.rl_friend)
     RelativeLayout rl_friend;
+    @BindView(R.id.rl_record)
+    RelativeLayout rl_record;
 
     @Override
     protected int getLayoutId() {
@@ -25,6 +28,7 @@ public class MineFragment extends BaseFragment {
         ButterKnife.bind(this, getView());
 
         setOnClickListener(R.id.rl_friend);
+        setOnClickListener(R.id.rl_record);
     }
 
     @Override
@@ -34,8 +38,10 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void onClick(View view) {
-        if(view.getId()==R.id.rl_friend){
+        if (view.getId() == R.id.rl_friend) {
             startActivity(FriendActivity.class);
+        } else if (view.getId() == R.id.rl_record) {
+            startActivity(RecordActivity.class);
         }
     }
 }

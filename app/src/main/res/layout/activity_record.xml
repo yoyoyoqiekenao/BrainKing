@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_battle">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"></View>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/view">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/iv_back_white"></ImageView>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的战绩"
+            android:textColor="@color/color_ffffff"
+            android:textSize="18dp"></TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_info"
+        android:layout_width="match_parent"
+        android:layout_height="337dp"
+        android:layout_below="@id/rl_title"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/gradient_3a4aba_140f7e"
+        app:layout_constraintTop_toBottomOf="@id/rl_title">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="森巴拉巴鲁比啦"
+            android:textColor="@color/color_ffffff"
+            android:textSize="16dp"></TextView>
+
+        <LinearLayout
+            android:id="@+id/ll_level"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@id/tv_name"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/rectangle_1d187a_6"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/iv_level_5"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:text="段位:"
+                android:textColor="@color/color_ffffff"
+                android:textSize="14dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:text="白银"
+                android:textColor="@color/color_06DEF1"
+                android:textSize="14dp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_probability"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@id/ll_level"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/rectangle_1d187a_6"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="31dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/iv_trophy"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:text="胜场率:"
+                android:textColor="@color/color_ffffff"
+                android:textSize="14dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="7dp"
+                android:text="21%"
+                android:textColor="@color/color_06DEF1"
+                android:textSize="14dp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@id/ll_probability"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="35dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="总场次:"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14dp"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:text="100"
+                    android:textColor="@color/color_06DEF1"
+                    android:textSize="14dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="胜场:"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="14dp"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:text="21"
+                    android:textColor="@color/color_06DEF1"
+                    android:textSize="14dp"></TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/rl_title"
+        android:src="@mipmap/iv_head"></ImageView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/rl_info"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/rectangle_3b4dd0_50"
+        android:gravity="center"
+        android:text="邀请好友来挑战"
+        android:textColor="@color/color_ffffff"
+        android:textSize="16dp"></TextView>
+</RelativeLayout>
