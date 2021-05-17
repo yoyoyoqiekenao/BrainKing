@@ -7,6 +7,7 @@ import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.record.RecordActivity;
+import com.example.brainking.mine.timeteam.TimeTeamActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +18,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rl_friend;
     @BindView(R.id.rl_record)
     RelativeLayout rl_record;
+    @BindView(R.id.rl_timeTeam)
+    RelativeLayout rl_timeTeam;
 
     @Override
     protected int getLayoutId() {
@@ -29,6 +32,7 @@ public class MineFragment extends BaseFragment {
 
         setOnClickListener(R.id.rl_friend);
         setOnClickListener(R.id.rl_record);
+        setOnClickListener(R.id.rl_timeTeam);
     }
 
     @Override
@@ -42,6 +46,8 @@ public class MineFragment extends BaseFragment {
             startActivity(FriendActivity.class);
         } else if (view.getId() == R.id.rl_record) {
             startActivity(RecordActivity.class);
+        } else if (view.getId() == R.id.rl_timeTeam) {
+            startActivity(TimeTeamActivity.class);
         }
     }
 }
