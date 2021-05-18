@@ -2,8 +2,6 @@ package com.example.brainking.util;
 
 import android.content.Context;
 
-import com.example.brainking.AppConfig;
-
 /**
  * @author : 徐无敌
  * date   : 2021/5/1217:16

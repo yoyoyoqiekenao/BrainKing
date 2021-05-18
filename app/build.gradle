@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
 }
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 30
@@ -31,7 +32,6 @@ android {
         enabled true
     }
 }
-
 
 
 dependencies {
@@ -67,4 +67,13 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    //Kotlin
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //okhttp3拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+}
+repositories {
+    mavenCentral()
 }
