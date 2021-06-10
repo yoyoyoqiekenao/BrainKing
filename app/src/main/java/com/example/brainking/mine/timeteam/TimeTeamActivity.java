@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.brainking.R;
 import com.example.brainking.adapter.TimeTeamAdapter;
 import com.example.brainking.base.BaseActivity;
+import com.example.brainking.base.BasePresenter;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TimeTeamActivity extends BaseActivity {
+public class TimeTeamActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.view)
     View mView;
@@ -29,6 +30,11 @@ public class TimeTeamActivity extends BaseActivity {
     private TimeTeamAdapter mAdapter;
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_timeteam;
     }
@@ -36,7 +42,7 @@ public class TimeTeamActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        ImmersionBar.with(getActivity()).statusBarView(mView).init();
+        ImmersionBar.with(this).statusBarView(mView).init();
 
         mAdapter = new TimeTeamAdapter();
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -49,11 +55,16 @@ public class TimeTeamActivity extends BaseActivity {
         mList.add("");
         mAdapter.setNewData(mList);
 
-        setOnClickListener(R.id.rl_back);
+        mRlBack.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

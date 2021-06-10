@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.brainking.adapter.ExamplePagerAdapter;
 import com.example.brainking.base.BaseActivity;
+import com.example.brainking.base.BasePresenter;
 import com.example.brainking.battle.battle.BattleFragment;
 import com.example.brainking.home.home.HomeFragment;
 import com.example.brainking.match.match.MatchFragment;
@@ -44,6 +45,11 @@ public class MainActivity extends BaseActivity {
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private ExamplePagerAdapter mExamplePagerAdapter;
     private List<Fragment> mList = new ArrayList<>();
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected int getLayoutId() {

@@ -1,5 +1,6 @@
 package com.example.brainking.battle.battle;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.BattleAdapter;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.base.BasePresenter;
 import com.example.brainking.battle.friend_pk.FriendPkActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -31,13 +33,20 @@ public class BattleFragment extends BaseFragment {
     private BattleAdapter mAdapter;
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_battle;
     }
 
+
+
     @Override
-    protected void initView() {
-        ButterKnife.bind(this, getView());
+    protected void initView(View view) {
+        ButterKnife.bind(this, view);
         ImmersionBar.with(this).statusBarView(mView).init();
 
         mAdapter = new BattleAdapter();
@@ -57,7 +66,8 @@ public class BattleFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_pk) {
-                    startActivity(FriendPkActivity.class);
+                    Intent intent=new Intent(mContext,FriendPkActivity.class);
+                    startActivity(intent);
                 }
             }
         });

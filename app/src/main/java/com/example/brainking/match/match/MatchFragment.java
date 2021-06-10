@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.base.BasePresenter;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
@@ -14,13 +15,20 @@ public class MatchFragment extends BaseFragment {
     View mView;
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_match;
     }
 
+
+
     @Override
-    protected void initView() {
-        ButterKnife.bind(this, getView());
+    protected void initView(View view) {
+        ButterKnife.bind(this, view);
         ImmersionBar.with(this).statusBarView(mView).init();
     }
 

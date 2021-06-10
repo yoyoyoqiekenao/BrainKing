@@ -1,10 +1,12 @@
 package com.example.brainking.mine.mine;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.base.BasePresenter;
 import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.record.RecordActivity;
@@ -13,7 +15,7 @@ import com.example.brainking.mine.timeteam.TimeTeamActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.rl_friend)
     RelativeLayout rl_friend;
@@ -25,18 +27,25 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rl_about;
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
     }
 
-    @Override
-    protected void initView() {
-        ButterKnife.bind(this, getView());
 
-        setOnClickListener(R.id.rl_friend);
-        setOnClickListener(R.id.rl_record);
-        setOnClickListener(R.id.rl_timeTeam);
-        setOnClickListener(R.id.rl_about);
+    @Override
+    protected void initView(View view) {
+        ButterKnife.bind(this, view);
+
+
+        rl_friend.setOnClickListener(this);
+        rl_record.setOnClickListener(this);
+        rl_timeTeam.setOnClickListener(this);
+        rl_about.setOnClickListener(this);
     }
 
     @Override
@@ -47,13 +56,13 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.rl_friend) {
-            startActivity(FriendActivity.class);
+            startActivity(new Intent(getContext(), FriendActivity.class));
         } else if (view.getId() == R.id.rl_record) {
-            startActivity(RecordActivity.class);
+            startActivity(new Intent(getContext(), RecordActivity.class));
         } else if (view.getId() == R.id.rl_timeTeam) {
-            startActivity(TimeTeamActivity.class);
+            startActivity(new Intent(getContext(), TimeTeamActivity.class));
         } else if (view.getId() == R.id.rl_about) {
-            startActivity(AboutActivity.class);
+            startActivity(new Intent(getContext(), AboutActivity.class));
         }
     }
 }

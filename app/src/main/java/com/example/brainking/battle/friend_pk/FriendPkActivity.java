@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
+import com.example.brainking.base.BasePresenter;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
@@ -12,6 +13,11 @@ import butterknife.ButterKnife;
 public class FriendPkActivity extends BaseActivity {
     @BindView(R.id.view)
     View mView;
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected int getLayoutId() {

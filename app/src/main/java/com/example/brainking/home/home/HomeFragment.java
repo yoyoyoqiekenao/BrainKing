@@ -1,6 +1,7 @@
 package com.example.brainking.home.home;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
+import com.example.brainking.base.BasePresenter;
 import com.example.brainking.home.poems.PomesActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -20,7 +22,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rl_language)
@@ -34,13 +36,19 @@ public class HomeFragment extends BaseFragment {
 
 
     @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
     }
 
+
     @Override
-    protected void initView() {
-        ButterKnife.bind(this, getView());
+    protected void initView(View view) {
+        ButterKnife.bind(this, view);
         ImmersionBar.with(getActivity()).statusBarView(mView).init();
 
         rl_language.setOnClickListener(this);
@@ -57,7 +65,7 @@ public class HomeFragment extends BaseFragment {
         if (view.getId() == R.id.rl_language) {
             showPop();
         } else if (view.getId() == R.id.rl_poems) {
-            startActivity(PomesActivity.class);
+            startActivity(new Intent(getContext(), PomesActivity.class));
         }
     }
 
