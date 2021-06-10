@@ -1,6 +1,9 @@
 package com.example.brainking.net
 
 import android.text.TextUtils
+import com.blankj.utilcode.util.SPUtils
+import com.example.brainking.AppContext
+import com.example.brainking.util.UserAgentUtil.getUserAgent
 import okhttp3.Interceptor
 import okhttp3.Response
 

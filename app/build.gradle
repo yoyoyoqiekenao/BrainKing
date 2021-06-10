@@ -72,6 +72,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //okhttp3拦截器
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.blankj:utilcode:1.26.0'
 
 }
 repositories {
