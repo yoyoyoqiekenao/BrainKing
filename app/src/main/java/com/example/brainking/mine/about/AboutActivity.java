@@ -5,14 +5,22 @@ import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
+import com.example.brainking.base.BasePresenter;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.view)
     View mView;
+    @BindView(R.id.rl_back)
+    RelativeLayout rlBack;
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -22,9 +30,9 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        ImmersionBar.with(getActivity()).statusBarView(mView).init();
+        ImmersionBar.with(this).statusBarView(mView).init();
 
-        setOnClickListener(R.id.rl_back);
+        rlBack.setOnClickListener(this);
     }
 
     @Override

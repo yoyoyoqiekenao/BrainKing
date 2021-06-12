@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--自定义ViewPager+fragment实现-->
+    <declare-styleable name="EasyNavigationBar">
+        <!--底部导航栏高度-->
+        <attr name="Easy_navigationHeight" format="dimension" />
+        <!--底部导航栏背景-->
+        <attr name="Easy_navigationBackground" format="color" />
+        <!--Tab字体大小-->
+        <attr name="Easy_tabTextSize" format="dimension" />
+        <!--Tab文字距Tab图标的距离-->
+        <attr name="Easy_tabTextTop" format="dimension" />
+        <!--Tab图标大小-->
+        <attr name="Easy_tabIconSize" format="dimension" />
+        <!--Tab未选中字体颜色-->
+        <attr name="Easy_tabNormalColor" format="color" />
+        <!--Tab选中字体颜色-->
+        <attr name="Easy_tabSelectColor" format="color" />
+        <!--提示红点的大小-->
+        <attr name="Easy_hintPointSize" format="dimension" />
+        <!--消息红点的大小-->
+        <attr name="Easy_msgPointSize" format="dimension" />
+        <!--提示红点距Tab图标的距离-->
+        <attr name="Easy_hintPointLeft" format="dimension" />
+        <!--消息红点距Tab图标的距离-->
+        <attr name="Easy_msgPointLeft" format="dimension" />
+        <!--提示红点距离顶部的距离-->
+        <attr name="Easy_hintPointTop" format="dimension" />
+        <!--消息红点距顶部的距离-->
+        <attr name="Easy_msgPointTop" format="dimension" />
+        <!--消息红点数字字体大小-->
+        <attr name="Easy_msgPointTextSize" format="dimension" />
+
+        <!--消息红点99+的长度-->
+        <attr name="Easy_msgPointMoreWidth" format="dimension" />
+        <!--消息红点99+的高度-->
+        <attr name="Easy_msgPointMoreHeight" format="dimension" />
+        <!--消息红点99+的半径-->
+        <attr name="Easy_msgPointMoreRadius" format="integer" />
+        <!--消息红点的颜色-->
+        <attr name="Easy_msgPointColor" format="color" />
+
+
+        <!--分割线高度-->
+        <attr name="Easy_lineHeight" format="dimension" />
+        <!--分割线颜色-->
+        <attr name="Easy_lineColor" format="color" />
+
+        <!--是否有paddingBottom-->
+        <attr name="Easy_hasPadding" format="boolean" />
+
+
+        <!--中间图片的大小-->
+        <attr name="Easy_centerIconSize" format="dimension" />
+        <!--底部导航栏和加号的高度  加号会居中-->
+        <attr name="Easy_centerLayoutHeight" format="dimension" />
+        <!--添加按钮距离底部的距离-->
+        <attr name="Easy_centerLayoutBottomMargin" format="dimension" />
+        <!--图标显示-->
+        <attr name="Easy_scaleType">
+            <flag name="CENTER_INSIDE" value="0" />
+            <flag name="CENTER_CROP" value="1" />
+            <flag name="CENTER" value="2" />
+            <flag name="FIT_CENTER" value="3" />
+            <flag name="FIT_END" value="4" />
+            <flag name="FIT_START" value="5" />
+            <flag name="FIT_XY" value="6" />
+            <flag name="MATRIX" value="7" />
+        </attr>
+
+
+        <!--图标显示-->
+        <attr name="Easy_centerLayoutRule">
+            <flag name="RULE_CENTER" value="0" />
+            <flag name="RULE_BOTTOM" value="1" />
+        </attr>
+        <!-- true 点击加号切换fragment
+         false 点击加号不切换fragment进行其他操作（跳转界面等）-->
+        <attr name="Easy_centerAsFragment" format="boolean" />
+        <attr name="Easy_centerSelectTextColor" format="color" />
+        <attr name="Easy_centerNormalTextColor" format="color" />
+        <attr name="Easy_centerTextSize" format="dimension" />
+        <!--加号文字距离顶部加号的距离-->
+        <attr name="Easy_centerTextTopMargin" format="dimension" />
+        <!--是否和其他tab文字底部对齐-->
+        <attr name="Easy_centerAlignBottom" format="dimension" />
+        <!--文字大小单位DP还是SP-->
+        <attr name="Easy_textSizeType">
+            <flag name="TYPE_DP" value="1" />
+            <flag name="TYPE_SP" value="2" />
+        </attr>
+
+    </declare-styleable>
+
+    <!--密码输入框-->
+    <declare-styleable name="InputKeyWordView">
+        <!--输入位数 默认4位-->
+        <attr name="ipv_input_length" format="integer" />
+        <!--底部线-->
+        <attr name="ipv_show_bottom_line" format="boolean" />
+        <!--底部线高度-->
+        <attr name="ipv_bottom_line_height" format="dimension" />
+        <!--底部线的颜色-->
+        <attr name="ipv_bottom_line_color" format="color" />
+        <!--显示字的颜色-->
+        <attr name="ipv_show_txt_color" format="color" />
+        <!--显示字的大小-->
+        <attr name="ipv_txt_size" format="dimension" />
+        <!--提示字-->
+        <attr name="ipv_hint_text" format="string" />
+        <!--提示颜色-->
+        <attr name="ipv_hint_color" format="color" />
+        <!--光标颜色-->
+        <attr name="ipv_cursor_color" format="color" />
+        <!--输入类型-->
+        <attr name="ipv_input_type" format="enum">
+            <!--数字-->
+            <enum name="number" value="0x11" />
+            <!--数字和字母-->
+            <enum name="numChar" value="0x12" />
+        </attr>
+
+    </declare-styleable>
+
+
+    <declare-styleable name="Search_View">
+        <attr name="textSizeSearch" format="dimension"  />
+        <attr name="textColorSearch" format="color" />
+        <attr name="textHintSearch" format="string" />
+        <attr name="searchBlockHeight" format="integer" />
+        <attr name="searchBlockColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MusicalNoteLayout">
+        <attr name="circle_music_view_res" format="reference"/>
+        <attr name="circle_music_view_size" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="AutoLinkTextView">
+        <!-- 链接高亮颜色 -->
+        <attr name="highlight_textcolor" format="color" />
+        <!-- 默认文字颜色 -->
+        <attr name="default_textcolor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleMusicView">
+        <attr name="circle_music_view_progress_width" format="dimension"/>
+        <attr name="circle_music_view_progress_slot_color" format="color"/>
+        <attr name="circle_music_view_progress_buffer_color" format="color"/>
+        <attr name="circle_music_view_progress_color" format="color"/>
+    </declare-styleable>
+
+    <!--小视频进度条-->
+    <declare-styleable name="ProgressView">
+        <!--进度条初始颜色-->
+        <attr name="progressColors" format="string" />
+        <!--进度条最小宽度即初始宽度-->
+        <attr name="minProgressWidth" format="dimension" />
+        <!--view最小宽度-->
+        <attr name="minWidth" format="dimension" />
+        <!--view最小高度-->
+        <attr name="minHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="XTabLayout">
+        <attr name="x_tabIndicatorRoundRect" format="boolean"/>
+        <attr name="x_tabIndicatorAnimation" format="boolean"/>
+        <attr name="x_tabIndicatorColor" format="color"/>
+        <attr name="x_tabIndicatorHeight" format="dimension"/>
+        <attr name="x_tabIndicatorWidth" format="dimension"/>
+        <attr name="x_tabContentStart" format="dimension"/>
+        <attr name="x_tabBackground" format="reference"/>
+        <attr name="x_tabMode">
+            <enum name="scrollable" value="0"/>
+            <enum name="fixed" value="1"/>
+        </attr>
+        <attr name="x_tabGravity">
+            <enum name="fill" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+        <attr name="x_tabMinWidth" format="dimension"/>
+        <attr name="x_tabMaxWidth" format="dimension"/>
+        <attr name="x_tabTextAppearance" format="reference"/>
+        <attr name="x_tabTextColor" format="color"/>
+        <attr name="x_tabSelectedTextColor" format="color"/>
+        <attr name="x_tabPaddingStart" format="dimension"/>
+        <attr name="x_tabPaddingTop" format="dimension"/>
+        <attr name="x_tabPaddingEnd" format="dimension"/>
+        <attr name="x_tabPaddingBottom" format="dimension"/>
+        <attr name="x_tabPadding" format="dimension"/>
+        <attr name="x_indicatorMarginTop" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="XTabItem">
+        <attr name="android:text"/>
+        <attr name="android:icon"/>
+        <attr name="android:layout"/>
+    </declare-styleable>
+
+    <declare-styleable name="HeartViewGroup">
+        <attr name="heart_swipe_image" format="integer" />
+        <attr name="heart_shake" format="boolean" />
+        <attr name="heart_refresh_rate" format="integer" />
+        <attr name="heart_degrees_interval_min" format="integer" />
+        <attr name="heart_degrees_interval_max" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="PlayerProgressBar">
+        <attr name="backgroundColor" format="color|reference" />
+        <attr name="progressBarColor" format="color|reference" />
+        <attr name="bufferedBarColor" format="color|reference" />
+        <attr name="backgroundColorAlpha" format="float" />
+        <attr name="progressBarColorAlpha" format="float" />
+        <attr name="bufferedBarColorAlpha" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="RangeSlider11" tools:ignore="DuplicateDefinition">
+        <attr name="lineHeight1" format="dimension" />
+        <attr name="thumbWidth1" format="dimension" />
+        <attr name="lineColor1" format="color" />
+        <attr name="maskColor1" format="color" />
+        <attr name="tickCount1" format="integer" />
+        <attr name="leftThumbIndex1" format="integer" />
+        <attr name="rightThumbIndex1" format="integer" />
+        <attr name="leftThumbDrawable1" format="reference" />
+        <attr name="rightThumbDrawable1" format="reference" />
+        <attr name="midThumbDrawable1" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="StickerView">
+        <attr name="src_bitmap" format="reference" />            <!-- 用于缩放旋转的图标 -->
+        <attr name="editable" format="boolean" />          <!-- 是否处于可编辑状态 -->
+        <attr name="frameColor" format="color" />         <!-- 边框颜色 -->
+        <attr name="frameWidth" format="dimension" />     <!-- 边框线宽度 -->
+        <attr name="framePadding" format="dimension" />   <!-- 边框与图片的间距 -->
+        <attr name="degree" format="float" />             <!-- 旋转角度 -->
+        <attr name="scale" format="float" />              <!-- 缩放比例 -->
+        <attr name="controlDrawable" format="reference" /> <!-- 控制图标 -->
+        <attr name="editDrawable" format="reference" />   <!--编辑图标位置-->
+        <attr name="deleteDrawable" format="reference" /> <!--删除图标位置-->
+        <attr name="controlLocation">                     <!-- 控制图标的位置 -->
+            <enum name="left_top" value="0" />
+            <enum name="right_top" value="1" />
+            <enum name="right_bottom" value="2" />
+            <enum name="left_bottom" value="3" />
+        </attr>
+        <attr name="editLocation">                     <!-- 编辑图标的位置 -->
+            <enum name="left_top" value="0" />
+            <enum name="right_top" value="1" />
+            <enum name="right_bottom" value="2" />
+            <enum name="left_bottom" value="3" />
+        </attr>
+        <attr name="deleteLocation">                     <!-- 删除图标的位置 -->
+            <enum name="left_top" value="0" />
+            <enum name="right_top" value="1" />
+            <enum name="right_bottom" value="2" />
+            <enum name="left_bottom" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <!--仿抖音Loading-->
+    <declare-styleable name="LoadingView">
+        <attr name="radius1" format="dimension"/> <!--球1的半径,默认为6dp,设置的方法:setRadius()-->
+        <attr name="radius2" format="dimension"/><!--球2的半径,默认为6dp,设置的方法:setRadius()-->
+        <attr name="rtlScale" format="float"/><!--小球从右往左的最大缩放倍数,默认0.7,设置的方法:setScales()-->
+        <attr name="ltrScale" format="float"/><!--小球从左往右的最大缩放倍数,默认1.3,设置的方法:setScales()-->
+        <attr name="color1" format="color"/><!--球1的颜色,默认设置的方法:setColors()-->
+        <attr name="color2" format="color"/><!--球2的颜色,默认设置的方法:setColors()-->
+        <attr name="mixColor" format="color"/><!--叠加的颜色,默认是黑色,设置的方法:setColors()-->
+        <attr name="duration" format="integer"/><!--一次转动的动画时长，默认:350ms,设置的方法:setDuration()-->
+        <attr name="pauseDuration" format="integer"/><!--一次转动动画以后停顿的时间,默认80ms,设置的方法:setDuration()-->
+        <attr name="gap" format="dimension"/><!--两球的间隔,默认0.8dp,设置方法：setRadius()-->
+        <attr name="scaleStartFraction" format="float"/><!--动画进度在[0,scaleStartFraction]期间，小球大小逐渐缩放，默认0.2f,设置的方法:setStartEndFraction()-->
+        <attr name="scaleEndFraction" format="float"/><!--动画进度在[scaleEndFraction,1]期间，小球大小逐渐恢复，默认0.8f,设置的方法:setStartEndFraction()-->
+    </declare-styleable>
+
+    <declare-styleable name="AndTextViewLayout">
+        <attr name="and_text_color" format="color" />
+        <attr name="and_text_size" format="integer" />
+        <attr name="and_text_anim_up" format="boolean" />
+        <attr name="and_text_anim_down" format="boolean" />
+        <attr name="and_text_anim_left" format="boolean" />
+        <attr name="and_text_anim_right" format="boolean" />
+        <attr name="and_text_anim_duration_second" format="integer" />
+        <attr name="and_text_background_color" format="color" />
+        <attr name="and_text_desc" format="string" />
+    </declare-styleable>
+    <style name="def_and_text_layout">
+        <item name="and_text_color">#ffffff</item>
+        <item name="and_text_size">16</item>
+        <item name="and_text_anim_up">false</item>
+        <item name="and_text_anim_down">false</item>
+        <item name="and_text_anim_left">false</item>
+        <item name="and_text_anim_right">false</item>
+        <item name="and_text_anim_duration_second">10</item>
+        <item name="and_text_background_color">#00000000</item>
+        <item name="and_text_desc">滚动吧~~我的滚动条\n~~翻腾吧~~我曹</item>
+    </style>
+
+
+    <declare-styleable name="LikeButton">
+        <attr name="icon_type" format="string" />
+        <attr name="icon_size" format="dimension|reference" />
+        <attr name="like_drawable" format="reference" />
+        <attr name="unlike_drawable" format="reference" />
+        <attr name="dots_primary_color" format="color|reference" />
+        <attr name="dots_secondary_color" format="color|reference" />
+        <attr name="circle_start_color" format="color|reference" />
+        <attr name="circle_end_color" format="color|reference" />
+        <attr name="liked" format="boolean" />
+        <attr name="is_enabled" format="boolean" />
+        <attr name="anim_scale_factor" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="TitleBar">
+        <!-- 整体样式 -->
+        <attr name="barStyle">
+            <enum name="light" value="0x10" />
+            <enum name="night" value="0x20" />
+            <enum name="transparent" value="0x30" />
+            <enum name="ripple" value="0x40" />
+        </attr>
+        <!-- 中间 -->
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="titleGravity">
+            <flag name="left" value="0x03" />
+            <flag name="right" value="0x05" />
+            <flag name="center" value="0x11" />
+            <flag name="start" value="0x00800003" />
+            <flag name="end" value="0x00800005" />
+        </attr>
+        <attr name="titleStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <!-- 左边 -->
+        <attr name="leftTitle" format="string" />
+        <!-- leftIcon 优先于 backButton -->
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftTint" format="color" />
+        <!-- 返回按钮（默认开） -->
+        <attr name="backButton" format="boolean" />
+        <attr name="leftColor" format="color" />
+        <attr name="leftSize" format="dimension" />
+        <attr name="leftBackground" format="reference|color" />
+        <!-- 右边 -->
+        <attr name="rightTitle" format="string" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="rightTint" format="color" />
+        <attr name="rightColor" format="color" />
+        <attr name="rightSize" format="dimension" />
+        <attr name="rightBackground" format="reference|color" />
+        <!-- 分割线 -->
+        <attr name="lineVisible" format="boolean" />
+        <attr name="lineColor" format="reference|color" />
+        <attr name="lineSize" format="dimension" />
+        <!-- 图标显示大小 -->
+        <attr name="drawableSize" format="dimension" />
+        <!-- 图标和文字的间距 -->
+        <attr name="android:drawablePadding" />
+        <!-- 控件水平内间距 -->
+        <attr name="android:paddingVertical" />
+        <!-- 控件垂直内间距（可用于调整标题栏自适应的高度） -->
+        <attr name="android:paddingHorizontal" />
+    </declare-styleable>
+
+    <declare-styleable name="PayPwdInputView">
+        <attr name="quick_maxCount" format="integer" />
+        <attr name="quick_circleColor" format="color" />
+        <attr name="quick_textSize" format="dimension" />
+        <attr name="quick_bottomLineColor" format="color" />
+        <attr name="quick_pwdRadius" format="dimension" />
+        <attr name="quick_divideLineWidth" format="dimension" />
+        <attr name="quick_divideLineColor" format="color" />
+        <attr name="quick_rectAngle" format="dimension" />
+        <attr name="quick_isPwd" format="boolean" />
+        <attr name="quick_autoSize" format="boolean" />
+        <attr name="quick_psdType" format="enum">
+            <enum name="weChat" value="0" />
+            <enum name="bottomLine" value="1" />
+            <enum name="block" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
