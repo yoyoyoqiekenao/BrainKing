@@ -67,6 +67,9 @@
         <activity
             android:name=".mine.about.AboutActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".mine.creatroom.CreateRoomActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
