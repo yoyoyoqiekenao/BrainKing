@@ -1,6 +1,7 @@
 package com.example.brainking.login;
 
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.VerCodeModel;
 import com.example.brainking.net.ApiCallback;
 
@@ -16,8 +17,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void getVerCode(String mobile) {
+        VerCodeJson json=new VerCodeJson();
+        json.setMobile(mobile);
         baseView.showLoading();
-        addSubscription(apiStores.getVerCode(mobile), new ApiCallback<VerCodeModel>() {
+        addSubscription(apiStores.getVerCode(json), new ApiCallback<VerCodeModel>() {
             @Override
             public void onSuccess(VerCodeModel model) {
                 if (baseView != null) {

@@ -1,8 +1,10 @@
 package com.example.brainking.net;
 
+import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -22,11 +24,11 @@ public interface ApiStores {
     /**
      * 获取验证码
      *
-     * @param mobile
+     * @param
      * @return
      */
-     @FormUrlEncoded
+    //@FormUrlEncoded
     @POST("social/sendSms")
-    Observable<VerCodeModel> getVerCode(@Field("mobile") String mobile);
+    Observable<VerCodeModel> getVerCode(@Body VerCodeJson json);
 
 }
