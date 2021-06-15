@@ -1,5 +1,6 @@
 package com.example.brainking.mine.timeteam;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -10,6 +11,7 @@ import com.example.brainking.R;
 import com.example.brainking.adapter.TimeTeamAdapter;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TimeTeamActivity extends BaseActivity implements View.OnClickListener {
+public class TimeTeamActivity extends BrainActivity implements View.OnClickListener {
 
     @BindView(R.id.view)
     View mView;
@@ -34,12 +36,16 @@ public class TimeTeamActivity extends BaseActivity implements View.OnClickListen
         return null;
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_timeteam;
-    }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_timeteam);
+        initView();
+    }
+
+
+
     protected void initView() {
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
@@ -58,10 +64,7 @@ public class TimeTeamActivity extends BaseActivity implements View.OnClickListen
         mRlBack.setOnClickListener(this);
     }
 
-    @Override
-    protected void initData() {
 
-    }
 
     @Override
     public void onClick(View v) {

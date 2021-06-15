@@ -1,17 +1,19 @@
 package com.example.brainking.battle.friend_pk;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FriendPkActivity extends BaseActivity {
+public class FriendPkActivity extends BrainActivity implements View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.iv_create)
@@ -22,23 +24,23 @@ public class FriendPkActivity extends BaseActivity {
         return null;
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_friendpk;
-    }
+
 
     @Override
-    protected void initView() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friendpk);
+        initView();
+    }
+
+     protected void initView() {
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
 
-        setOnClickListener(R.id.iv_create);
+        iv_create.setOnClickListener(this);
     }
 
-    @Override
-    protected void initData() {
 
-    }
 
     @Override
     public void onClick(View view) {

@@ -1,9 +1,13 @@
 package com.example.brainking.battle.battle;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +17,7 @@ import com.example.brainking.R;
 import com.example.brainking.adapter.BattleAdapter;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainFragment;
 import com.example.brainking.battle.friend_pk.FriendPkActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -23,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 //对战大厅
-public class BattleFragment extends BaseFragment {
+public class BattleFragment extends BrainFragment {
 
     @BindView(R.id.view)
     View mView;
@@ -37,14 +42,17 @@ public class BattleFragment extends BaseFragment {
         return null;
     }
 
+
+    @Nullable
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_battle;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_battle, null);
+
+        initView(view);
+        return view;
     }
 
 
-
-    @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         ImmersionBar.with(this).statusBarView(mView).init();
@@ -66,15 +74,12 @@ public class BattleFragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_pk) {
-                    Intent intent=new Intent(mContext,FriendPkActivity.class);
+                    Intent intent = new Intent(mActivity, FriendPkActivity.class);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    @Override
-    protected void initData() {
 
-    }
 }

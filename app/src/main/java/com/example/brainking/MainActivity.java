@@ -1,10 +1,12 @@
 package com.example.brainking;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.example.brainking.adapter.ExamplePagerAdapter;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainActivity;
 import com.example.brainking.battle.battle.BattleFragment;
 import com.example.brainking.home.home.HomeFragment;
 import com.example.brainking.match.match.MatchFragment;
@@ -34,7 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BrainActivity {
 
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
@@ -46,21 +49,21 @@ public class MainActivity extends BaseActivity {
     private ExamplePagerAdapter mExamplePagerAdapter;
     private List<Fragment> mList = new ArrayList<>();
 
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+        initMagicIndicator();
+    }
+
     @Override
     protected BasePresenter createPresenter() {
         return null;
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void initView() {
-        ButterKnife.bind(this);
-        initMagicIndicator();
-    }
 
     private void initMagicIndicator() {
         mList.add(new HomeFragment());
@@ -167,8 +170,5 @@ public class MainActivity extends BaseActivity {
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    @Override
-    protected void initData() {
 
-    }
 }

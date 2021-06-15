@@ -1,5 +1,6 @@
 package com.example.brainking.mine.friend;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -10,6 +11,7 @@ import com.example.brainking.R;
 import com.example.brainking.adapter.MyFriendAdapter;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * 好友列表
  */
-public class FriendActivity extends BaseActivity implements View.OnClickListener {
+public class FriendActivity extends BrainActivity implements View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rl_back)
@@ -37,11 +39,15 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_friend;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friend);
+        initView();
     }
 
-    @Override
+
+
+
     protected void initView() {
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
@@ -63,10 +69,7 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    @Override
-    protected void initData() {
 
-    }
 
     @Override
     public void onClick(View view) {

@@ -1,51 +1,51 @@
 package com.example.brainking.base;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import com.example.brainking.net.ApiClient;
+import com.example.brainking.net.ApiStores;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author : 徐无敌
  * date   : 2021/6/1010:24
  * desc   :
  */
-public class BasePresenter <V extends BaseView>{
-    CompositeSubscription mCompositeSubscription;
-    public  V                   baseView;
-    public BasePresenter(V baseView) {
-        this.baseView = baseView;
+public class BasePresenter<V> {
+    public V baseView;
+    protected ApiStores apiStores;
+    private CompositeDisposable mCompositeDisposable;
+
+    public void attachView(V mvpView) {
+        this.baseView = mvpView;
+        apiStores = ApiClient.retrofit().create(ApiStores.class);
     }
 
-    /**
-     * 解除绑定
-     */
     public void detachView() {
-        baseView = null;
-        onUnsubscribe();
+        this.baseView = null;
+        onUnSubscribe();
     }
 
-    /**
-     * 返回 view
-     */
-    public V getBaseView() {
-        return baseView;
-    }
-
-    //RXjava注册
-    public void addSubscription(Subscription subscriber) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeSubscription();
-        }
-        mCompositeSubscription.add(subscriber);
-    }
-
-    //RXjava取消注册，以避免内存泄露
-    public void onUnsubscribe() {
-        if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
-            mCompositeSubscription.unsubscribe();
+    //RxJava取消注册，以避免内存泄露
+    public void onUnSubscribe() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.dispose();
         }
     }
 
-    public CompositeSubscription getCompositeSubscription(){
-        return mCompositeSubscription;
+
+    public void addSubscription(Observable observable, DisposableObserver observer) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+
+        mCompositeDisposable.add(observer);
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(observer);
     }
 }

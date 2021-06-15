@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/color_EEEEEE"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -78,9 +78,9 @@
             android:layout_marginLeft="35dp"
             android:layout_marginRight="70dp"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="请输入手机号码"
             android:paddingLeft="10dp"
-            android:text="@{viewModel.userName}"
             android:textColor="@color/color_black"
             android:textSize="11dp"></EditText>
 
@@ -137,9 +137,9 @@
             android:layout_marginLeft="35dp"
             android:layout_marginRight="40dp"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="请输入短信验证码"
             android:paddingLeft="10dp"
-            android:text="@{viewModel.password}"
             android:textColor="@color/color_black"
             android:textSize="11dp"></EditText>
 

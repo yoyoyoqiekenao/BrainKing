@@ -1,34 +1,28 @@
 package com.example.brainking.base;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.SparseArray;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
+import android.app.ProgressDialog;
+import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.example.brainking.net.ResponseBean;
-import com.example.brainking.util.RequestLoadingUtils;
-import com.gyf.immersionbar.ImmersionBar;
+import com.example.brainking.net.ApiClient;
+import com.example.brainking.net.ApiStores;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
-
-import butterknife.ButterKnife;
-
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 
 /**
@@ -39,69 +33,112 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
 
 
-    protected P presenter;
+    public Activity mActivity;
+    private CompositeDisposable mCompositeDisposable;
+    private List<Call> calls;
 
-    protected abstract P createPresenter();
+    public ProgressDialog progressDialog;
 
-    protected abstract int getLayoutId();
 
-    protected abstract void initView();
 
-    protected abstract void initData();
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(LayoutInflater.from(this).inflate(getLayoutId(), null));
-        ButterKnife.bind(this);
-        presenter = createPresenter();
-        initView();
-        initData();
-        ImmersionBar.with(this).init();
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        mActivity = this;
+    }
+
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        mActivity = this;
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+        mActivity = this;
     }
 
     @Override
     protected void onDestroy() {
+        callCancel();
+        onUnsubscribe();
         super.onDestroy();
-        //销毁时，解除绑定
-        if (presenter != null) {
-            presenter.detachView();
+    }
+
+    public ApiStores apiStores() {
+        return ApiClient.retrofit().create(ApiStores.class);
+    }
+
+
+    public void addCalls(Call call) {
+        if (calls == null) {
+            calls = new ArrayList<>();
+        }
+        calls.add(call);
+    }
+
+    private void callCancel() {
+        if (calls != null && calls.size() > 0) {
+            for (Call call : calls) {
+                if (!call.isCanceled())
+                    call.cancel();
+            }
+            calls.clear();
         }
     }
 
-    @Override
-    public void showLoading() {
-        RequestLoadingUtils.showProgressDialog(this, "加载中...");
+    public <T> void addSubscription(Observable<T> observable, DisposableObserver<T> observer) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(observer);
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+
+    public void addSubscription(Disposable disposable) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(disposable);
+    }
+
+    public void onUnsubscribe() {
+
+        //取消注册，以避免内存泄露
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.dispose();
+        }
 
     }
 
-    @Override
-    public void hideLoading() {
-        RequestLoadingUtils.dismissProgressDialog();
-    }
-    @Override
-    public void onErrorCode(ResponseBean bean) {
-        ToastUtils.showLong("错误码：" + bean.getCode(), "错误信息：" + bean.getMessage(), "是否成功：" + bean.isSuccess());
-    }
 
-    @Override
-    public Resources getResources() {
-        return AdaptScreenUtils.adaptWidth(super.getResources(), 375);
-
+    public ProgressDialog showProgressDialog() {
+        progressDialog = new ProgressDialog(mActivity);
+        progressDialog.setMessage("加载中");
+        progressDialog.show();
+        return progressDialog;
     }
 
-    /**
-     * 保持不息屏
-     */
-    protected void keepScreenOn() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    public ProgressDialog showProgressDialog(CharSequence message) {
+        progressDialog = new ProgressDialog(mActivity);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+        return progressDialog;
     }
 
+    public void dismissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            // progressDialog.hide();会导致android.view.WindowLeaked
+            progressDialog.dismiss();
+        }
+    }
 
 }

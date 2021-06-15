@@ -4,6 +4,7 @@ package com.example.brainking.home.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.poems.PomesActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -22,7 +27,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BrainFragment implements View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rl_language)
@@ -40,13 +45,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return null;
     }
 
+
+
+    @Nullable
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_home;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
+        initView(view);
+        return view;
     }
 
 
-    @Override
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         ImmersionBar.with(getActivity()).statusBarView(mView).init();
@@ -55,10 +64,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         rl_poems.setOnClickListener(this);
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     @Override
     public void onClick(View view) {
