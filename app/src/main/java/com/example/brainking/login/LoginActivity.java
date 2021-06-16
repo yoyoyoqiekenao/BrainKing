@@ -3,6 +3,8 @@ package com.example.brainking.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.VerCodeModel;
 import com.wuxiaolong.androidutils.library.LogUtil;
 
@@ -33,8 +36,10 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     EditText ed_phone;
     @BindView(R.id.ed_pwd)
     EditText ed_pwd;
-    @BindView(R.id.tv_submit)
-    TextView tv_submit;
+    @BindView(R.id.tv_login)
+    TextView tv_login;
+
+    private String mUuid;
 
 
     private CountDownTimer downTimer = new CountDownTimer(60000, 1000) {
@@ -66,7 +71,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     protected void initView() {
         ButterKnife.bind(this);
         ivDelete.setOnClickListener(this);
-        tv_submit.setOnClickListener(this);
+        tv_login.setOnClickListener(this);
         tv_verCode.setOnClickListener(this);
     }
 
@@ -76,22 +81,43 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
         if (view.getId() == R.id.iv_delete) {
             ed_phone.setText("");
         } else if (view.getId() == R.id.tv_verCode) {
+
+            if (TextUtils.isEmpty(ed_phone.getText().toString()) || ed_phone.getText().length() != 11) {
+                Toast.makeText(mActivity, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Toast.makeText(this, "发送验证码", Toast.LENGTH_SHORT).show();
             downTimer.start();
             tv_verCode.setEnabled(false);
             basePresenter.getVerCode(ed_phone.getText().toString());
-        } else if (view.getId() == R.id.tv_submit) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        } else if (view.getId() == R.id.tv_login) {
+            basePresenter.goLogin(ed_phone.getText().toString(), ed_pwd.getText().toString(), mUuid);
+
         }
     }
 
     @Override
     public void getVerCodeSuccess(VerCodeModel model) {
-        LogUtil.d("xuwudi",model.toString());
+        mUuid = model.getUuid();
+        Log.d("xuwudi", "uuid===" + mUuid);
     }
 
     @Override
     public void getVerCodeFail(String err) {
-        LogUtil.d("xuwudi",err);
+
+        Toast.makeText(mActivity, err, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goLoginSuccess(LoginModel model) {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void goLoginFail(String err) {
+
+        Toast.makeText(mActivity, err, Toast.LENGTH_SHORT).show();
     }
 }

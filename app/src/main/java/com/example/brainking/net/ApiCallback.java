@@ -45,7 +45,6 @@ public abstract class ApiCallback<M> extends DisposableObserver<M> {
     @Override
     public void onNext(M model) {
         onSuccess(model);
-
     }
 
     @Override

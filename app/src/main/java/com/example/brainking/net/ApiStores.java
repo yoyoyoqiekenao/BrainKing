@@ -1,6 +1,8 @@
 package com.example.brainking.net;
 
+import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.VerCodeJson;
+import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
@@ -27,8 +29,17 @@ public interface ApiStores {
      * @param
      * @return
      */
-    //@FormUrlEncoded
+
     @POST("social/sendSms")
     Observable<VerCodeModel> getVerCode(@Body VerCodeJson json);
+
+    /**
+     * 登录接口
+     *
+     * @param json
+     * @return
+     */
+    @POST("social/login/mobile")
+    Observable<LoginModel> goLogin(@Body LoginJson json);
 
 }

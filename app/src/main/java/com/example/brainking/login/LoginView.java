@@ -1,6 +1,7 @@
 package com.example.brainking.login;
 
 import com.example.brainking.base.BaseView;
+import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.VerCodeModel;
 
 /**
@@ -8,8 +9,12 @@ import com.example.brainking.model.VerCodeModel;
  * date   : 2021/6/1517:00
  * desc   :
  */
-public interface LoginView  extends BaseView {
+public interface LoginView extends BaseView {
     void getVerCodeSuccess(VerCodeModel model);
 
     void getVerCodeFail(String err);
+
+    void goLoginSuccess(LoginModel model);
+
+    void goLoginFail(String err);
 }

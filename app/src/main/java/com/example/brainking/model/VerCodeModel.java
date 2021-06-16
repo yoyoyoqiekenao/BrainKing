@@ -9,14 +9,14 @@ public class VerCodeModel {
     private String msg;
     private String code;
     private String uuid;
+    private String verifyCode;
 
-    @Override
-    public String toString() {
-        return "VerCodeModel{" +
-                "msg='" + msg + '\'' +
-                ", code='" + code + '\'' +
-                ", uuid='" + uuid + '\'' +
-                '}';
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 
     public String getMsg() {
