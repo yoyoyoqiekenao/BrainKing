@@ -45,7 +45,7 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
 
         iv_create.setOnClickListener(this);
         mSetting = new WebSocketSetting();
-        mSetting.setConnectUrl("ws://192.168.5.16:8080/websocket/" + SpUtils.getInstance().getString("userId"));
+        mSetting.setConnectUrl("ws://42.192.234.149:8080/websocket/" + SpUtils.getInstance().getString("userId"));
         //设置连接超时时间
         mSetting.setConnectTimeout(10 * 1000);
         //设置心跳间隔时间
