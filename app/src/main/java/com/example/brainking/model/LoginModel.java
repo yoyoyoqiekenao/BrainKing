@@ -63,7 +63,7 @@ public class LoginModel {
             private Object updateTime;
             private Object remark;
             private ParamsBean params;
-            private Integer userId;
+            private String userId;
             private Object deptId;
             private String userName;
             private String nickName;
@@ -143,11 +143,11 @@ public class LoginModel {
                 this.params = params;
             }
 
-            public Integer getUserId() {
+            public String getUserId() {
                 return userId;
             }
 
-            public void setUserId(Integer userId) {
+            public void setUserId(String userId) {
                 this.userId = userId;
             }
 

@@ -20,6 +20,7 @@ import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.VerCodeModel;
+import com.example.brainking.util.SpUtils;
 import com.wuxiaolong.androidutils.library.LogUtil;
 
 import butterknife.BindView;
@@ -100,6 +101,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     @Override
     public void getVerCodeSuccess(VerCodeModel model) {
         mUuid = model.getUuid();
+        ed_pwd.setText(model.getVerifyCode());
         Log.d("xuwudi", "uuid===" + mUuid);
     }
 
@@ -111,6 +113,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
 
     @Override
     public void goLoginSuccess(LoginModel model) {
+        SpUtils.getInstance().putString("userId", model.getData().getUserInfo().getUserId());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
