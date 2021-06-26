@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -22,78 +23,10 @@
             android:textColor="@color/color_333333"
             android:textSize="16dp"></TextView>
 
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_math"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="33dp"
-            android:layout_marginRight="26dp">
-
-            <TextView
-                android:id="@+id/tv_grade_2"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/rectangle_e1f7ff_8"
-                android:gravity="center"
-                android:text="二年级"
-                android:textColor="@color/color_00AEE9"
-                android:textSize="14dp"></TextView>
-
-            <TextView
-                android:id="@+id/tv_grade_3"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/rectangle_e1f7ff_8"
-                android:gravity="center"
-                android:text="三年级"
-                android:textColor="@color/color_00AEE9"
-                android:textSize="14dp"></TextView>
-
-            <TextView
-                android:id="@+id/tv_grade_1"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/rectangle_00aee9_8"
-                android:gravity="center"
-                android:text="一年级"
-                android:textColor="@color/color_ffffff"
-                android:textSize="14dp"></TextView>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="33dp"
-            android:layout_marginRight="26dp">
-
-            <TextView
-                android:id="@+id/tv_grade_5"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/rectangle_e1f7ff_8"
-                android:gravity="center"
-                android:text="五年级"
-                android:textColor="@color/color_00AEE9"
-                android:textSize="14dp"></TextView>
-
-
-            <TextView
-                android:id="@+id/tv_grade_4"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/rectangle_e1f7ff_8"
-                android:gravity="center"
-                android:text="四年级"
-                android:textColor="@color/color_00AEE9"
-                android:textSize="14dp"></TextView>
-
-        </RelativeLayout>
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 </RelativeLayout>

@@ -91,6 +91,7 @@ dependencies {
     implementation "com.wuxiaolong.androidutils:androidutils:$androidutilsVersion"
 
     implementation 'com.github.0xZhangKe:WebSocketDemo:3.1'
+    implementation 'com.alibaba:fastjson:1.2.33'
 
 
 

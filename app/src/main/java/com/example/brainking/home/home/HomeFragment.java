@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +16,24 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.brainking.R;
+import com.example.brainking.adapter.LearnListAdapter_math;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.poems.PomesActivity;
+import com.example.brainking.model.LearnListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends BrainFragment implements View.OnClickListener {
+//首页
+public class HomeFragment extends BrainFragment<HomePresenter> implements HomeView, View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rl_language)
@@ -38,13 +44,13 @@ public class HomeFragment extends BrainFragment implements View.OnClickListener 
     RelativeLayout rl_poems;
 
     private PopupWindow mPop;
+    private LearnListAdapter_math mAdapter_match;
 
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected HomePresenter createPresenter() {
+        return new HomePresenter(this);
     }
-
 
 
     @Nullable
@@ -68,18 +74,29 @@ public class HomeFragment extends BrainFragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.rl_language) {
-            showPop();
+            mvpPresenter.getLearnList_language();
         } else if (view.getId() == R.id.rl_poems) {
             startActivity(new Intent(getContext(), PomesActivity.class));
         }
     }
 
-    private void showPop() {
+
+    @Override
+    public void getLearnListSuccess(LearnListModel model) {
+
+        mAdapter_match = new LearnListAdapter_math();
+        mAdapter_match.setNewData(model.getData());
+
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pop_grade, null);
         mPop = new PopupWindow(getContext());
         mPop.setContentView(view);
         mPop.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         mPop.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        RecyclerView recyclerView = view.findViewById(R.id.rc_math);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(mAdapter_match);
 
         // 设置PopupWindow的背景
         mPop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -88,5 +105,22 @@ public class HomeFragment extends BrainFragment implements View.OnClickListener 
         mPop.setFocusable(true); // pop 显示时， 不让外部 view 响应点击事件
 
         mPop.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+
+
+    }
+
+    @Override
+    public void getLearnListFail(String msg) {
+    }
+
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.example.brainking.net;
 
 import com.example.brainking.BuildConfig;
+import com.example.brainking.util.SpUtils;
 
 import java.io.IOException;
 
@@ -39,6 +40,7 @@ public class ApiClient {
                             Request original = chain.request();
                             Request request = original.newBuilder()
                                     //.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8")
+                                    .header("Authorization", SpUtils.getInstance().getString("token"))
                                     .method(original.method(), original.body())
                                     .build();
                             return chain.proceed(request);

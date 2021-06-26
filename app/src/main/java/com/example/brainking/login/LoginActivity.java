@@ -114,6 +114,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     @Override
     public void goLoginSuccess(LoginModel model) {
         SpUtils.getInstance().putString("userId", model.getData().getUserInfo().getUserId());
+        SpUtils.getInstance().putString("token", model.getData().getToken());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }

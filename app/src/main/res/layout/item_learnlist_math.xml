@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="13dp"
+    android:paddingRight="13dp"
+    android:paddingTop="22dp">
+
+    <TextView
+        android:id="@+id/tv_grade"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/rectangle_00aee9_8"
+        android:gravity="center"
+        android:text="一年级"
+        android:textColor="@color/color_ffffff"
+        android:textSize="14dp"></TextView>
+
+</RelativeLayout>
