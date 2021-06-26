@@ -72,6 +72,9 @@
         <activity
             android:name=".mine.creatroom.CreateRoomActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.poemsdetail.PoemsDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

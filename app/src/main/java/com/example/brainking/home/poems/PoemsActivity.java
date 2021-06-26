@@ -1,6 +1,8 @@
 package com.example.brainking.home.poems;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -10,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_poems;
-import com.example.brainking.base.BaseActivity;
-import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.home.poemsdetail.PoemsDetailActivity;
 import com.example.brainking.model.LearnListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -46,17 +47,16 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
 
         rlBack.setOnClickListener(this);
 
+        mAdapter_poems = new LearnListAdapter_poems();
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        manager.setOrientation(RecyclerView.VERTICAL);
+        rcPoems.setLayoutManager(manager);
+        rcPoems.setAdapter(mAdapter_poems);
+
+
         basePresenter.getLearnList_poems();
 
 
-        mAdapter_poems.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.rl) {
-
-                }
-            }
-        });
     }
 
 
@@ -69,12 +69,16 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
 
     @Override
     public void getLearnListSuccess(LearnListModel model) {
-        mAdapter_poems = new LearnListAdapter_poems();
-        mAdapter_poems.setNewData(model.getData());
 
-        GridLayoutManager manager = new GridLayoutManager(this, 3);
-        rcPoems.setLayoutManager(manager);
-        rcPoems.setAdapter(mAdapter_poems);
+        mAdapter_poems.setNewData(model.getData());
+        mAdapter_poems.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(PoemsActivity.this, PoemsDetailActivity.class);
+                intent.putExtra("pid", model.getData().get(position).getPid());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

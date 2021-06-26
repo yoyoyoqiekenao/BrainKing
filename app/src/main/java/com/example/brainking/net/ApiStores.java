@@ -4,6 +4,7 @@ import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author : 徐无敌
@@ -61,4 +63,13 @@ public interface ApiStores {
      */
     @GET("learn/category/list?pid=2")
     Observable<LearnListModel> getLearnList_poems();
+
+    /**
+     * 获取诗词详情
+     *
+     * @param pid
+     * @return
+     */
+    @GET("learn/poetry/learn")
+    Observable<PoemsDetailModel> getPoemsDetail(@Query("pid") int pid);
 }

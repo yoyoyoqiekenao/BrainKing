@@ -19,6 +19,6 @@ public class LearnListAdapter_poems extends BaseQuickAdapter<LearnListModel.Data
     protected void convert(BaseViewHolder helper, LearnListModel.DataDTO item) {
         helper.setText(R.id.tv_name, item.getName());
 
-        helper.addOnClickListener(R.id.rl);
+
     }
 }
