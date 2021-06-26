@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_math;
-import com.example.brainking.base.BaseFragment;
-import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
-import com.example.brainking.home.poems.PomesActivity;
+import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.model.LearnListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -76,7 +73,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         if (view.getId() == R.id.rl_language) {
             mvpPresenter.getLearnList_language();
         } else if (view.getId() == R.id.rl_poems) {
-            startActivity(new Intent(getContext(), PomesActivity.class));
+            startActivity(new Intent(getContext(), PoemsActivity.class));
         }
     }
 
