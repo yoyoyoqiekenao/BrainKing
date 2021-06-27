@@ -128,7 +128,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl_language"
+        android:id="@+id/rl_math"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -140,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="小学语文"
+            android:text="小学数学"
             android:textColor="@color/color_EEEEEE"
             android:textSize="18dp"></TextView>
     </RelativeLayout>

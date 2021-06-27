@@ -4,6 +4,7 @@ import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.VerCodeModel;
 
@@ -24,9 +25,9 @@ import retrofit2.http.Query;
  */
 public interface ApiStores {
 
-    //public static final String BASE_URL = "http://42.192.234.149:8080/";
+    public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    public static final String BASE_URL = "http://192.168.16.109:8080/";
+    //public static final String BASE_URL = "http://192.168.16.109:8080/";
 
 
     /**
@@ -49,12 +50,12 @@ public interface ApiStores {
     Observable<LoginModel> goLogin(@Body LoginJson json);
 
     /**
-     * 获取小学语文列表
+     * 获取小学数学列表
      *
      * @return
      */
     @GET("learn/category/list?pid=1")
-    Observable<LearnListModel> getLearnList_language();
+    Observable<LearnListModel> getLearnList_math();
 
     /**
      * 获取诗词列表
@@ -72,4 +73,12 @@ public interface ApiStores {
      */
     @GET("learn/poetry/learn")
     Observable<PoemsDetailModel> getPoemsDetail(@Query("pid") int pid);
+
+    /**
+     * 获取小学数学详情
+     *
+     * @return
+     */
+    @GET("learn/math/learn?pid=3")
+    Observable<MathDetailModel> getMathDetail();
 }

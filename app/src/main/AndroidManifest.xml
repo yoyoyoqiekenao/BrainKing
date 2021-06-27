@@ -75,6 +75,9 @@
         <activity
             android:name=".home.poemsdetail.PoemsDetailActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.mathdetail.MathDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

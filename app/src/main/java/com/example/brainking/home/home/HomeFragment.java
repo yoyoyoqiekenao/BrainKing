@@ -18,9 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_math;
 import com.example.brainking.base.BrainFragment;
+import com.example.brainking.home.mathdetail.MathDetailActivity;
 import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.model.LearnListModel;
 import com.gyf.immersionbar.ImmersionBar;
@@ -33,8 +35,8 @@ import butterknife.ButterKnife;
 public class HomeFragment extends BrainFragment<HomePresenter> implements HomeView, View.OnClickListener {
     @BindView(R.id.view)
     View mView;
-    @BindView(R.id.rl_language)
-    RelativeLayout rl_language;
+    @BindView(R.id.rl_math)
+    RelativeLayout rl_math;
     @BindView(R.id.rootView)
     LinearLayout rootView;
     @BindView(R.id.rl_poems)
@@ -63,15 +65,15 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         ButterKnife.bind(this, view);
         ImmersionBar.with(getActivity()).statusBarView(mView).init();
 
-        rl_language.setOnClickListener(this);
+        rl_math.setOnClickListener(this);
         rl_poems.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.rl_language) {
-            mvpPresenter.getLearnList_language();
+        if (view.getId() == R.id.rl_math) {
+            mvpPresenter.getLearnList_math();
         } else if (view.getId() == R.id.rl_poems) {
             startActivity(new Intent(getContext(), PoemsActivity.class));
         }
@@ -94,6 +96,16 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter_match);
+
+        mAdapter_match.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mPop.dismiss();
+                Intent intent = new Intent(getContext(), MathDetailActivity.class);
+                intent.putExtra("pid", model.getData().get(position).getPid());
+                startActivity(intent);
+            }
+        });
 
         // 设置PopupWindow的背景
         mPop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

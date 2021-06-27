@@ -14,9 +14,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
     public HomePresenter(HomeView view){
         attachView(view);
     }
-    public void getLearnList_language() {
+    public void getLearnList_math() {
         baseView.showLoading();
-        addSubscription(apiStores.getLearnList_language(), new ApiCallback<LearnListModel>() {
+        addSubscription(apiStores.getLearnList_math(), new ApiCallback<LearnListModel>() {
             @Override
             public void onSuccess(LearnListModel model) {
                 if (baseView != null) {
