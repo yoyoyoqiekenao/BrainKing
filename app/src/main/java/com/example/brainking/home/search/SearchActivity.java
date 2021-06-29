@@ -1,6 +1,7 @@
 package com.example.brainking.home.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.SearchAdapter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.home.searchpoemdetail.SearchPoemDetailActivity;
 import com.example.brainking.model.SearchModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -70,6 +73,8 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
                 return false;
             }
         });
+
+
     }
 
 
@@ -78,6 +83,14 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
         rvSearch.setVisibility(View.VISIBLE);
 
         mAdapter.setNewData(model.getData());
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(SearchActivity.this, SearchPoemDetailActivity.class);
+                intent.putExtra("id", model.getData().get(position).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -21,7 +21,6 @@
         android:usesCleartextTraffic="true">
 
 
-
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
@@ -82,6 +81,9 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".home.search.SearchActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".home.searchpoemdetail.SearchPoemDetailActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

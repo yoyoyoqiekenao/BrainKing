@@ -7,6 +7,7 @@ import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
+import com.example.brainking.model.SearchPoemDetailModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
@@ -103,4 +104,13 @@ public interface ApiStores {
      */
     @GET("learn/home/search")
     Observable<SearchModel> searchPoems(@Query("key") String key, @Query("pageNum") int pageNum);
+
+    /**
+     * 搜索结果详情
+     *
+     * @param id
+     * @return
+     */
+    @GET("learn/home/search/details")
+    Observable<SearchPoemDetailModel> getSearchPoemDetail(@Query("id") int id);
 }
