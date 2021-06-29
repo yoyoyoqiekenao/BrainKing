@@ -6,6 +6,8 @@ import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.PoemsDetailModel;
+import com.example.brainking.model.SearchModel;
+import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
@@ -14,9 +16,11 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * @author : 徐无敌
@@ -81,4 +85,22 @@ public interface ApiStores {
      */
     @GET("learn/math/learn?pid=3")
     Observable<MathDetailModel> getMathDetail();
+
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    @GET("f/user/getUserInfo")
+    Observable<UserInfoModel> getUserInfo();
+
+    /**
+     * 搜索结果
+     *
+     * @param key
+     * @param pageNum
+     * @return
+     */
+    @GET("learn/home/search")
+    Observable<SearchModel> searchPoems(@Query("key") String key, @Query("pageNum") int pageNum);
 }

@@ -9,22 +9,28 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_math;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.mathdetail.MathDetailActivity;
 import com.example.brainking.home.poems.PoemsActivity;
+import com.example.brainking.home.search.SearchActivity;
 import com.example.brainking.model.LearnListModel;
+import com.example.brainking.model.UserInfoModel;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -41,6 +47,16 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     LinearLayout rootView;
     @BindView(R.id.rl_poems)
     RelativeLayout rl_poems;
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.tv_remark)
+    TextView tv_remark;
+    @BindView(R.id.iv_update)
+    ImageView iv_update;
+    @BindView(R.id.rl_search)
+    RelativeLayout rlSearch;
 
     private PopupWindow mPop;
     private LearnListAdapter_math mAdapter_match;
@@ -67,6 +83,11 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
 
         rl_math.setOnClickListener(this);
         rl_poems.setOnClickListener(this);
+        iv_update.setOnClickListener(this);
+        rlSearch.setOnClickListener(this);
+
+
+        createPresenter().getUserInfo();
     }
 
 
@@ -76,6 +97,10 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
             mvpPresenter.getLearnList_math();
         } else if (view.getId() == R.id.rl_poems) {
             startActivity(new Intent(getContext(), PoemsActivity.class));
+        } else if (view.getId() == R.id.iv_update) {
+
+        } else if (view.getId() == R.id.rl_search) {
+            startActivity(new Intent(getContext(), SearchActivity.class));
         }
     }
 
@@ -120,6 +145,18 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
 
     @Override
     public void getLearnListFail(String msg) {
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoModel model) {
+        Glide.with(getContext()).load(model.getData().getAvatar()).into(iv_head);
+        tv_name.setText(model.getData().getNickName());
+        tv_remark.setText(model.getData().getRemark());
+    }
+
+    @Override
+    public void getUserInfoFail(String msg) {
+
     }
 
 
