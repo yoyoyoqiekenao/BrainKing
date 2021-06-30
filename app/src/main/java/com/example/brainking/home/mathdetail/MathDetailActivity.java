@@ -31,6 +31,8 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     LinearLayout ll_multiple;
     @BindView(R.id.ll_single)
     LinearLayout ll_single;
+    @BindView(R.id.rl_back)
+    RelativeLayout rl_back;
 
     //填空题view
     @BindView(R.id.tv_0)
@@ -59,11 +61,83 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     RelativeLayout rl_delete;
     @BindView(R.id.tv_answer_completion)
     TextView tv_answer_completion;
+    @BindView(R.id.tv_title_completion)
+    TextView tv_title_completion;
 
+    //判断题
+    @BindView(R.id.tv_judge_a)
+    TextView tv_judge_a;
+    @BindView(R.id.tv_judge_b)
+    TextView tv_judge_b;
+    @BindView(R.id.tv_title_judge)
+    TextView tv_title_judge;
+
+    //单选题
+    @BindView(R.id.tv_title_single)
+    TextView tv_title_single;
+    @BindView(R.id.tv_chooseA_single)
+    TextView tv_chooseA_single;
+    @BindView(R.id.tv_chooseB_single)
+    TextView tv_chooseB_single;
+    @BindView(R.id.tv_chooseC_single)
+    TextView tv_chooseC_single;
+    @BindView(R.id.tv_chooseD_single)
+    TextView tv_chooseD_single;
+
+    //多选题
+    @BindView(R.id.tv_title_multiple)
+    TextView tv_title_multiple;
+    @BindView(R.id.tv_chooseA_multiple)
+    TextView tv_chooseA_multiple;
+    @BindView(R.id.tv_chooseB_multiple)
+    TextView tv_chooseB_multiple;
+    @BindView(R.id.tv_chooseC_multiple)
+    TextView tv_chooseC_multiple;
+    @BindView(R.id.tv_chooseD_multiple)
+    TextView tv_chooseD_multiple;
+
+    //答案解析
+    @BindView(R.id.tv_analysis)
+    TextView tv_analysis;
+    @BindView(R.id.tv_isShow)
+    TextView tvShow;
+
+    @BindView(R.id.tv_next)
+    TextView tvNext;
+
+    //是否隐藏解析
+    private boolean isHide = true;
+    //当前题型
+    private int mType;
 
     private List<String> completionList = new ArrayList<>();
     private String answer_complete;
     private boolean isAddPoint = true;
+
+    //判断题参考答案
+    private String mJudgeAnswer;
+    //判断题自己选的答案
+    private String mJudgeAnswer_;
+
+    //单选题答案
+    private String mSingleAnswer;
+    //单选题自己选的答案
+    private String mSingleAnswer_;
+
+    //多选题答案
+    private String mMultipleAnswer;
+    //多选题自己选的答案
+    private String mMultipleAnswer_;
+
+    private boolean isCheckA = false;
+    private boolean isCheckB = false;
+    private boolean isCheckC = false;
+    private boolean isCheckD = false;
+
+    //填空题答案
+    private String mCompletionAnswer;
+    //填空题自己选的答案
+    private String mCompletionAnswer_;
 
 
     @Override
@@ -81,36 +155,81 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
 
         basePresenter.getMathDetail();
+
+        tvShow.setOnClickListener(this);
+        tvNext.setOnClickListener(this);
+        rl_back.setOnClickListener(this);
     }
 
     @Override
     public void getMathDetailSuccess(MathDetailModel model) {
+
+        //每次刷新数据的时候都隐藏解析
+        isHide = false;
+        tv_analysis.setVisibility(View.GONE);
+        tv_analysis.setText(model.getData().getAnalysis() + "");
+
+        mType = model.getData().getType();
+
         if (1 == model.getData().getType()) {
             //判断
             showJudgmentView(model);
-            Log.d("xuwudi", "数据===" + model.getData().getAnswer().getSelected().get(0).getA());
-
         } else if (2 == model.getData().getType()) {
             //单选
-            Log.d("xuwudi", "数据===" + model.getData().getAnswer().getSelected().get(0).getA());
             showSingleChoose(model);
         } else if (3 == model.getData().getType()) {
             //多选
-            Log.d("xuwudi", "数据===" + model.getData().getAnswer().getSelected().get(0).getA());
             showMultipleChoose(model);
         } else if (4 == model.getData().getType()) {
             //填空
             showCompletionView(model);
         }
+
+        Log.d("xuwudi", "type====" + mType);
+
     }
 
+    //展示多选题界面
     private void showMultipleChoose(MathDetailModel model) {
+        ll_completion.setVisibility(View.GONE);
+        ll_single.setVisibility(View.GONE);
         ll_multiple.setVisibility(View.VISIBLE);
+        rl_judge.setVisibility(View.GONE);
+
+        tv_title_multiple.setText(model.getData().getTitle());
+        mMultipleAnswer = model.getData().getAnswer().getAnswer();
+
+        tv_chooseA_multiple.setOnClickListener(this);
+        tv_chooseB_multiple.setOnClickListener(this);
+        tv_chooseC_multiple.setOnClickListener(this);
+        tv_chooseD_multiple.setOnClickListener(this);
+
+        isCheckA = false;
+        isCheckB = false;
+        isCheckC = false;
+        isCheckD = false;
     }
 
     //展示单选题的界面
     private void showSingleChoose(MathDetailModel model) {
+        ll_completion.setVisibility(View.GONE);
         ll_single.setVisibility(View.VISIBLE);
+        ll_multiple.setVisibility(View.GONE);
+        rl_judge.setVisibility(View.GONE);
+
+        mSingleAnswer_ = model.getData().getAnswer().getAnswer();
+        tv_chooseA_single.setText("A:" + model.getData().getAnswer().getSelected().get(0).getA());
+        tv_chooseB_single.setText("B:" + model.getData().getAnswer().getSelected().get(1).getB());
+        tv_chooseC_single.setText("C:" + model.getData().getAnswer().getSelected().get(2).getC());
+        tv_chooseD_single.setText("D:" + model.getData().getAnswer().getSelected().get(3).getD());
+        tv_title_single.setText(model.getData().getTitle());
+
+        tv_chooseA_single.setOnClickListener(this);
+        tv_chooseB_single.setOnClickListener(this);
+        tv_chooseC_single.setOnClickListener(this);
+        tv_chooseD_single.setOnClickListener(this);
+
+
     }
 
     //展示填空题的界面
@@ -133,6 +252,10 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
         tv_point.setOnClickListener(this);
         rl_delete.setOnClickListener(this);
 
+        mCompletionAnswer = model.getData().getAnswer().getAnswer();
+        tv_title_completion.setText(model.getData().getTitle());
+
+
     }
 
     @Override
@@ -143,12 +266,29 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     //判断题
     private void showJudgmentView(MathDetailModel model) {
         rl_judge.setVisibility(View.VISIBLE);
+        ll_multiple.setVisibility(View.GONE);
+        ll_single.setVisibility(View.GONE);
+        ll_completion.setVisibility(View.GONE);
+
+        tv_title_judge.setText(model.getData().getTitle());
+
+        mJudgeAnswer = model.getData().getAnswer().getAnswer();
+
+        tv_judge_a.setOnClickListener(this);
+        tv_judge_b.setOnClickListener(this);
+
+        tv_judge_a.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+        tv_judge_b.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+        tv_judge_a.setTextColor(getResources().getColor(R.color.color_00AEE9));
+        tv_judge_b.setTextColor(getResources().getColor(R.color.color_00AEE9));
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_0) {
             tv_answer_completion.setText("0");
+            mCompletionAnswer_ = "0";
            /* //首位不能是0
             if (completionList.size() > 0 && completionList.get(0).equals("0")) {
 
@@ -168,6 +308,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
         } else if (v.getId() == R.id.tv_1) {
             tv_answer_completion.setText("1");
+            mCompletionAnswer_ = "1";
            /* completionList.add("1");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -180,6 +321,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_2) {
             tv_answer_completion.setText("2");
+            mCompletionAnswer_ = "2";
            /* completionList.add("2");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -192,6 +334,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_3) {
             tv_answer_completion.setText("3");
+            mCompletionAnswer_ = "3";
             /*completionList.add("3");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -204,6 +347,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_4) {
             tv_answer_completion.setText("4");
+            mCompletionAnswer_ = "4";
            /* completionList.add("4");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -216,6 +360,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_5) {
             tv_answer_completion.setText("5");
+            mCompletionAnswer_ = "5";
            /* completionList.add("5");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -228,6 +373,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_6) {
             tv_answer_completion.setText("6");
+            mCompletionAnswer_ = "6";
            /* completionList.add("6");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -240,6 +386,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_7) {
             tv_answer_completion.setText("7");
+            mCompletionAnswer_ = "7";
            /* completionList.add("7");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -252,6 +399,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_8) {
             tv_answer_completion.setText("8");
+            mCompletionAnswer_ = "8";
             /*completionList.add("8");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -264,6 +412,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
         } else if (v.getId() == R.id.tv_9) {
             tv_answer_completion.setText("9");
+            mCompletionAnswer_ = "9";
             /*completionList.add("9");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -290,12 +439,181 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
         } else if (v.getId() == R.id.rl_delete) {
             tv_answer_completion.setText("");
+            mCompletionAnswer_ = "";
            /* if (completionList.size() == 0) {
                 Toast.makeText(this, "不能再删除了", Toast.LENGTH_SHORT).show();
                 return;
             }
             completionList.clear();
             tv_answer_completion.setText("");*/
+        } else if (v.getId() == R.id.tv_isShow) {
+            if (isHide == true) {
+                tv_analysis.setVisibility(View.GONE);
+                isHide = false;
+            } else {
+                tv_analysis.setVisibility(View.VISIBLE);
+                isHide = true;
+            }
+        } else if (v.getId() == R.id.tv_next) {
+            nextMatch(mType);
+        } else if (v.getId() == R.id.tv_judge_a) {
+            mJudgeAnswer_ = "A";
+            tv_judge_a.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+            tv_judge_b.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+            tv_judge_a.setTextColor(getResources().getColor(R.color.color_ffffff));
+            tv_judge_b.setTextColor(getResources().getColor(R.color.color_00AEE9));
+        } else if (v.getId() == R.id.tv_judge_b) {
+            mJudgeAnswer_ = "B";
+
+            tv_judge_a.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_judge_b.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+
+            tv_judge_a.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_judge_b.setTextColor(getResources().getColor(R.color.color_ffffff));
+        } else if (v.getId() == R.id.tv_chooseA_single) {
+            mSingleAnswer = "A";
+
+            tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+            tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+            tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_ffffff));
+            tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+        } else if (v.getId() == R.id.tv_chooseB_single) {
+            mSingleAnswer = "B";
+
+            tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+            tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+            tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_ffffff));
+            tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+        } else if (v.getId() == R.id.tv_chooseC_single) {
+            mSingleAnswer = "C";
+
+            tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+            tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+            tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_ffffff));
+            tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+        } else if (v.getId() == R.id.tv_chooseD_single) {
+            mSingleAnswer = "D";
+
+            tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+
+            tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_ffffff));
+        } else if (v.getId() == R.id.rl_back) {
+            finish();
+        } else if (v.getId() == R.id.tv_chooseA_multiple) {
+            if (isCheckA == false) {
+                tv_chooseA_multiple.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+                tv_chooseA_multiple.setTextColor(getResources().getColor(R.color.color_ffffff));
+                isCheckA = true;
+            } else {
+                tv_chooseA_multiple.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                tv_chooseA_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                isCheckA = false;
+            }
+        } else if (v.getId() == R.id.tv_chooseB_multiple) {
+
+            if (isCheckB == false) {
+                tv_chooseB_multiple.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+                tv_chooseB_multiple.setTextColor(getResources().getColor(R.color.color_ffffff));
+                isCheckB = true;
+            } else {
+                tv_chooseB_multiple.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                tv_chooseB_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                isCheckB = false;
+            }
+        } else if (v.getId() == R.id.tv_chooseC_multiple) {
+            if (isCheckC == false) {
+                tv_chooseC_multiple.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+                tv_chooseC_multiple.setTextColor(getResources().getColor(R.color.color_ffffff));
+                isCheckC = true;
+            } else {
+                tv_chooseC_multiple.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                tv_chooseC_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                isCheckC = false;
+            }
+        } else if (v.getId() == R.id.tv_chooseB_multiple) {
+            if (isCheckD == false) {
+                tv_chooseD_multiple.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+                tv_chooseD_multiple.setTextColor(getResources().getColor(R.color.color_ffffff));
+                isCheckD = true;
+            } else {
+                tv_chooseD_multiple.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                tv_chooseD_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                isCheckD = false;
+            }
+        }
+    }
+
+    private void nextMatch(int type) {
+        switch (type) {
+            case 1:
+                //判断题
+                if (mJudgeAnswer_.equals(mJudgeAnswer)) {
+                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    mJudgeAnswer_ = "";
+                    mJudgeAnswer = "";
+                    basePresenter.getMathDetail();
+                } else {
+                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 2:
+                //单选题
+                if (mSingleAnswer.equals(mSingleAnswer_)) {
+                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    mSingleAnswer_ = "";
+                    mSingleAnswer = "";
+                    tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+                    tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    basePresenter.getMathDetail();
+                } else {
+                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 3:
+                //多选题
+                Log.d("xuwudi", "答案====" + mMultipleAnswer_.toString());
+                break;
+            case 4:
+                //填空题
+                if (mCompletionAnswer.equals(mCompletionAnswer_)) {
+                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    mCompletionAnswer_ = "";
+                    mCompletionAnswer = "";
+                    tv_answer_completion.setText("");
+                    basePresenter.getMathDetail();
+                } else {
+                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 }

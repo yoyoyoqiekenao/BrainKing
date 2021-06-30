@@ -98,7 +98,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         } else if (view.getId() == R.id.rl_poems) {
             startActivity(new Intent(getContext(), PoemsActivity.class));
         } else if (view.getId() == R.id.iv_update) {
-
+            //startActivity();
         } else if (view.getId() == R.id.rl_search) {
             startActivity(new Intent(getContext(), SearchActivity.class));
         }
