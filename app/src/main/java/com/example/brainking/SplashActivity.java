@@ -2,6 +2,8 @@ package com.example.brainking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -11,10 +13,15 @@ import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.login.LoginActivity;
+import com.example.brainking.util.SpUtils;
+
+import java.security.PrivateKey;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Optional;
+import kotlin.contracts.ReturnsNotNull;
 
 /**
  * @author : 徐无敌
@@ -25,6 +32,20 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
     @Nullable
     @BindView(R.id.rl_phone)
     RelativeLayout rl_phone;
+    @BindView(R.id.rl_agreement)
+    RelativeLayout rl_agreement;
+    @BindView(R.id.rl_wx)
+    RelativeLayout rl_wx;
+
+    private Handler mHandler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+
+        }
+    };
 
 
     @Override
@@ -39,8 +60,17 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
         ButterKnife.bind(this);
 
         rl_phone.setOnClickListener(this);
+        if (!TextUtils.isEmpty(SpUtils.getInstance().getString("token"))) {
+            rl_phone.setVisibility(View.GONE);
+            rl_agreement.setVisibility(View.GONE);
+            rl_wx.setVisibility(View.GONE);
+            mHandler.postDelayed(runnable, 3000);
+        } else {
+            rl_phone.setVisibility(View.VISIBLE);
+            rl_agreement.setVisibility(View.VISIBLE);
+            rl_wx.setVisibility(View.VISIBLE);
+        }
     }
-
 
 
     @Optional
@@ -49,6 +79,14 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
         if (view.getId() == R.id.rl_phone) {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
         }
     }
 }

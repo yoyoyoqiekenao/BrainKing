@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="40dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/check"
@@ -43,7 +44,8 @@
         android:layout_marginRight="27dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rectangle_3b4dd0_50"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_wx"
@@ -72,7 +74,8 @@
         android:layout_marginRight="27dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/rectangle_ffffff_50"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
 
         <TextView
