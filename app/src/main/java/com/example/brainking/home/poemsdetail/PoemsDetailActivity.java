@@ -40,8 +40,6 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     TextView tv_annotation;
     @BindView(R.id.tv_translation)
     TextView tv_translation;
-    @BindView(R.id.iv_play)
-    ImageView iv_play;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
 
@@ -72,7 +70,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         mPid = getIntent().getIntExtra("pid", 0);
 
         rlBack.setOnClickListener(this);
-        iv_play.setOnClickListener(this);
+
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
@@ -101,7 +99,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
                         Log.d("xuwudi", "向右滑动");
                     }
                 }
-                return true;
+                return false;
             }
         });
 
@@ -113,7 +111,6 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     public void onClick(View v) {
         if (v.getId() == R.id.rl_back) {
             finish();
-        } else if (v.getId() == R.id.iv_play) {
         }
     }
 
