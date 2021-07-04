@@ -5,6 +5,7 @@ import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MathDetailModel;
+import com.example.brainking.model.MessageListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
@@ -113,4 +114,13 @@ public interface ApiStores {
      */
     @GET("learn/home/search/details")
     Observable<SearchPoemDetailModel> getSearchPoemDetail(@Query("id") int id);
+
+    /**
+     * 获取好友消息列表
+     *
+     * @param pageNum
+     * @return
+     */
+    @GET("message/list")
+    Observable<MessageListModel> getMessageList(@Query("pageNum") int pageNum);
 }
