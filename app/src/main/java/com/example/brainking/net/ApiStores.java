@@ -1,14 +1,17 @@
 package com.example.brainking.net;
 
 import com.example.brainking.json.LoginJson;
+import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
+import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
+import com.example.brainking.model.SendMsgModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
@@ -123,4 +126,24 @@ public interface ApiStores {
      */
     @GET("message/list")
     Observable<MessageListModel> getMessageList(@Query("pageNum") int pageNum);
+
+    /**
+     * 获取好友聊天记录
+     *
+     * @param pageNum
+     * @param toId
+     * @return
+     */
+    @GET("message/details")
+    Observable<NewDetailModel> getNewDetail(@Query("pageNum") int pageNum, @Query("toId") int toId);
+
+    /**
+     * 发送消息
+     *
+     * @param json
+     * @return
+     */
+    @POST("message/send")
+    Observable<SendMsgModel> sendMsg(@Body SendMsgJson json);
 }
+

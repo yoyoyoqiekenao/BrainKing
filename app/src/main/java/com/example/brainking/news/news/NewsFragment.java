@@ -1,23 +1,30 @@
 package com.example.brainking.news.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.MessageListAdapter;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.model.MessageListModel;
+import com.example.brainking.model.NewDetailModel;
+
+import com.example.brainking.news.newdetail.NewDetailActivity;
 import com.gyf.immersionbar.ImmersionBar;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +35,8 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
     View mView;
     @BindView(R.id.rv_message)
     RecyclerView rvMessage;
+    @BindView(R.id.smartView)
+    SmartRefreshLayout smartView;
 
 
     private MessageListAdapter mAdapter;
@@ -49,6 +58,9 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
         manager.setOrientation(RecyclerView.VERTICAL);
         rvMessage.setLayoutManager(manager);
         rvMessage.setAdapter(mAdapter);
+
+        smartView.setEnableLoadMore(false);
+        smartView.setEnableRefresh(false);
 
     }
 
@@ -76,12 +88,21 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
 
     @Override
     public void getMessageListSuccess(MessageListModel messageListModel) {
+        Log.d("xuwudi", "获取信息列表成功");
         mAdapter.setNewData(messageListModel.getData());
-        Log.d("xuwudi", "请求成功===" + messageListModel.toString());
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getContext(), NewDetailActivity.class);
+                intent.putExtra("toId", messageListModel.getData().get(position).getUserId());
+                intent.putExtra("name", messageListModel.getData().get(position).getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void getMessageListFail(String err) {
-        Log.d("xuwudi", "err===" + err);
+        Toast.makeText(getContext(), err, Toast.LENGTH_SHORT).show();
     }
 }

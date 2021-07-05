@@ -87,7 +87,7 @@
                 android:layout_width="163dp"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:background="@mipmap/iv_mytime"></ImageView>
+                android:background="@mipmap/iv_times"></ImageView>
         </RelativeLayout>
 
     </LinearLayout>
