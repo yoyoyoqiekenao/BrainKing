@@ -66,22 +66,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="24dp"
-                    android:text=" "
-                    android:textColor="@color/color_333333"
-                    android:textSize="24dp"></TextView>
+                <RelativeLayout
+                    android:id="@+id/rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text=" "
+                        android:textColor="@color/color_333333"
+                        android:textSize="24dp"></TextView>
+
+                    <ImageView
+                        android:id="@+id/iv_isCollect"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="52dp"
+                        android:src="@mipmap/iv_collect_false"></ImageView>
+
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/tv_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_title"
+                    android:layout_below="@id/rl"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="6dp"
                     android:text=" "
@@ -95,6 +111,8 @@
                     android:layout_below="@id/tv_author"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="33dp"
+                    android:letterSpacing="0.05"
+                    android:lineSpacingExtra="5dp"
                     android:textColor="@color/color_333333"></TextView>
 
                 <View
@@ -124,6 +142,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginRight="16dp"
+                    android:letterSpacing="0.05"
+                    android:lineSpacingExtra="5dp"
                     android:textColor="@color/color_333333"
                     android:textSize="14dp"></TextView>
 
@@ -146,6 +166,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginRight="16dp"
+                    android:letterSpacing="0.05"
+                    android:lineSpacingExtra="5dp"
                     android:textColor="@color/color_333333"
                     android:textSize="14dp"></TextView>
 
