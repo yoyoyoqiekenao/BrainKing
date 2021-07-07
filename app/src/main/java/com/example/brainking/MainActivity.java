@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.brainking.adapter.ExamplePagerAdapter;
@@ -21,6 +22,7 @@ import com.example.brainking.home.home.HomeFragment;
 import com.example.brainking.match.match.MatchFragment;
 import com.example.brainking.mine.mine.MineFragment;
 import com.example.brainking.news.news.NewsFragment;
+import com.example.brainking.views.NoScrollViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -37,12 +39,43 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BrainActivity {
+public class MainActivity extends BrainActivity implements View.OnClickListener {
 
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
     @BindView(R.id.viewpager)
-    ViewPager mViewPager;
+    NoScrollViewPager mViewPager;
+    @BindView(R.id.rl_home)
+    RelativeLayout rl_home;
+    @BindView(R.id.rl_match)
+    RelativeLayout rl_match;
+    @BindView(R.id.rl_battle)
+    RelativeLayout rl_battle;
+    @BindView(R.id.rl_news)
+    RelativeLayout rl_news;
+    @BindView(R.id.rl_mine)
+    RelativeLayout rl_mine;
+
+    @BindView(R.id.tv_home)
+    TextView tv_home;
+    @BindView(R.id.iv_home)
+    ImageView iv_home;
+    @BindView(R.id.tv_match)
+    TextView tv_match;
+    @BindView(R.id.iv_match)
+    ImageView iv_match;
+    @BindView(R.id.tv_battle)
+    TextView tv_battle;
+    @BindView(R.id.iv_battle)
+    ImageView iv_battle;
+    @BindView(R.id.tv_news)
+    TextView tv_news;
+    @BindView(R.id.iv_news)
+    ImageView iv_news;
+    @BindView(R.id.tv_mine)
+    TextView tv_mine;
+    @BindView(R.id.iv_mine)
+    ImageView iv_mine;
 
     private static final String[] CHANNELS = new String[]{"首页", "晋级赛", "对战大厅", "消息", "我的"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
@@ -75,7 +108,15 @@ public class MainActivity extends BrainActivity {
         mExamplePagerAdapter = new ExamplePagerAdapter(getSupportFragmentManager(), mList);
         mViewPager.setAdapter(mExamplePagerAdapter);
         mViewPager.setOffscreenPageLimit(5);
-        mMagicIndicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        mViewPager.setCanScroll(false);
+
+        rl_home.setOnClickListener(this);
+        rl_match.setOnClickListener(this);
+        rl_battle.setOnClickListener(this);
+        rl_news.setOnClickListener(this);
+        rl_mine.setOnClickListener(this);
+        /*mMagicIndicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -124,8 +165,8 @@ public class MainActivity extends BrainActivity {
                                 break;
                             default:
                         }
-                        titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
-                        titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
+                       // titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
+                       // titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
                     }
 
                     @Override
@@ -167,8 +208,79 @@ public class MainActivity extends BrainActivity {
             }
         });
         mMagicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+        ViewPagerHelper.bind(mMagicIndicator, mViewPager);*/
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.rl_home) {
+
+            tv_home.setTextColor(getResources().getColor(R.color.color_3B4DD0));
+            tv_match.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_battle.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_news.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_mine.setTextColor(getResources().getColor(R.color.color_333333));
+
+            iv_home.setImageResource(R.mipmap.iv_home_select);
+            iv_match.setImageResource(R.mipmap.iv_match_unselect);
+            iv_battle.setImageResource(R.mipmap.iv_battle_unselect);
+            iv_news.setImageResource(R.mipmap.iv_news_unselect);
+            iv_mine.setImageResource(R.mipmap.iv_mine_unselect);
+
+            mViewPager.setCurrentItem(0);
+        } else if (v.getId() == R.id.rl_match) {
+            tv_home.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_match.setTextColor(getResources().getColor(R.color.color_3B4DD0));
+            tv_battle.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_news.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_mine.setTextColor(getResources().getColor(R.color.color_333333));
+
+            iv_home.setImageResource(R.mipmap.iv_home_unselect);
+            iv_match.setImageResource(R.mipmap.iv_match_select);
+            iv_battle.setImageResource(R.mipmap.iv_battle_unselect);
+            iv_news.setImageResource(R.mipmap.iv_news_unselect);
+            iv_mine.setImageResource(R.mipmap.iv_mine_unselect);
+            mViewPager.setCurrentItem(1);
+        } else if (v.getId() == R.id.rl_battle) {
+            tv_home.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_match.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_battle.setTextColor(getResources().getColor(R.color.color_3B4DD0));
+            tv_news.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_mine.setTextColor(getResources().getColor(R.color.color_333333));
+
+            iv_home.setImageResource(R.mipmap.iv_home_unselect);
+            iv_match.setImageResource(R.mipmap.iv_match_unselect);
+            iv_battle.setImageResource(R.mipmap.iv_battle_select);
+            iv_news.setImageResource(R.mipmap.iv_news_unselect);
+            iv_mine.setImageResource(R.mipmap.iv_mine_unselect);
+            mViewPager.setCurrentItem(2);
+        } else if (v.getId() == R.id.rl_news) {
+            tv_home.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_match.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_battle.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_news.setTextColor(getResources().getColor(R.color.color_3B4DD0));
+            tv_mine.setTextColor(getResources().getColor(R.color.color_333333));
+
+            iv_home.setImageResource(R.mipmap.iv_home_unselect);
+            iv_match.setImageResource(R.mipmap.iv_match_unselect);
+            iv_battle.setImageResource(R.mipmap.iv_battle_unselect);
+            iv_news.setImageResource(R.mipmap.iv_news_select);
+            iv_mine.setImageResource(R.mipmap.iv_mine_unselect);
+            mViewPager.setCurrentItem(3);
+        } else if (v.getId() == R.id.rl_mine) {
+            tv_home.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_match.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_battle.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_news.setTextColor(getResources().getColor(R.color.color_333333));
+            tv_mine.setTextColor(getResources().getColor(R.color.color_3B4DD0));
+
+            iv_home.setImageResource(R.mipmap.iv_home_unselect);
+            iv_match.setImageResource(R.mipmap.iv_match_unselect);
+            iv_battle.setImageResource(R.mipmap.iv_battle_unselect);
+            iv_news.setImageResource(R.mipmap.iv_news_unselect);
+            iv_mine.setImageResource(R.mipmap.iv_mine_select);
+            mViewPager.setCurrentItem(4);
+        }
+    }
 }

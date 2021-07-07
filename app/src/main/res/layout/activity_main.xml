@@ -11,11 +11,143 @@
         android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_alignParentBottom="true"></net.lucode.hackware.magicindicator.MagicIndicator>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"></net.lucode.hackware.magicindicator.MagicIndicator>
 
-    <androidx.viewpager.widget.ViewPager
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <RelativeLayout
+            android:id="@+id/rl_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="首页"
+                android:textColor="@color/color_3B4DD0"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/iv_home_select"></ImageView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_match"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="晋级赛"
+                android:textColor="@color/color_333333"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/iv_match"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/iv_match_unselect"></ImageView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_battle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_battle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="对战大厅"
+                android:textColor="@color/color_333333"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/iv_battle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/iv_battle_unselect"></ImageView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_news"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"
+                android:textColor="@color/color_333333"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/iv_news"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/iv_news_unselect"></ImageView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_mine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textColor="@color/color_333333"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="15dp"></TextView>
+
+            <ImageView
+                android:id="@+id/iv_mine"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/iv_mine_unselect"></ImageView>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.example.brainking.views.NoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/magic_indicator"></androidx.viewpager.widget.ViewPager>
+        android:layout_above="@id/ll_bottom"></com.example.brainking.views.NoScrollViewPager>
 </RelativeLayout>

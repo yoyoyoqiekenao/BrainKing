@@ -4,22 +4,22 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <ImageView
         android:id="@+id/title_img"
-        android:layout_width="20dp"
-        android:src="@mipmap/iv_head"
-        android:layout_height="20dp" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/iv_head" />
 
     <TextView
         android:id="@+id/title_text"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:text="对战大厅"
-        android:textSize="12dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="对战大厅"
+        android:textSize="15dp" />
 
 </LinearLayout>
