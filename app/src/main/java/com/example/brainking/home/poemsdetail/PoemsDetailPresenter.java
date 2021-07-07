@@ -1,6 +1,8 @@
 package com.example.brainking.home.poemsdetail;
 
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.json.CollectJson;
+import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.net.ApiCallback;
 
@@ -33,4 +35,29 @@ public class PoemsDetailPresenter extends BasePresenter<PoemsDetailView> {
         });
     }
 
+    void collectPoem(int id) {
+        baseView.showLoading();
+        CollectJson json = new CollectJson();
+        json.setId(id);
+        addSubscription(apiStores.collectPoem(json), new ApiCallback<CollectModel>() {
+            @Override
+            public void onSuccess(CollectModel model) {
+                if (200 == model.getCode()) {
+                    baseView.collectSuccess();
+                } else {
+                    baseView.collectFail(model.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                baseView.collectFail(msg);
+            }
+
+            @Override
+            public void onFinish() {
+                baseView.hideLoading();
+            }
+        });
+    }
 }

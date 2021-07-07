@@ -42,6 +42,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     TextView tv_translation;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+    @BindView(R.id.iv_isCollect)
+    ImageView iv_isCollect;
 
     private int mPid;
     private String mAudioUrl;
@@ -51,6 +53,11 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     private boolean isPause = false;
 
     private float x1, x2, y1, y2;
+
+    //是否收藏
+    private boolean isCollect;
+    //当前诗词Id
+    private int mId;
 
 
     @Override
@@ -70,7 +77,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         mPid = getIntent().getIntExtra("pid", 0);
 
         rlBack.setOnClickListener(this);
-
+        iv_isCollect.setOnClickListener(this);
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
@@ -111,6 +118,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     public void onClick(View v) {
         if (v.getId() == R.id.rl_back) {
             finish();
+        } else if (v.getId() == R.id.iv_isCollect) {
+            basePresenter.collectPoem(mId);
         }
     }
 
@@ -119,6 +128,14 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         if (mediaPlayer != null) {
             stop();
         }
+        mId = model.getData().getId();
+        isCollect = model.getData().isCollect();
+        if (isCollect == true) {
+            iv_isCollect.setImageResource(R.mipmap.iv_collect_true);
+        }else {
+            iv_isCollect.setImageResource(R.mipmap.iv_collect_false);
+        }
+
         tv_title.setText(model.getData().getTitle());
         tv_author.setText(model.getData().getDynasty() + "  " + model.getData().getAuthor());
         tv_content.setText(model.getData().getContent());
@@ -133,7 +150,23 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
     @Override
     public void getPoemsDetailFail(String err) {
-        Log.d("xuwudi", "请求失败==" + err);
+        Toast.makeText(PoemsDetailActivity.this, err, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void collectSuccess() {
+        if (isCollect == false) {
+            iv_isCollect.setImageResource(R.mipmap.iv_collect_true);
+            isCollect = true;
+        } else {
+            iv_isCollect.setImageResource(R.mipmap.iv_collect_false);
+            isCollect = false;
+        }
+    }
+
+    @Override
+    public void collectFail(String err) {
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.example.brainking.net;
 
+import com.example.brainking.json.CollectJson;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
+import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MathDetailModel;
@@ -145,5 +147,14 @@ public interface ApiStores {
      */
     @POST("message/send")
     Observable<SendMsgModel> sendMsg(@Body SendMsgJson json);
+
+    /**
+     * 收藏诗词
+     *
+     * @param json
+     * @return
+     */
+    @POST("learn/collect")
+    Observable<CollectModel> collectPoem(@Body CollectJson json);
 }
 

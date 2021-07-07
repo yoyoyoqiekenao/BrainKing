@@ -75,26 +75,15 @@ public class PoemsDetailModel {
         private String gmtModified;
         @SerializedName("pid")
         private Integer pid;
+        @SerializedName("collect")
+        private boolean collect;
 
-        @Override
-        public String toString() {
-            return "DataDTO{" +
-                    "id=" + id +
-                    ", title='" + title + '\'' +
-                    ", author='" + author + '\'' +
-                    ", dynasty='" + dynasty + '\'' +
-                    ", content='" + content + '\'' +
-                    ", annotation='" + annotation + '\'' +
-                    ", translation='" + translation + '\'' +
-                    ", autherIntro='" + autherIntro + '\'' +
-                    ", appreciate='" + appreciate + '\'' +
-                    ", audioUrl='" + audioUrl + '\'' +
-                    ", del=" + del +
-                    ", version=" + version +
-                    ", gmtCreate='" + gmtCreate + '\'' +
-                    ", gmtModified='" + gmtModified + '\'' +
-                    ", pid=" + pid +
-                    '}';
+        public boolean isCollect() {
+            return collect;
+        }
+
+        public void setCollect(boolean collect) {
+            this.collect = collect;
         }
 
         public Integer getId() {

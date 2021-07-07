@@ -7,4 +7,8 @@ public interface PoemsDetailView extends BaseView {
     void getPoemsDetailSuccess(PoemsDetailModel model);
 
     void getPoemsDetailFail(String err);
+
+    void collectSuccess();
+
+    void collectFail(String err);
 }
