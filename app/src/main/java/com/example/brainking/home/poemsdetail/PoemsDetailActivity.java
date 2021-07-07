@@ -1,5 +1,6 @@
 package com.example.brainking.home.poemsdetail;
 
+import android.animation.ObjectAnimator;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -44,6 +46,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     ScrollView scrollView;
     @BindView(R.id.iv_isCollect)
     ImageView iv_isCollect;
+    @BindView(R.id.iv_musicNote)
+    ImageView iv_musicNote;
 
     private int mPid;
     private String mAudioUrl;
@@ -59,6 +63,10 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     //当前诗词Id
     private int mId;
 
+    //旋转动画
+    private ObjectAnimator mRotation;
+    //是否旋转
+    private boolean isRotation;
 
     @Override
     protected PoemsDetailPresenter createPresenter() {
@@ -73,11 +81,13 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         ImmersionBar.with(this).statusBarView(mView).init();
         ButterKnife.bind(this);
 
+        mRotation = ObjectAnimator.ofFloat(iv_musicNote, "rotation", 0f, 360f);
 
         mPid = getIntent().getIntExtra("pid", 0);
 
         rlBack.setOnClickListener(this);
         iv_isCollect.setOnClickListener(this);
+        iv_musicNote.setOnClickListener(this);
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
@@ -120,6 +130,20 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             finish();
         } else if (v.getId() == R.id.iv_isCollect) {
             basePresenter.collectPoem(mId);
+        } else if (v.getId() == R.id.iv_musicNote) {
+            if (isRotation) {
+                isRotation = false;
+                mRotation.end();
+                stop();
+            } else {
+                isRotation = true;
+                rePlay();
+                mRotation.setRepeatCount(ObjectAnimator.INFINITE);
+                mRotation.setInterpolator(new LinearInterpolator());
+                mRotation.setDuration(5000);
+                mRotation.start();
+            }
+
         }
     }
 
@@ -128,11 +152,12 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         if (mediaPlayer != null) {
             stop();
         }
+        isRotation = true;
         mId = model.getData().getId();
         isCollect = model.getData().isCollect();
         if (isCollect == true) {
             iv_isCollect.setImageResource(R.mipmap.iv_collect_true);
-        }else {
+        } else {
             iv_isCollect.setImageResource(R.mipmap.iv_collect_false);
         }
 
@@ -145,6 +170,12 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         mAudioUrl = model.getData().getAudioUrl();
 
         //获取数据成功后自动播放当前音频文件
+        mRotation.setRepeatCount(ObjectAnimator.INFINITE);
+        mRotation.setInterpolator(new LinearInterpolator());
+        mRotation.setDuration(5000);
+        mRotation.start();
+
+
         play();
     }
 

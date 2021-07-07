@@ -90,6 +90,15 @@
                         android:layout_marginRight="52dp"
                         android:src="@mipmap/iv_collect_false"></ImageView>
 
+                    <ImageView
+                        android:id="@+id/iv_musicNote"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="52dp"
+                        android:src="@mipmap/iv_music_note"></ImageView>
+
                 </RelativeLayout>
 
 
