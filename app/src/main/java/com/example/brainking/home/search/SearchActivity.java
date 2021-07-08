@@ -3,6 +3,7 @@ package com.example.brainking.home.search;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -39,6 +40,8 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
 
 
     private SearchAdapter mAdapter;
+    private Handler mHandler = new Handler();
+
 
     @Override
     protected SearchPresenter createPresenter() {
@@ -54,7 +57,7 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
 
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
-
+        openKeyboard(edSearch);
         tvCancel.setOnClickListener(this);
 
         mAdapter = new SearchAdapter();
@@ -75,6 +78,12 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
         });
 
 
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                openKeyboard(edSearch);
+            }
+        }, 500);
     }
 
 
@@ -98,6 +107,14 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mHandler!=null){
+            mHandler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_cancel) {
             finish();
@@ -110,5 +127,12 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
             InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void openKeyboard(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+
     }
 }
