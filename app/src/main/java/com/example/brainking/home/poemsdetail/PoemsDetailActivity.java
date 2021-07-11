@@ -4,6 +4,8 @@ import android.animation.ObjectAnimator;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
@@ -48,6 +52,12 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     ImageView iv_isCollect;
     @BindView(R.id.iv_musicNote)
     ImageView iv_musicNote;
+    @BindView(R.id.iv_left)
+    ImageView iv_left;
+    @BindView(R.id.iv_right)
+    ImageView iv_right;
+    @BindView(R.id.iv_isPlay)
+    ImageView iv_isPlay;
 
     private int mPid;
     private String mAudioUrl;
@@ -67,6 +77,21 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     private ObjectAnimator mRotation;
     //是否旋转
     private boolean isRotation;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 0:
+                    iv_isPlay.setImageResource(R.mipmap.iv_poem_stop);
+                    break;
+                case 1:
+                    iv_isPlay.setImageResource(R.mipmap.iv_poem_play);
+                    break;
+                default:
+            }
+        }
+    };
 
     @Override
     protected PoemsDetailPresenter createPresenter() {
@@ -88,6 +113,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         rlBack.setOnClickListener(this);
         iv_isCollect.setOnClickListener(this);
         iv_musicNote.setOnClickListener(this);
+        iv_left.setOnClickListener(this);
+        iv_right.setOnClickListener(this);
+        iv_isPlay.setOnClickListener(this);
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
@@ -144,6 +172,12 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
                 mRotation.start();
             }
 
+        } else if (v.getId() == R.id.iv_left) {
+            basePresenter.getPoemsDetail(11);
+        } else if (v.getId() == R.id.iv_right) {
+            basePresenter.getPoemsDetail(11);
+        } else if (v.getId() == R.id.iv_isPlay) {
+            pause();
         }
     }
 
@@ -152,6 +186,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         if (mediaPlayer != null) {
             stop();
         }
+        isPause = false;
+        iv_isPlay.setImageResource(R.mipmap.iv_poem_stop);
         isRotation = true;
         mId = model.getData().getId();
         isCollect = model.getData().isCollect();
@@ -218,6 +254,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             mediaPlayer.release();
             mediaPlayer = null;
         }
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     //停止播放
@@ -280,11 +319,13 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
                 isPause = true;
+                mHandler.sendEmptyMessage(1);
             }
         } else {
             if (mediaPlayer != null) {
                 mediaPlayer.start();
                 isPause = false;
+                mHandler.sendEmptyMessage(0);
             }
         }
 
