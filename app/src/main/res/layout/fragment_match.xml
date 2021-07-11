@@ -26,14 +26,56 @@
             android:textSize="18dp"></TextView>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_level"
+            android:layout_width="70dp"
+            android:layout_height="27dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="26dp"
+            android:src="@mipmap/iv_level"></ImageView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="60dp"
+            android:layout_toRightOf="@id/iv_level"
+            android:background="@drawable/rectangle_3b4dd0_8">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_f2cb51_8"></View>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:text="40"
+            android:textColor="@color/white"
+            android:textSize="16dp"></TextView>
+    </RelativeLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="152dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="75dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <RelativeLayout
+            android:id="@+id/rl_math"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -46,6 +88,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_poem"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -67,6 +110,7 @@
         android:weightSum="2">
 
         <RelativeLayout
+            android:id="@+id/rl_idiom"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -79,6 +123,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">

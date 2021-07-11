@@ -87,8 +87,10 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".news.newdetail.NewDetailActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".match.match_detail.MatchDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

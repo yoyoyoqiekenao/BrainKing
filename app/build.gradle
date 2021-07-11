@@ -95,7 +95,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'
 
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+    compile 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 }
 
 
