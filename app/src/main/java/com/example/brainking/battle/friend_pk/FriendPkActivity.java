@@ -8,6 +8,7 @@ import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.dispatcher.AppResponseDispatcher;
 import com.example.brainking.util.SpUtils;
 import com.gyf.immersionbar.ImmersionBar;
 import com.zhangke.websocket.WebSocketHandler;
@@ -44,7 +45,7 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
         ImmersionBar.with(this).statusBarView(mView).init();
 
         iv_create.setOnClickListener(this);
-        mSetting = new WebSocketSetting();
+        /*mSetting = new WebSocketSetting();
         mSetting.setConnectUrl("ws://42.192.234.149:8080/websocket/" + SpUtils.getInstance().getString("userId"));
         //设置连接超时时间
         mSetting.setConnectTimeout(10 * 1000);
@@ -55,7 +56,7 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
         //设置 Headers
         //mSetting.setHttpHeaders(header);
         //设置消息分发器，接收到数据后先进入该类中处理，处理完再发送到下游
-        //mSetting.setResponseProcessDispatcher(new AppResponseDispatcher());
+        mSetting.setResponseProcessDispatcher(new AppResponseDispatcher());
         //接收到数据后是否放入子线程处理，只有设置了 ResponseProcessDispatcher 才有意义
         mSetting.setProcessDataOnBackground(true);
         //网络状态发生变化后是否重连，
@@ -65,7 +66,10 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
         //通过 init 方法初始化默认的 WebSocketManager 对象
         mManager= WebSocketHandler.init(mSetting);
         //启动连接
-        mManager.start();
+        mManager.start();*/
+
+
+
 
     }
 
