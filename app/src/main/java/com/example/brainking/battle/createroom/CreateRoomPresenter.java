@@ -1,11 +1,11 @@
-package com.example.brainking.match.match_detail;
+package com.example.brainking.battle.createroom;
 
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.net.ApiCallback;
 
-public class MatchDetailPresenter extends BasePresenter<MatchDetailView> {
-    public MatchDetailPresenter(MatchDetailView view) {
+public class CreateRoomPresenter extends BasePresenter<CreateRoomView> {
+    public CreateRoomPresenter(CreateRoomView view) {
         attachView(view);
     }
 

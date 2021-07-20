@@ -1,5 +1,6 @@
 package com.example.brainking.battle.friend_pk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.battle.createroom.CreateRoomActivity;
 import com.example.brainking.dispatcher.AppResponseDispatcher;
 import com.example.brainking.util.SpUtils;
 import com.gyf.immersionbar.ImmersionBar;
@@ -69,23 +71,21 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
         mManager.start();*/
 
 
-
-
     }
 
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.iv_create) {
-
+            startActivity(new Intent(this, CreateRoomActivity.class));
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-         if(mManager!=null ){
-             mManager.destroy();
-         }
+        if (mManager != null) {
+            mManager.destroy();
+        }
     }
 }

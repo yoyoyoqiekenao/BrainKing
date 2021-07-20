@@ -7,6 +7,7 @@ import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
 import com.example.brainking.model.NewDetailModel;
@@ -156,5 +157,14 @@ public interface ApiStores {
      */
     @POST("learn/collect")
     Observable<CollectModel> collectPoem(@Body CollectJson json);
+
+
+    /**
+     * 开始匹配(自动创建房间)
+     *
+     * @return
+     */
+    @GET("match/start")
+    Observable<MatchStartModel> matchStart();
 }
 

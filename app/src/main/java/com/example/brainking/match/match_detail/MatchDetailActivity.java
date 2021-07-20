@@ -18,9 +18,17 @@ import androidx.dynamicanimation.animation.SpringForce;
 import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.events.MatchStartEvent;
+import com.example.brainking.model.MatchStartModel;
+import com.example.brainking.mqttmodel.BaseMqttModel;
 import com.gyf.immersionbar.ImmersionBar;
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.jeremyliao.liveeventbus.core.LiveEvent;
 
 import org.eclipse.paho.android.service.MqttService;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -78,6 +86,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
         MyMqttService.startService(this);
 
+
         rlBack.setOnClickListener(this);
         mObjectAnimator_1 = ObjectAnimator.ofFloat(iv_left, "alpha", 0f, 1f);
         mObjectAnimator_1.setDuration(2000);
@@ -102,6 +111,17 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         };
         timer.schedule(task, 1000, 1000);
 
+
+        /*LiveEventBus.get("mqttMsg", BaseMqttModel.class)
+                .observe(this, new Observer<BaseMqttModel>() {
+                    @Override
+                    public void onChanged(BaseMqttModel baseMqttModel) {
+                        Log.d("xuwudi", "msg====" + baseMqttModel.toString());
+                    }
+                });*/
+
+        basePresenter.createRoom();
+
     }
 
     @Override
@@ -117,5 +137,15 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+    }
+
+    @Override
+    public void matchStartSuccess(MatchStartModel matchStartModel) {
+
+    }
+
+    @Override
+    public void fail(String msg) {
+
     }
 }

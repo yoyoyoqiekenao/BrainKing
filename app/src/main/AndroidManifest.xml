@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
     <application
@@ -92,6 +93,14 @@
         <activity
             android:name=".match.match_detail.MatchDetailActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".battle.createroom.CreateRoomActivity"
+            android:screenOrientation="portrait"></activity>
+
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" /> <!--MqttService-->
+        <service android:name=".MyMqttService"></service>
+
     </application>
 
 </manifest>
