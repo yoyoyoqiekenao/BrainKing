@@ -15,9 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.brainking.events.MatchStartEvent;
-import com.example.brainking.mqttmodel.BaseMqttModel;
-import com.example.brainking.util.SpUtils;
-import com.jeremyliao.liveeventbus.LiveEventBus;
+ import com.example.brainking.util.SpUtils;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -28,6 +26,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.greenrobot.eventbus.EventBus;
 
 public class MyMqttService extends Service {
 
@@ -213,11 +212,12 @@ public class MyMqttService extends Service {
             //Toast.makeText(getApplicationContext(), "messageArrived: " + new String(message.getPayload()), Toast.LENGTH_LONG).show();
             //收到其他客户端的消息后，响应给对方告知消息已到达或者消息有问题等
             //response("message arrived");
-            BaseMqttModel mqttModel = new BaseMqttModel();
-            mqttModel.setObject(message.getPayload());
-            Log.d("xuwudi", "msg===" + message.toString());
-            LiveEventBus.get("mqttMsg", BaseMqttModel.class)
-                    .post(mqttModel);
+            //BaseMqttModel mqttModel = new BaseMqttModel();
+            //mqttModel.setObject(message.getPayload());
+            //Log.d("xuwudi", "msg===" + message.toString());
+            MatchStartEvent event = new MatchStartEvent();
+            event.setMsg(message.toString());
+            EventBus.getDefault().post(event);
         }
 
         @Override

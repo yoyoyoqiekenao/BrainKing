@@ -100,7 +100,7 @@ dependencies {
 
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
-    implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+     implementation 'org.greenrobot:eventbus:3.1.1'
 
 }
 

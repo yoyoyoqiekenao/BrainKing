@@ -1,18 +1,25 @@
 package com.example.brainking.events;
 
 
-import com.jeremyliao.liveeventbus.core.LiveEvent;
+import java.io.Serializable;
 
 //开始匹配  自动创建房间
-public class MatchStartEvent implements LiveEvent {
+public class MatchStartEvent implements Serializable {
 
-    private Object object;
+    private String msg;
 
-    public Object getObject() {
-        return object;
+    @Override
+    public String toString() {
+        return "MatchStartEvent{" +
+                "msg='" + msg + '\'' +
+                '}';
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

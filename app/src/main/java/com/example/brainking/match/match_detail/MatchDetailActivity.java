@@ -2,9 +2,12 @@ package com.example.brainking.match.match_detail;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,16 +22,15 @@ import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.events.MatchStartEvent;
+import com.example.brainking.match.match_battle.MatchBattleActivity;
 import com.example.brainking.model.MatchStartModel;
-import com.example.brainking.mqttmodel.BaseMqttModel;
+import com.example.brainking.mqttmodel.MqttMatchStartModel;
+import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
-import com.jeremyliao.liveeventbus.LiveEventBus;
-import com.jeremyliao.liveeventbus.core.LiveEvent;
 
-import org.eclipse.paho.android.service.MqttService;
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -84,6 +86,8 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         ImmersionBar.with(this).statusBarView(mView).init();
         ButterKnife.bind(this);
 
+        EventBus.getDefault().register(this);
+
         MyMqttService.startService(this);
 
 
@@ -112,14 +116,6 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         timer.schedule(task, 1000, 1000);
 
 
-        /*LiveEventBus.get("mqttMsg", BaseMqttModel.class)
-                .observe(this, new Observer<BaseMqttModel>() {
-                    @Override
-                    public void onChanged(BaseMqttModel baseMqttModel) {
-                        Log.d("xuwudi", "msg====" + baseMqttModel.toString());
-                    }
-                });*/
-
         basePresenter.createRoom();
 
     }
@@ -131,12 +127,29 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getRoomId(MatchStartEvent event) {
+        String str = event.getMsg();
+        MqttMatchStartModel model = new Gson().fromJson(str, MqttMatchStartModel.class);
+        Log.d("xuwudi", "接受的数据===" + model.toString());
+        if (!TextUtils.isEmpty(model.getRoomId())) {
+            Intent intent = new Intent(MatchDetailActivity.this, MatchBattleActivity.class);
+            intent.putExtra("roomId", model.getRoomId());
+            startActivity(intent);
+            finish();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+
+        EventBus.getDefault().unregister(this);
+
     }
 
     @Override
@@ -148,4 +161,6 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
     public void fail(String msg) {
 
     }
+
+
 }

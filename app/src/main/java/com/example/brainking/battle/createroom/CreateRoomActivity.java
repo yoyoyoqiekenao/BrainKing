@@ -15,11 +15,13 @@ import com.example.brainking.base.BrainActivity;
 import com.example.brainking.events.MatchStartEvent;
 import com.example.brainking.model.MatchStartModel;
 import com.gyf.immersionbar.ImmersionBar;
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,13 +51,6 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
         rl_back.setOnClickListener(this);
         tv_createRoom.setOnClickListener(this);
 
-        LiveEventBus.get("msg", MatchStartEvent.class)
-                .observe(this, new Observer<MatchStartEvent>() {
-                    @Override
-                    public void onChanged(MatchStartEvent matchStartEvent) {
-                        Log.d("xuwudi", "msg===" + matchStartEvent.toString());
-                    }
-                });
 
 
     }
@@ -69,6 +64,8 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
         }
     }
 
+
+
     @Override
     public void matchStartSuccess(MatchStartModel matchStartModel) {
         Toast.makeText(this, matchStartModel.getMsg(), Toast.LENGTH_SHORT).show();
@@ -80,10 +77,6 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
         Toast.makeText(this, "创建失败" + err, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyMqttService.stopService(this);
-    }
+
 }
 

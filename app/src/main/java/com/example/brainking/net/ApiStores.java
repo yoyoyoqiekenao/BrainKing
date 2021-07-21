@@ -166,5 +166,15 @@ public interface ApiStores {
      */
     @GET("match/start")
     Observable<MatchStartModel> matchStart();
+
+
+    /**
+     * 准备
+     * @param pageNum
+     * @return
+     */
+    @GET("match/ready")
+    Observable<MatchStartModel> matchReady(@Query("roomId") String pageNum);
+
 }
 
