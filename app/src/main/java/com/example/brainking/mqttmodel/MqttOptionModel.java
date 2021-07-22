@@ -14,6 +14,15 @@ public class MqttOptionModel {
     @SerializedName("option")
     private List<OptionDTO> option;
 
+    @Override
+    public String toString() {
+        return "MqttOptionModel{" +
+                "title='" + title + '\'' +
+                ", type='" + type + '\'' +
+                ", option=" + option +
+                '}';
+    }
+
     public String getTitle() {
         return title;
     }
@@ -43,6 +52,14 @@ public class MqttOptionModel {
         private String content;
         @SerializedName("isRight")
         private Boolean isRight;
+
+        @Override
+        public String toString() {
+            return "OptionDTO{" +
+                    "content='" + content + '\'' +
+                    ", isRight=" + isRight +
+                    '}';
+        }
 
         public String getContent() {
             return content;

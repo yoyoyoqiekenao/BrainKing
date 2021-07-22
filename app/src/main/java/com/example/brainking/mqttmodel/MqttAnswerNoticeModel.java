@@ -15,6 +15,17 @@ public class MqttAnswerNoticeModel {
     @SerializedName("type")
     private String type;
 
+    @Override
+    public String toString() {
+        return "MqttAnswerNoticeModel{" +
+                "choice=" + choice +
+                ", score=" + score +
+                ", time=" + time +
+                ", totalScore=" + totalScore +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
     public Integer getChoice() {
         return choice;
     }

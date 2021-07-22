@@ -115,6 +115,8 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     public void goLoginSuccess(LoginModel model) {
         SpUtils.getInstance().putString("userId", model.getData().getUserInfo().getUserId());
         SpUtils.getInstance().putString("token", model.getData().getToken());
+        Log.d("xuwudi", "token===" + model.getData().getToken());
+        Log.d("xuwudi", "token===" + model.getData().getUserInfo().getUserId());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -124,4 +126,6 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
 
         Toast.makeText(mActivity, err, Toast.LENGTH_SHORT).show();
     }
+
+
 }

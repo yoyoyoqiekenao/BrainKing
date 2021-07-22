@@ -71,6 +71,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void ready(MatchStartEvent event) {
         String str = event.getMsg();
+       // Log.d("xuwudi", "数据====" + str);
         if (!"null".equals(new Gson().fromJson(str, MqttOptionModel.class).getTitle())) { //题目的message
             MqttOptionModel optionModel = new Gson().fromJson(str, MqttOptionModel.class);
             tv_title.setText(optionModel.getTitle());
@@ -78,11 +79,14 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             tv_answer_2.setText(optionModel.getOption().get(1).getContent());
             tv_answer_3.setText(optionModel.getOption().get(2).getContent());
             tv_answer_4.setText(optionModel.getOption().get(3).getContent());
+            Log.d("xuwudi","数据1==="+optionModel.toString());
         }
-        if (!"null".equals(new Gson().fromJson(str, MqttAnswerNoticeModel.class).getType())) { //对手的答题数据
+        if (!"null".equals(new Gson().fromJson(str, MqttAnswerNoticeModel.class).getTotalScore())) { //对手的答题数据
             MqttAnswerNoticeModel mqttAnswerNoticeModel = new Gson().fromJson(str, MqttAnswerNoticeModel.class);
             tv_score_right.setText(mqttAnswerNoticeModel.getTotalScore() + "");
+            Log.d("xuwudi","数据2==="+mqttAnswerNoticeModel.toString());
         }
+
     }
 
     @Override
