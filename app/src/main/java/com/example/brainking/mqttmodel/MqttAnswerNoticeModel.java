@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class MqttAnswerNoticeModel {
 
     @SerializedName("choice")
-    private Integer choice;
+    private String choice;
     @SerializedName("score")
     private Integer score;
     @SerializedName("time")
@@ -26,11 +26,11 @@ public class MqttAnswerNoticeModel {
                 '}';
     }
 
-    public Integer getChoice() {
+    public String getChoice() {
         return choice;
     }
 
-    public void setChoice(Integer choice) {
+    public void setChoice(String choice) {
         this.choice = choice;
     }
 

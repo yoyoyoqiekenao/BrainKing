@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.brainking.events.MatchStartEvent;
- import com.example.brainking.util.SpUtils;
+import com.example.brainking.util.SpUtils;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -214,7 +214,7 @@ public class MyMqttService extends Service {
             //response("message arrived");
             //BaseMqttModel mqttModel = new BaseMqttModel();
             //mqttModel.setObject(message.getPayload());
-            //Log.d("xuwudi", "msg===" + message.toString());
+            Log.d("xuwudi", "msg===" + message.toString());
             MatchStartEvent event = new MatchStartEvent();
             event.setMsg(message.toString());
             EventBus.getDefault().post(event);
@@ -239,11 +239,15 @@ public class MyMqttService extends Service {
 
     @Override
     public void onDestroy() {
-        try {
-            mqttAndroidClient.disconnect(); //断开连接
-        } catch (MqttException e) {
-            e.printStackTrace();
+        if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
+            try {
+                mqttAndroidClient.disconnect(); //断开连接
+                mqttAndroidClient.unregisterResources();
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
         }
+
         super.onDestroy();
     }
 }

@@ -2,11 +2,13 @@ package com.example.brainking.net;
 
 import com.example.brainking.json.CollectJson;
 import com.example.brainking.json.LoginJson;
+import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
@@ -37,9 +39,9 @@ import retrofit2.http.QueryMap;
  */
 public interface ApiStores {
 
-    public static final String BASE_URL = "http://42.192.234.149:8080/";
+    //public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    //public static final String BASE_URL = "http://192.168.16.109:8080/";
+    public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
     /**
@@ -170,13 +172,31 @@ public interface ApiStores {
 
     /**
      * 准备
+     *
      * @param pageNum
      * @return
      */
     @GET("match/ready")
     Observable<MatchStartModel> matchReady(@Query("roomId") String pageNum);
 
-    //@GET("match/answer")
-   // Observable<>
+
+    /**
+     * 退出房间
+     *
+     * @param roomId
+     * @return
+     */
+    @GET("match/exit")
+    Observable<MatchStartModel> matchExit(@Query("roomId") String roomId);
+
+    /**
+     * 答题
+     * @param json
+     * @return
+     */
+    @POST("match/answer")
+    Observable<MatchAnswerModel> matchAnswer(@Body MatchAnswerJson json);
+
+
 }
 
