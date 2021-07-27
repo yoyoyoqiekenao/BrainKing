@@ -2,37 +2,20 @@ package com.example.brainking.mqttmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MqttAnswerNoticeModel {
+import java.util.List;
 
-    @SerializedName("choice")
-    private String choice;
+public class MqttAnswerNoticeModel  {
+
     @SerializedName("score")
     private Integer score;
     @SerializedName("time")
     private Integer time;
     @SerializedName("totalScore")
-    private Integer totalScore;
+    private String totalScore;
     @SerializedName("type")
     private String type;
-
-    @Override
-    public String toString() {
-        return "MqttAnswerNoticeModel{" +
-                "choice=" + choice +
-                ", score=" + score +
-                ", time=" + time +
-                ", totalScore=" + totalScore +
-                ", type='" + type + '\'' +
-                '}';
-    }
-
-    public String getChoice() {
-        return choice;
-    }
-
-    public void setChoice(String choice) {
-        this.choice = choice;
-    }
+    @SerializedName("choice")
+    private List<String> choice;
 
     public Integer getScore() {
         return score;
@@ -50,11 +33,11 @@ public class MqttAnswerNoticeModel {
         this.time = time;
     }
 
-    public Integer getTotalScore() {
+    public String getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(Integer totalScore) {
+    public void setTotalScore(String totalScore) {
         this.totalScore = totalScore;
     }
 
@@ -64,5 +47,13 @@ public class MqttAnswerNoticeModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<String> getChoice() {
+        return choice;
+    }
+
+    public void setChoice(List<String> choice) {
+        this.choice = choice;
     }
 }

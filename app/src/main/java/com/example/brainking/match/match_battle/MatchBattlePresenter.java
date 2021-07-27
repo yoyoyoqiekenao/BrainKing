@@ -72,9 +72,11 @@ public class MatchBattlePresenter extends BasePresenter<MatchBattleView> {
     }
 
     public void ready(String roomId) {
+        baseView.showLoading();
         addSubscription(apiStores.matchReady(roomId), new ApiCallback<MatchStartModel>() {
             @Override
             public void onSuccess(MatchStartModel model) {
+                baseView.hideLoading();
                 if (200 == model.getCode()) {
                     baseView.mattchReadySuccess(model);
                 } else {
@@ -84,6 +86,7 @@ public class MatchBattlePresenter extends BasePresenter<MatchBattleView> {
 
             @Override
             public void onFailure(String msg) {
+                baseView.hideLoading();
                 baseView.fail(msg);
             }
 
