@@ -116,7 +116,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
         SpUtils.getInstance().putString("userId", model.getData().getUserInfo().getUserId());
         SpUtils.getInstance().putString("token", model.getData().getToken());
         Log.d("xuwudi", "token===" + model.getData().getToken());
-        Log.d("xuwudi", "token===" + model.getData().getUserInfo().getUserId());
+        Log.d("xuwudi", "userId===" + model.getData().getUserInfo().getUserId());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }

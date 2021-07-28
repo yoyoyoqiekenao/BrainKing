@@ -25,6 +25,7 @@ import com.example.brainking.events.MatchStartEvent;
 import com.example.brainking.match.match_battle.MatchBattleActivity;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.mqttmodel.MqttMatchStartModel;
+import com.example.brainking.util.SpUtils;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -88,7 +89,10 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
         EventBus.getDefault().register(this);
 
-        MyMqttService.startService(this);
+        Intent intent = new Intent(this, MyMqttService.class);
+        intent.putExtra("clientId", SpUtils.getInstance().getString("userId"));
+        startService(intent);
+        //MyMqttService.startService(this);
 
 
         rlBack.setOnClickListener(this);
@@ -149,7 +153,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         }
 
         EventBus.getDefault().unregister(this);
-
+        MyMqttService.stopService(this);
     }
 
     @Override

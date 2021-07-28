@@ -35,11 +35,11 @@ public class MyMqttService extends Service {
     private MqttConnectOptions mMqttConnectOptions;
     public String HOST = "ws://116.62.213.165:1883";//服务器地址（协议+地址+端口号）
     //public static String PUBLISH_TOPIC = "/public/TEST/" + SpUtils.getInstance().getString("userid");//发布主题
-    public static String PUBLISH_TOPIC = "/public/TEST/8";
-    public static String RESPONSE_TOPIC = "/public/TEST/" + SpUtils.getInstance().getString("userid");//响应主题
+    public static String PUBLISH_TOPIC = "";
+    public static String RESPONSE_TOPIC = "";//响应主题
 
 
-    public String CLIENTID = SpUtils.getInstance().getString("userid");
+    public String CLIENTID;
     /*public String CLIENTID = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
             ? Build.getSerial() : Build.SERIAL;//客户端ID，一般以客户端唯一标识符表示，这里用设备序列号表示*/
 
@@ -51,6 +51,9 @@ public class MyMqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        CLIENTID = intent.getStringExtra("clientId");
+        PUBLISH_TOPIC = "/public/TEST/" + CLIENTID;
+        RESPONSE_TOPIC = "/public/TEST/" + CLIENTID;
         init();
         return super.onStartCommand(intent, flags, startId);
     }
