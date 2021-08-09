@@ -100,6 +100,9 @@
         <activity
             android:name=".match.match_battle.MatchBattleActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".battle.battledetail.BattleDetailActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" /> <!--MqttService-->
         <service android:name=".MyMqttService"></service>
