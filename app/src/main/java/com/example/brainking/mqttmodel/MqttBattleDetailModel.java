@@ -13,6 +13,15 @@ public class MqttBattleDetailModel {
     @SerializedName("waitingUser")
     public List<WaitingUserDTO> waitingUser;
 
+    @Override
+    public String toString() {
+        return "MqttBattleDetailModel{" +
+                "roomId=" + roomId +
+                ", type='" + type + '\'' +
+                ", waitingUser=" + waitingUser +
+                '}';
+    }
+
     public Long getRoomId() {
         return roomId;
     }
@@ -60,6 +69,23 @@ public class MqttBattleDetailModel {
         public String userName;
         @SerializedName("userType")
         public Integer userType;
+
+        @Override
+        public String toString() {
+            return "WaitingUserDTO{" +
+                    "avatar='" + avatar + '\'' +
+                    ", email='" + email + '\'' +
+                    ", nickName='" + nickName + '\'' +
+                    ", openid='" + openid + '\'' +
+                    ", phonenumber='" + phonenumber + '\'' +
+                    ", prepare=" + prepare +
+                    ", score=" + score +
+                    ", sex='" + sex + '\'' +
+                    ", userId=" + userId +
+                    ", userName='" + userName + '\'' +
+                    ", userType=" + userType +
+                    '}';
+        }
 
         public String getAvatar() {
             return avatar;
