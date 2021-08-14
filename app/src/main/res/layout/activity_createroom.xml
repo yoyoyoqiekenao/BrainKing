@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_battle"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <View
@@ -88,7 +89,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/gray"
             android:hint="请输入房间名称"
             android:textColor="@color/white"
             android:textSize="14dp"></EditText>
@@ -111,7 +112,7 @@
             android:background="@null"
             android:inputType="number"
             android:hint="请输入房间人数"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/gray"
             android:textColor="@color/white"
             android:textSize="14dp"></EditText>
     </RelativeLayout>
@@ -133,7 +134,8 @@
             android:layout_marginLeft="10dp"
             android:background="@null"
             android:gravity="center_vertical"
-            android:text="难易程度"
+            android:hint="请选择难易程度"
+            android:textColorHint="@color/gray"
             android:textColor="@color/white"
             android:textSize="14dp"></TextView>
     </RelativeLayout>

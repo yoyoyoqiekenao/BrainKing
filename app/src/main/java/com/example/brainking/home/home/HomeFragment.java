@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_math;
@@ -31,6 +33,7 @@ import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.home.search.SearchActivity;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.UserInfoModel;
+import com.example.brainking.util.SpUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -149,9 +152,12 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
 
     @Override
     public void getUserInfoSuccess(UserInfoModel model) {
-        Glide.with(getContext()).load(model.getData().getAvatar()).into(iv_head);
+        Glide.with(getContext()).load(model.getData().getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
         tv_name.setText(model.getData().getNickName());
         tv_remark.setText(model.getData().getRemark());
+
+        SpUtils.getInstance().putString("name", model.getData().getNickName());
+        SpUtils.getInstance().putString("headImg", model.getData().getAvatar());
     }
 
     @Override

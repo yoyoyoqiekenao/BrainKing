@@ -93,7 +93,7 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
                 Toast.makeText(this, "请选择等级", Toast.LENGTH_SHORT).show();
                 return;
             }
-             createPresenter().createBattleRoom(mLevel, ed_num.getText().toString(), ed_roomname.getText().toString());
+            createPresenter().createBattleRoom(mLevel, ed_num.getText().toString(), ed_roomname.getText().toString());
 
         } else if (v.getId() == R.id.rl_level) {
             showLevelPop();
@@ -141,9 +141,10 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
     @Override
     public void matchStartSuccess(CreateRoomModel matchStartModel) {
         Intent intent = new Intent(this, BattleDetailActivity.class);
+        intent.putExtra("num", ed_num.getText().toString());
         intent.putExtra("roomId", matchStartModel.getData());
         startActivity(intent);
-
+        finish();
     }
 
     @Override
