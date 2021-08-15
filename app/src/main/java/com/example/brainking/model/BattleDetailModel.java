@@ -1,16 +1,16 @@
 package com.example.brainking.model;
 
-import java.io.Serializable;
-
-public class BattleNormalModel implements Serializable {
+public class BattleDetailModel {
     private String name;
     private String img;
+    private String totalScore;
     private String userId;
 
-    public BattleNormalModel(String name, String img, String userId) {
+    public BattleDetailModel(String name, String img, String totalScore, String userId) {
         this.name = name;
         this.img = img;
         this.userId = userId;
+        this.totalScore = totalScore;
     }
 
     public String getUserId() {
@@ -35,5 +35,13 @@ public class BattleNormalModel implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(String totalScore) {
+        this.totalScore = totalScore;
     }
 }

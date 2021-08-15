@@ -1,29 +1,27 @@
 package com.example.brainking.battle.battledetail;
 
-
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
-import com.example.brainking.adapter.BattleDetaliAdapter;
+import com.example.brainking.adapter.BattleDetailAdapter;
 import com.example.brainking.base.BrainActivity;
-import com.example.brainking.battle.battle.BattlePresenter;
 import com.example.brainking.events.MatchStartEvent;
+import com.example.brainking.model.BattleDetailModel;
 import com.example.brainking.model.BattleNormalModel;
-import com.example.brainking.mqttmodel.MqttBattleDetailModel;
-import com.example.brainking.util.SpUtils;
+import com.example.brainking.model.MatchAnswerModel;
+import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
+import com.example.brainking.mqttmodel.MqttOptionModel;
+import com.example.brainking.mqttmodel.MqttReadyModel;
+import com.example.brainking.mqttmodel.MqttResultModel;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -37,6 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//多人对战答题
 public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> implements BattleDetailView, View.OnClickListener {
 
     @BindView(R.id.view)
@@ -45,26 +44,33 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     RelativeLayout rl_back;
     @BindView(R.id.rc)
     RecyclerView rc;
-    @BindView(R.id.tv_start)
-    TextView tv_start;
+    @BindView(R.id.tv_finish)
+    TextView tv_finish;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.ll_answer)
+    LinearLayout ll_answer;
+    @BindView(R.id.tv_answer_1)
+    TextView tv_answer_1;
+    @BindView(R.id.tv_answer_2)
+    TextView tv_answer_2;
+    @BindView(R.id.tv_answer_3)
+    TextView tv_answer_3;
+    @BindView(R.id.tv_answer_4)
+    TextView tv_answer_4;
+
+    private List<BattleNormalModel> normalModels = new ArrayList<>();
+    private List<BattleDetailModel> mList = new ArrayList<>();
 
 
-    private BattleDetaliAdapter mAdapter;
+    private BattleDetailAdapter mAdapter;
+
+    private String mAnswer_1;
+    private String mAnswer_2;
+    private String mAnswer_3;
+    private String mAnswer_4;
+
     private String mRoomId;
-    private String mNum;
-
-    private List<BattleNormalModel> mNormalList = new ArrayList<>();
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case 1:
-                    mAdapter.addData(mNormalList);
-                    break;
-                default:
-            }
-        }
-    };
 
     @Override
     protected BattleDetailPresenter createPresenter() {
@@ -77,71 +83,136 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
         setContentView(R.layout.activity_battle_detail);
         EventBus.getDefault().register(this);
 
-        mRoomId = getIntent().getStringExtra("roomId");
-        mNum = getIntent().getStringExtra("num");
-
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
 
-        rl_back.setOnClickListener(this);
-        tv_start.setOnClickListener(this);
+        normalModels = (List<BattleNormalModel>) getIntent().getSerializableExtra("list");
+        mRoomId = getIntent().getStringExtra("roomId");
 
 
-        mNormalList.add(new BattleNormalModel(SpUtils.getInstance().getString("name"), SpUtils.getInstance().getString("headImg")));
-        mAdapter = new BattleDetaliAdapter();
+        for (int i = 0; i < normalModels.size(); i++) {
+            BattleDetailModel model = new BattleDetailModel(normalModels.get(i).getName(), normalModels.get(i).getImg(), "0", normalModels.get(i).getUserId());
+            mList.add(model);
+        }
+
+        mAdapter = new BattleDetailAdapter();
         GridLayoutManager manager = new GridLayoutManager(this, 5);
         manager.setOrientation(RecyclerView.VERTICAL);
         rc.setLayoutManager(manager);
         rc.setAdapter(mAdapter);
-        mAdapter.setNewData(mNormalList);
+        mAdapter.setNewData(mList);
 
 
-        MyMqttService.startService(this);
+        tv_finish.setOnClickListener(this);
+        tv_answer_1.setOnClickListener(this);
+        tv_answer_2.setOnClickListener(this);
+        tv_answer_3.setOnClickListener(this);
+        tv_answer_4.setOnClickListener(this);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getInfo(MatchStartEvent event) {
+
+
+        if ("FinalResult".equals(new Gson().fromJson(event.getMsg(), MqttResultModel.class).getType())) {
+            tv_title.setVisibility(View.INVISIBLE);
+            ll_answer.setVisibility(View.INVISIBLE);
+            tv_finish.setVisibility(View.VISIBLE);
+        }
+        if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
+            MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
+            tv_title.setText(model.getTitle());
+            tv_answer_1.setText(model.getOption().get(0).getContent());
+            tv_answer_2.setText(model.getOption().get(1).getContent());
+            tv_answer_3.setText(model.getOption().get(2).getContent());
+            tv_answer_4.setText(model.getOption().get(3).getContent());
+
+            mAnswer_1 = model.getOption().get(0).getId();
+            mAnswer_2 = model.getOption().get(1).getId();
+            mAnswer_3 = model.getOption().get(2).getId();
+            mAnswer_4 = model.getOption().get(3).getId();
+
+            tv_answer_1.setClickable(true);
+            tv_answer_2.setClickable(true);
+            tv_answer_3.setClickable(true);
+            tv_answer_4.setClickable(true);
+
+            tv_answer_1.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+            tv_answer_2.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+            tv_answer_3.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+            tv_answer_4.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        }
+
+        if ("AnswerNotice".equals(new Gson().fromJson(event.getMsg(), MqttAnswerNoticeModel.class).getType())) {
+            MqttAnswerNoticeModel model = new Gson().fromJson(event.getMsg(), MqttAnswerNoticeModel.class);
+            for (int i = 0; i < mList.size(); i++) {
+                if (model.getUserId().equals(mList.get(i).getUserId())) {
+                    BattleDetailModel model1 = mList.get(i);
+                    model1.setTotalScore(model.getTotalScore());
+                    mList.set(i, model1);
+                    mAdapter.setNewData(mList);
+                }
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_back:
+            case R.id.tv_finish:
                 finish();
                 break;
-            case R.id.tv_start:
-                createPresenter().multiReady(mRoomId);
+            case R.id.tv_answer_1:
+                tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                basePresenter.matchAnswer(mAnswer_1, mRoomId);
+
+                tv_answer_1.setClickable(false);
+                tv_answer_2.setClickable(false);
+                tv_answer_3.setClickable(false);
+                tv_answer_4.setClickable(false);
+                break;
+            case R.id.tv_answer_2:
+                tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                basePresenter.matchAnswer(mAnswer_2, mRoomId);
+                tv_answer_1.setClickable(false);
+                tv_answer_2.setClickable(false);
+                tv_answer_3.setClickable(false);
+                tv_answer_4.setClickable(false);
+                break;
+            case R.id.tv_answer_3:
+                tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                basePresenter.matchAnswer(mAnswer_3, mRoomId);
+                tv_answer_1.setClickable(false);
+                tv_answer_2.setClickable(false);
+                tv_answer_3.setClickable(false);
+                tv_answer_4.setClickable(false);
+                break;
+            case R.id.tv_answer_4:
+                tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                basePresenter.matchAnswer(mAnswer_4, mRoomId);
+                tv_answer_1.setClickable(false);
+                tv_answer_2.setClickable(false);
+                tv_answer_3.setClickable(false);
+                tv_answer_4.setClickable(false);
                 break;
             default:
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void battleDetail(MatchStartEvent event) {
-        String str = event.getMsg();
-
-        MqttBattleDetailModel model = new Gson().fromJson(str, MqttBattleDetailModel.class);
-        Log.d("x2", "解析的数据===" + model.toString());
-        if ("JoinRoom".equals(model.getType())) {
-            mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar()));
-            mAdapter.setNewData(mNormalList);
-        }
-        Log.d("x3", "ListSize===" + mNormalList.toString());
-
-    }
-
     @Override
     protected void onDestroy() {
+        MyMqttService.stopService(this);
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        if (mHandler != null) {
-            mHandler.removeCallbacksAndMessages(null);
-        }
     }
 
     @Override
-    public void multiReadySuccess() {
-        Log.d("xuwudi", "多人对战开始");
+    public void matchAnswerSuccess(MatchAnswerModel matchAnswerModel) {
+
     }
 
     @Override
-    public void multiReadyFail(String msg) {
-        Log.d("xuwudi", "多人对战失败"+msg);
+    public void fail(String err) {
+
     }
 }

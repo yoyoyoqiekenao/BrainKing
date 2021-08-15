@@ -7,27 +7,27 @@ import java.util.List;
 public class MqttResultModel {
 
     @SerializedName("addScore")
-    private Integer addScore;
+    public String addScore;
     @SerializedName("multiplayer")
-    private Boolean multiplayer;
+    public Boolean multiplayer;
     @SerializedName("resultType")
-    private String resultType;
+    public String resultType;
     @SerializedName("type")
-    private String type;
+    public String type;
     @SerializedName("userId")
-    private Integer userId;
+    public String userId;
     @SerializedName("player")
-    private List<PlayerDTO> player;
+    public List<PlayerDTO> player;
 
-    public Integer getAddScore() {
+    public String getAddScore() {
         return addScore;
     }
 
-    public void setAddScore(Integer addScore) {
+    public void setAddScore(String addScore) {
         this.addScore = addScore;
     }
 
-    public Boolean isMultiplayer() {
+    public Boolean getMultiplayer() {
         return multiplayer;
     }
 
@@ -51,11 +51,11 @@ public class MqttResultModel {
         this.type = type;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -67,13 +67,25 @@ public class MqttResultModel {
         this.player = player;
     }
 
+    @Override
+    public String toString() {
+        return "MqttResultModel{" +
+                "addScore=" + addScore +
+                ", multiplayer=" + multiplayer +
+                ", resultType='" + resultType + '\'' +
+                ", type='" + type + '\'' +
+                ", userId=" + userId +
+                ", player=" + player +
+                '}';
+    }
+
     public static class PlayerDTO {
         @SerializedName("avatar")
-        private String avatar;
+        public String avatar;
         @SerializedName("name")
-        private String name;
+        public String name;
         @SerializedName("score")
-        private Integer score;
+        public String score;
 
         public String getAvatar() {
             return avatar;
@@ -91,12 +103,21 @@ public class MqttResultModel {
             this.name = name;
         }
 
-        public Integer getScore() {
+        public String getScore() {
             return score;
         }
 
-        public void setScore(Integer score) {
+        public void setScore(String score) {
             this.score = score;
+        }
+
+        @Override
+        public String toString() {
+            return "PlayerDTO{" +
+                    "avatar='" + avatar + '\'' +
+                    ", name='" + name + '\'' +
+                    ", score=" + score +
+                    '}';
         }
     }
 }

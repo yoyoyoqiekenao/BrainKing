@@ -101,6 +101,9 @@
             android:name=".match.match_battle.MatchBattleActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".battle.battleready.BattleReadyActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".battle.battledetail.BattleDetailActivity"
             android:screenOrientation="portrait"></activity>
 

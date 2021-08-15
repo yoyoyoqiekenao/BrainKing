@@ -7,20 +7,31 @@ import java.util.List;
 //题库
 public class MqttOptionModel {
 
+    @SerializedName("id")
+    public String id;
+    @SerializedName("quType")
+    public String quType;
     @SerializedName("title")
-    private String title;
+    public String title;
     @SerializedName("type")
-    private String type;
+    public String type;
     @SerializedName("option")
-    private List<OptionDTO> option;
+    public List<OptionDTO> option;
 
-    @Override
-    public String toString() {
-        return "MqttOptionModel{" +
-                "title='" + title + '\'' +
-                ", type='" + type + '\'' +
-                ", option=" + option +
-                '}';
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getQuType() {
+        return quType;
+    }
+
+    public void setQuType(String quType) {
+        this.quType = quType;
     }
 
     public String getTitle() {
@@ -49,19 +60,18 @@ public class MqttOptionModel {
 
     public static class OptionDTO {
         @SerializedName("content")
-        private String content;
-        @SerializedName("isRight")
-        private Boolean isRight;
+        public String content;
         @SerializedName("id")
-        private String id;
+        public String id;
+        @SerializedName("isRight")
+        public Boolean isRight;
 
-        @Override
-        public String toString() {
-            return "OptionDTO{" +
-                    "content='" + content + '\'' +
-                    ", isRight=" + isRight +
-                    ", id='" + id + '\'' +
-                    '}';
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
 
         public String getId() {
@@ -72,20 +82,12 @@ public class MqttOptionModel {
             this.id = id;
         }
 
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public Boolean isIsRight() {
+        public Boolean getRight() {
             return isRight;
         }
 
-        public void setIsRight(Boolean isRight) {
-            this.isRight = isRight;
+        public void setRight(Boolean right) {
+            isRight = right;
         }
     }
 }

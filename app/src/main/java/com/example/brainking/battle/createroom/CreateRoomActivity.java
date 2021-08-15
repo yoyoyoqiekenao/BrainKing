@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.lifecycle.Observer;
-
-import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
-import com.example.brainking.battle.battledetail.BattleDetailActivity;
-import com.example.brainking.events.MatchStartEvent;
+import com.example.brainking.battle.battleready.BattleReadyActivity;
 import com.example.brainking.model.CreateRoomModel;
-import com.example.brainking.model.MatchStartModel;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -93,6 +87,10 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
                 Toast.makeText(this, "请选择等级", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (Integer.valueOf(ed_num.getText().toString()) > 6 || Integer.valueOf(ed_num.getText().toString()) < 2) {
+                Toast.makeText(this, "房间人数在2-6人", Toast.LENGTH_SHORT).show();
+                return;
+            }
             createPresenter().createBattleRoom(mLevel, ed_num.getText().toString(), ed_roomname.getText().toString());
 
         } else if (v.getId() == R.id.rl_level) {
@@ -140,7 +138,7 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
 
     @Override
     public void matchStartSuccess(CreateRoomModel matchStartModel) {
-        Intent intent = new Intent(this, BattleDetailActivity.class);
+        Intent intent = new Intent(this, BattleReadyActivity.class);
         intent.putExtra("num", ed_num.getText().toString());
         intent.putExtra("roomId", matchStartModel.getData());
         startActivity(intent);

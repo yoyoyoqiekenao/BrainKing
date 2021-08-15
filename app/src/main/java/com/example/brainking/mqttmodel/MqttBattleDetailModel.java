@@ -2,7 +2,7 @@ package com.example.brainking.mqttmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MqttBattleDetailModel  {
+public class MqttBattleDetailModel {
 
     @SerializedName("joinUser")
     public JoinUserDTO joinUser;
@@ -45,9 +45,9 @@ public class MqttBattleDetailModel  {
         @SerializedName("prepare")
         public Boolean prepare;
         @SerializedName("score")
-        public Integer score;
+        public String score;
         @SerializedName("userId")
-        public Long userId;
+        public String userId;
 
         public String getAvatar() {
             return avatar;
@@ -81,19 +81,19 @@ public class MqttBattleDetailModel  {
             this.prepare = prepare;
         }
 
-        public Integer getScore() {
+        public String getScore() {
             return score;
         }
 
-        public void setScore(Integer score) {
+        public void setScore(String score) {
             this.score = score;
         }
 
-        public Long getUserId() {
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(Long userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
     }
