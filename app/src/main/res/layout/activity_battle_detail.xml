@@ -57,10 +57,10 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_title"
+        android:layout_below="@id/rc"
         android:layout_gravity="center"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="21dp"
         android:gravity="center"
         android:textColor="@color/white"
@@ -142,4 +142,13 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:visibility="gone"></TextView>
+
+    <ImageView
+        android:id="@+id/iv_result"
+        android:layout_width="205dp"
+        android:layout_height="178dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="220dp"
+        android:visibility="gone"></ImageView>
 </RelativeLayout>

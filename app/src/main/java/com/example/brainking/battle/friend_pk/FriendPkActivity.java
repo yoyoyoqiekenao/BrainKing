@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BaseActivity;
@@ -25,6 +26,8 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
     View mView;
     @BindView(R.id.iv_create)
     ImageView iv_create;
+    @BindView(R.id.rl_back)
+    RelativeLayout rl_back;
 
     private WebSocketSetting mSetting;
     private WebSocketManager mManager;
@@ -47,6 +50,7 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
         ImmersionBar.with(this).statusBarView(mView).init();
 
         iv_create.setOnClickListener(this);
+        rl_back.setOnClickListener(this);
 
 
     }
@@ -56,6 +60,8 @@ public class FriendPkActivity extends BrainActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.iv_create) {
             startActivity(new Intent(this, CreateRoomActivity.class));
+        } else if (view.getId() == R.id.rl_back) {
+            finish();
         }
     }
 

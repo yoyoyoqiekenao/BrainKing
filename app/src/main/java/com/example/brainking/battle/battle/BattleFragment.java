@@ -22,6 +22,12 @@ import com.example.brainking.base.BrainFragment;
 import com.example.brainking.battle.friend_pk.FriendPkActivity;
 import com.example.brainking.model.BattleListModel;
 import com.gyf.immersionbar.ImmersionBar;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,8 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
     RecyclerView rc_battle;
     @BindView(R.id.iv_create)
     ImageView iv_create;
+    @BindView(R.id.smartLayout)
+    SmartRefreshLayout smartLayout;
 
     private BattleAdapter mAdapter;
 
@@ -76,6 +84,15 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
         });
 
 
+        smartLayout.setEnableLoadMore(false);
+        smartLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        smartLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull @NotNull RefreshLayout refreshLayout) {
+                smartLayout.finishRefresh(2000);
+                createPresenter().getBattleList();
+            }
+        });
     }
 
 
@@ -102,6 +119,7 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
 
     @Override
     public void getBattleListSuccess(BattleListModel model) {
+
         mAdapter.setNewData(model.getData());
     }
 

@@ -10,30 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"></View>
 
-    <RelativeLayout
-        android:id="@+id/rl_title"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/smartLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/view">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="对战大厅"
-            android:textColor="@color/color_ffffff"
-            android:textSize="18dp"></TextView>
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_battle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/rl_title"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginRight="16dp"></androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="对战大厅"
+                    android:textColor="@color/color_ffffff"
+                    android:textSize="18dp"></TextView>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_battle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/rl_title"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"></androidx.recyclerview.widget.RecyclerView>
+
+
+        </RelativeLayout>
+
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <ImageView
         android:id="@+id/iv_create"
@@ -44,4 +58,5 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="100dp"
         android:src="@mipmap/iv_pk"></ImageView>
+
 </RelativeLayout>

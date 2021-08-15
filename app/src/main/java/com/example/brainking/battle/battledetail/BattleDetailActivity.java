@@ -3,6 +3,7 @@ package com.example.brainking.battle.battledetail;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     TextView tv_answer_3;
     @BindView(R.id.tv_answer_4)
     TextView tv_answer_4;
+    @BindView(R.id.iv_result)
+    ImageView iv_result;
 
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
@@ -108,6 +111,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
         tv_answer_2.setOnClickListener(this);
         tv_answer_3.setOnClickListener(this);
         tv_answer_4.setOnClickListener(this);
+        rl_back.setOnClickListener(this);
     }
 
 
@@ -119,6 +123,13 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             tv_title.setVisibility(View.INVISIBLE);
             ll_answer.setVisibility(View.INVISIBLE);
             tv_finish.setVisibility(View.VISIBLE);
+            iv_result.setVisibility(View.VISIBLE);
+            MqttResultModel model = new Gson().fromJson(event.getMsg(), MqttResultModel.class);
+            if ("win".equals(model.getResultType())) {
+                iv_result.setImageResource(R.mipmap.iv_win);
+            } else {
+                iv_result.setImageResource(R.mipmap.iv_lose);
+            }
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
             MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
@@ -195,6 +206,9 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                 tv_answer_2.setClickable(false);
                 tv_answer_3.setClickable(false);
                 tv_answer_4.setClickable(false);
+                break;
+            case R.id.rl_back:
+                finish();
                 break;
             default:
         }
