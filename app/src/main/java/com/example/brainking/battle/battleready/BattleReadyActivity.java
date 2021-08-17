@@ -99,7 +99,7 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
         mAdapter.setNewData(mNormalList);
 
 
-        MyMqttService.startService(this);
+        MyMqttService.startService(this,SpUtils.getInstance().getString("userId"));
     }
 
     @Override
