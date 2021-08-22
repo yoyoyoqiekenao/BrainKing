@@ -23,6 +23,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
             public void onSuccess(UserInfoModel model) {
                 if (200 == model.getCode()) {
                     baseView.getUserInfoSuccess(model);
+                } else if (401 == model.getCode()) {
+                    baseView.goReLogin();
                 } else {
                     baseView.getUserInfoFail(model.getMsg());
                 }

@@ -18,4 +18,6 @@ public interface HomeView extends BaseView {
     void getUserInfoSuccess(UserInfoModel model);
 
     void getUserInfoFail(String msg);
+
+    void goReLogin();
 }

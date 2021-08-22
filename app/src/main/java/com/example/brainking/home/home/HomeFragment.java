@@ -31,6 +31,7 @@ import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.mathdetail.MathDetailActivity;
 import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.home.search.SearchActivity;
+import com.example.brainking.login.LoginActivity;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.util.SpUtils;
@@ -163,6 +164,13 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     @Override
     public void getUserInfoFail(String msg) {
 
+    }
+
+    @Override
+    public void goReLogin() {
+        SpUtils.getInstance().clear();
+        startActivity(new Intent(getContext(), LoginActivity.class));
+        getActivity().finish();
     }
 
 
