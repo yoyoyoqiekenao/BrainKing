@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +20,11 @@ import com.example.brainking.adapter.BattleAdapter;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
+
 import com.example.brainking.battle.friend_pk.FriendPkActivity;
+import com.example.brainking.battle.joinroom.JoinRoomActivity;
 import com.example.brainking.model.BattleListModel;
+import com.example.brainking.model.JoinRoomModel;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -29,6 +33,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +55,8 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
     SmartRefreshLayout smartLayout;
 
     private BattleAdapter mAdapter;
+    private String mRoomId;
+    private List<JoinRoomModel.DataDTO> mList = new ArrayList<>();
 
 
     @Nullable
@@ -73,15 +80,6 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
         rc_battle.setAdapter(mAdapter);
 
         iv_create.setOnClickListener(this);
-
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.tv_pk) {
-
-                }
-            }
-        });
 
 
         smartLayout.setEnableLoadMore(false);
@@ -120,12 +118,34 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
     @Override
     public void getBattleListSuccess(BattleListModel model) {
 
-        mAdapter.setNewData(model.getData());
+        mAdapter.setList(model.getData());
+
+
+        mAdapter.addChildClickViewIds(R.id.tv_pk);
+        mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_pk) {
+                    mRoomId = model.getData().get(position).getRoomID();
+                    createPresenter().joinRoom(model.getData().get(position).getRoomID());
+                }
+            }
+        });
     }
 
     @Override
     public void Failed(String msg) {
+        Toast.makeText(getContext(), msg + "", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void joinRoomSuccess(JoinRoomModel model) {
+        mList.clear();
+        mList.addAll(model.getData());
+        Intent intent = new Intent(getContext(), JoinRoomActivity.class);
+        intent.putExtra("list", (Serializable) mList);
+        intent.putExtra("roomId", mRoomId);
+        startActivity(intent);
     }
 
     @Override

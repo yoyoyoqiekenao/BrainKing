@@ -71,7 +71,7 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
     @Override
     public void getLearnListSuccess(LearnListModel model) {
 
-        mAdapter_poems.setNewData(model.getData());
+        mAdapter_poems.setList(model.getData());
         mAdapter_poems.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

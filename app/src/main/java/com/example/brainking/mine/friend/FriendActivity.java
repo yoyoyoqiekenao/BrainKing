@@ -65,7 +65,7 @@ public class FriendActivity extends BrainActivity implements View.OnClickListene
         mList.add("");
         mList.add("");
 
-        mAdapter.setNewData(mList);
+        mAdapter.setList(mList);
 
     }
 

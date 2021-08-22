@@ -178,7 +178,6 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
     @Override
     public void matchExitSuccess(MatchStartModel model) {
-        MyMqttService.stopService(this);
         //Toast.makeText(this, "退出房间", Toast.LENGTH_SHORT).show();
 
     }

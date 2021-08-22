@@ -90,7 +90,7 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
     @Override
     public void getMessageListSuccess(MessageListModel messageListModel) {
         Log.d("xuwudi", "获取信息列表成功");
-        mAdapter.setNewData(messageListModel.getData());
+        mAdapter.setList(messageListModel.getData());
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

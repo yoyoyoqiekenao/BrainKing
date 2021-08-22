@@ -39,19 +39,19 @@ public class BattleListModel {
 
     public static class DataDTO {
         @SerializedName("roomID")
-        public Long roomID;
+        public String roomID;
         @SerializedName("roomName")
         public String roomName;
         @SerializedName("avatar")
         public String avatar;
         @SerializedName("defficultLevel")
-        public Integer defficultLevel;
+        public String defficultLevel;
 
-        public Long getRoomID() {
+        public String getRoomID() {
             return roomID;
         }
 
-        public void setRoomID(Long roomID) {
+        public void setRoomID(String roomID) {
             this.roomID = roomID;
         }
 
@@ -71,11 +71,11 @@ public class BattleListModel {
             this.avatar = avatar;
         }
 
-        public Integer getDefficultLevel() {
+        public String getDefficultLevel() {
             return defficultLevel;
         }
 
-        public void setDefficultLevel(Integer defficultLevel) {
+        public void setDefficultLevel(String defficultLevel) {
             this.defficultLevel = defficultLevel;
         }
     }

@@ -59,7 +59,7 @@ public class TimeTeamActivity extends BrainActivity implements View.OnClickListe
         mList.add("");
         mList.add("");
         mList.add("");
-        mAdapter.setNewData(mList);
+        mAdapter.setList(mList);
 
         mRlBack.setOnClickListener(this);
     }

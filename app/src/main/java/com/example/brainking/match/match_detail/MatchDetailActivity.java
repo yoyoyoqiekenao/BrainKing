@@ -89,7 +89,6 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
         EventBus.getDefault().register(this);
 
-        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"));
 
 
         rlBack.setOnClickListener(this);

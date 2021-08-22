@@ -123,7 +123,7 @@ public class NewDetailActivity extends BrainActivity<NewDetailPresenter> impleme
 
         mList.clear();
         mList.addAll(model.getData());
-        mAdapter.setNewData(mList);
+        mAdapter.setList(mList);
         //rvMessage.scrollToPosition(mList.size() - 1);
     }
 

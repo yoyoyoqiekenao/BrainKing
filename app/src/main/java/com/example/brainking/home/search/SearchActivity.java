@@ -92,7 +92,7 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
     public void searchSuccess(SearchModel model) {
         rvSearch.setVisibility(View.VISIBLE);
 
-        mAdapter.setNewData(model.getData());
+        mAdapter.setList(model.getData());
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

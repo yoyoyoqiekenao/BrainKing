@@ -103,7 +103,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
         manager.setOrientation(RecyclerView.VERTICAL);
         rc.setLayoutManager(manager);
         rc.setAdapter(mAdapter);
-        mAdapter.setNewData(mList);
+        mAdapter.setList(mList);
 
 
         tv_finish.setOnClickListener(this);
@@ -162,7 +162,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                     BattleDetailModel model1 = mList.get(i);
                     model1.setTotalScore(model.getTotalScore());
                     mList.set(i, model1);
-                    mAdapter.setNewData(mList);
+                    mAdapter.setList(mList);
                 }
             }
         }
@@ -216,7 +216,6 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
     @Override
     protected void onDestroy() {
-        MyMqttService.stopService(this);
         super.onDestroy();
     }
 

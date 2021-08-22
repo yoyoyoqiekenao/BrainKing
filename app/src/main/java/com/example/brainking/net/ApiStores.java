@@ -7,8 +7,10 @@ import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
+import com.example.brainking.model.CancelRoomModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.model.JoinRoomModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.MatchAnswerModel;
@@ -42,9 +44,9 @@ import retrofit2.http.QueryMap;
  */
 public interface ApiStores {
 
-    public static final String BASE_URL = "http://42.192.234.149:8080/";
+    //public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    //public static final String BASE_URL = "http://192.168.16.21:8080/";
+    public static final String BASE_URL = "http://192.168.1.104:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
@@ -225,5 +227,19 @@ public interface ApiStores {
     @GET("match/multi/ready")
     Observable<CreateRoomModel> multiReady(@Query("roomId") String roomId);
 
+    /**
+     * 加入对战房间
+     *
+     * @param roomId
+     * @return
+     */
+    @GET("match/join")
+    Observable<JoinRoomModel> joinRoom(@Query("roomId") String roomId);
+
+    /**
+     * 销毁房间
+     */
+    @GET("match/cancelRoom")
+    Observable<CancelRoomModel> cancelRoom(@Query("roomId") String roomId);
 }
 
