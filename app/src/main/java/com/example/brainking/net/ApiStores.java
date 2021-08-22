@@ -10,6 +10,7 @@ import com.example.brainking.model.BattleListModel;
 import com.example.brainking.model.CancelRoomModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.model.FriendListModel;
 import com.example.brainking.model.JoinRoomModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
@@ -27,15 +28,9 @@ import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * @author : 徐无敌
@@ -241,5 +236,15 @@ public interface ApiStores {
      */
     @GET("match/cancelRoom")
     Observable<CancelRoomModel> cancelRoom(@Query("roomId") String roomId);
+
+    /**
+     * 好友列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("friend/list")
+    Observable<FriendListModel> getFriendList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
 }
 

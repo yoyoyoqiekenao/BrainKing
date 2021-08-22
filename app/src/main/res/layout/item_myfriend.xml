@@ -27,15 +27,15 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="鲁班"
+                android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="14dp"></TextView>
 
             <TextView
-                android:id="@+id/tv_sign"
+                android:id="@+id/tv_remark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不服来战"
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="12dp"></TextView>
         </LinearLayout>

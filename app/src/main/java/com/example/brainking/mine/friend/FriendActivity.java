@@ -3,6 +3,7 @@ package com.example.brainking.mine.friend;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.example.brainking.adapter.MyFriendAdapter;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.model.FriendListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * 好友列表
  */
-public class FriendActivity extends BrainActivity implements View.OnClickListener {
+public class FriendActivity extends BrainActivity<FriendPresenter> implements FriendView, View.OnClickListener {
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rl_back)
@@ -33,10 +35,6 @@ public class FriendActivity extends BrainActivity implements View.OnClickListene
 
     private MyFriendAdapter mAdapter;
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,10 @@ public class FriendActivity extends BrainActivity implements View.OnClickListene
         initView();
     }
 
-
+    @Override
+    protected FriendPresenter createPresenter() {
+        return new FriendPresenter(this);
+    }
 
 
     protected void initView() {
@@ -60,15 +61,12 @@ public class FriendActivity extends BrainActivity implements View.OnClickListene
         rc_friend.setLayoutManager(manager);
         rc_friend.setAdapter(mAdapter);
 
-        List<String> mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
+        createPresenter().getFriendList();
 
-        mAdapter.setList(mList);
+
+
 
     }
-
 
 
     @Override
@@ -76,5 +74,15 @@ public class FriendActivity extends BrainActivity implements View.OnClickListene
         if (view.getId() == R.id.rl_back) {
             finish();
         }
+    }
+
+    @Override
+    public void getFriendListSuccess(FriendListModel model) {
+        mAdapter.setList(model.getRows());
+    }
+
+    @Override
+    public void fail(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
