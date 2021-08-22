@@ -16,11 +16,14 @@ import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.friend.FriendActivity;
+import com.example.brainking.mine.playabout.PlayAboutActivity;
 import com.example.brainking.mine.record.RecordActivity;
 import com.example.brainking.mine.timeteam.TimeTeamActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 public class MineFragment extends BrainFragment implements View.OnClickListener {
 
@@ -32,12 +35,13 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
     RelativeLayout rl_timeTeam;
     @BindView(R.id.rl_about)
     RelativeLayout rl_about;
+    @BindView(R.id.rl_play_about)
+    RelativeLayout rl_play_about;
 
     @Override
     protected BasePresenter createPresenter() {
         return null;
     }
-
 
 
     @Nullable
@@ -57,8 +61,8 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
         rl_record.setOnClickListener(this);
         rl_timeTeam.setOnClickListener(this);
         rl_about.setOnClickListener(this);
+        rl_play_about.setOnClickListener(this);
     }
-
 
 
     @Override
@@ -71,6 +75,8 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
             startActivity(new Intent(getContext(), TimeTeamActivity.class));
         } else if (view.getId() == R.id.rl_about) {
             startActivity(new Intent(getContext(), AboutActivity.class));
+        } else if (view.getId() == R.id.rl_play_about) {
+            startActivity(new Intent(getContext(), PlayAboutActivity.class));
         }
     }
 }
