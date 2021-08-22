@@ -48,8 +48,6 @@ public class MatchBattlePresenter extends BasePresenter<MatchBattleView> {
 
     public void matchExit(String roomId) {
         addSubscription(apiStores.matchExit(roomId), new ApiCallback<MatchStartModel>() {
-
-
             @Override
             public void onSuccess(MatchStartModel model) {
                 if (200 == model.getCode()) {
