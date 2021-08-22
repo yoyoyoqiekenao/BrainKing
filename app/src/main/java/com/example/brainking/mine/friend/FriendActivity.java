@@ -1,8 +1,10 @@
 package com.example.brainking.mine.friend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import com.example.brainking.adapter.MyFriendAdapter;
 import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.mine.friendapply.FriendApplyActivity;
 import com.example.brainking.model.FriendListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -32,6 +35,8 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
     RelativeLayout mRlBack;
     @BindView(R.id.rc_friend)
     RecyclerView rc_friend;
+    @BindView(R.id.tv_apply)
+    TextView tv_apply;
 
     private MyFriendAdapter mAdapter;
 
@@ -61,10 +66,8 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
         rc_friend.setLayoutManager(manager);
         rc_friend.setAdapter(mAdapter);
 
-        createPresenter().getFriendList();
 
-
-
+        tv_apply.setOnClickListener(this);
 
     }
 
@@ -73,6 +76,8 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
     public void onClick(View view) {
         if (view.getId() == R.id.rl_back) {
             finish();
+        } else if (view.getId() == R.id.tv_apply) {
+            startActivity(new Intent(this, FriendApplyActivity.class));
         }
     }
 
@@ -83,6 +88,12 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
 
     @Override
     public void fail(String msg) {
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createPresenter().getFriendList();
     }
 }

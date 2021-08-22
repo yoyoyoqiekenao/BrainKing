@@ -109,6 +109,9 @@
         <activity
             android:name=".battle.joinroom.JoinRoomActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.friendapply.FriendApplyActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" /> <!--MqttService-->
         <service android:name=".MyMqttService"></service>

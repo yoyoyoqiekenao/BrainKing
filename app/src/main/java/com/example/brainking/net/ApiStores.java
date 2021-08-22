@@ -2,6 +2,7 @@ package com.example.brainking.net;
 
 import com.example.brainking.json.CollectJson;
 import com.example.brainking.json.CreateBattleRoomJson;
+import com.example.brainking.json.Friend_Pass_refuse_Json;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.SendMsgJson;
@@ -11,6 +12,7 @@ import com.example.brainking.model.CancelRoomModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
 import com.example.brainking.model.FriendListModel;
+import com.example.brainking.model.Friend_Pass_refuse_Model;
 import com.example.brainking.model.JoinRoomModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
@@ -246,5 +248,31 @@ public interface ApiStores {
      */
     @GET("friend/list")
     Observable<FriendListModel> getFriendList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 好友申请列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("friend/checkApply")
+    Observable<FriendListModel> getFriendApplyList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 通过申请
+     *
+     * @return
+     */
+    @POST("friend/passAdd")
+    Observable<Friend_Pass_refuse_Model> passAdd(@Body Friend_Pass_refuse_Json json);
+
+    /**
+     * 通过申请
+     *
+     * @return
+     */
+    @POST("friend/refuseApply")
+    Observable<Friend_Pass_refuse_Model> passRefuse(@Body Friend_Pass_refuse_Json json);
 }
 
