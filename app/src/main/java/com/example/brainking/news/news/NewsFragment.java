@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.MessageListAdapter;
 import com.example.brainking.base.BaseFragment;
@@ -90,7 +91,7 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
     public void getMessageListSuccess(MessageListModel messageListModel) {
         Log.d("xuwudi", "获取信息列表成功");
         mAdapter.setNewData(messageListModel.getData());
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getContext(), NewDetailActivity.class);

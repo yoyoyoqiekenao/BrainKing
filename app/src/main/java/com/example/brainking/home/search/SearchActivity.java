@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.SearchAdapter;
 import com.example.brainking.base.BrainActivity;
@@ -92,7 +93,7 @@ public class SearchActivity extends BrainActivity<SearchPresenter> implements Se
         rvSearch.setVisibility(View.VISIBLE);
 
         mAdapter.setNewData(model.getData());
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(SearchActivity.this, SearchPoemDetailActivity.class);

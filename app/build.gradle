@@ -72,7 +72,7 @@ dependencies {
     //导航栏
     implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
 
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
     //Kotlin
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

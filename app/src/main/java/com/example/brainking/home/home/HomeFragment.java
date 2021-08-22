@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_math;
 import com.example.brainking.base.BrainFragment;
@@ -126,7 +127,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(mAdapter_match);
 
-        mAdapter_match.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter_match.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mPop.dismiss();
