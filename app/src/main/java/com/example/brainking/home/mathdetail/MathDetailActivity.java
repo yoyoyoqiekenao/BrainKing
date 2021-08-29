@@ -1,12 +1,17 @@
 package com.example.brainking.home.mathdetail;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
@@ -104,6 +109,10 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
     @BindView(R.id.tv_next)
     TextView tvNext;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
+    @BindView(R.id.iv_isCollect)
+    ImageView iv_isCollect;
 
     //是否隐藏解析
     private boolean isHide = true;
@@ -137,7 +146,32 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     //填空题答案
     private String mCompletionAnswer;
     //填空题自己选的答案
-    private String mCompletionAnswer_;
+    private String mCompletionAnswer_ = "";
+
+    private int mTime = 180;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    if (mTime > 0) {
+                        tv_time.setText(mTime + "s");
+                        mTime--;
+                        mHandler.sendEmptyMessageDelayed(1, 1000);
+                    } else if (mTime == 0) {
+                        Toast.makeText(MathDetailActivity.this, "您已超时", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 2:
+                    mTime = 180;
+                    mHandler.sendEmptyMessageDelayed(1, 1000);
+                    break;
+                default:
+            }
+
+        }
+    };
 
 
     @Override
@@ -164,6 +198,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @Override
     public void getMathDetailSuccess(MathDetailModel model) {
 
+        mHandler.sendEmptyMessage(2);
         //每次刷新数据的时候都隐藏解析
         isHide = false;
         tv_analysis.setVisibility(View.GONE);
@@ -251,6 +286,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
         tv9.setOnClickListener(this);
         tv_point.setOnClickListener(this);
         rl_delete.setOnClickListener(this);
+        iv_isCollect.setOnClickListener(this);
 
         mCompletionAnswer = model.getData().getAnswer().getAnswer();
         tv_title_completion.setText(model.getData().getTitle());
@@ -260,6 +296,16 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
     @Override
     public void getMathDetailFail(String msg) {
+
+    }
+
+    @Override
+    public void collectSuccess() {
+
+    }
+
+    @Override
+    public void collectFail(String err) {
 
     }
 
@@ -287,8 +333,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_0) {
-            tv_answer_completion.setText("0");
-            mCompletionAnswer_ = "0";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "0";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* //首位不能是0
             if (completionList.size() > 0 && completionList.get(0).equals("0")) {
 
@@ -307,8 +354,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }*/
 
         } else if (v.getId() == R.id.tv_1) {
-            tv_answer_completion.setText("1");
-            mCompletionAnswer_ = "1";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "1";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("1");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -320,8 +368,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_2) {
-            tv_answer_completion.setText("2");
-            mCompletionAnswer_ = "2";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "2";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("2");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -333,8 +382,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_3) {
-            tv_answer_completion.setText("3");
-            mCompletionAnswer_ = "3";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "3";
+            tv_answer_completion.setText(mCompletionAnswer_);
             /*completionList.add("3");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -346,8 +396,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_4) {
-            tv_answer_completion.setText("4");
-            mCompletionAnswer_ = "4";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "4";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("4");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -359,8 +410,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_5) {
-            tv_answer_completion.setText("5");
-            mCompletionAnswer_ = "5";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "5";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("5");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -372,8 +424,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_6) {
-            tv_answer_completion.setText("6");
-            mCompletionAnswer_ = "6";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "6";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("6");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -385,8 +438,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_7) {
-            tv_answer_completion.setText("7");
-            mCompletionAnswer_ = "7";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "7";
+            tv_answer_completion.setText(mCompletionAnswer_);
            /* completionList.add("7");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -398,8 +452,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_8) {
-            tv_answer_completion.setText("8");
-            mCompletionAnswer_ = "8";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "8";
+            tv_answer_completion.setText(mCompletionAnswer_);
             /*completionList.add("8");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -411,8 +466,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_answer_completion.setText(answer_complete + "");
             }*/
         } else if (v.getId() == R.id.tv_9) {
-            tv_answer_completion.setText("9");
-            mCompletionAnswer_ = "9";
+
+            mCompletionAnswer_ = mCompletionAnswer_ + "9";
+            tv_answer_completion.setText(mCompletionAnswer_);
             /*completionList.add("9");
             if (completionList.size() == 1) {
                 tv_answer_completion.setText(completionList.get(0));
@@ -438,8 +494,8 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(answer_complete + "");*/
 
         } else if (v.getId() == R.id.rl_delete) {
-            tv_answer_completion.setText("");
             mCompletionAnswer_ = "";
+            tv_answer_completion.setText("");
            /* if (completionList.size() == 0) {
                 Toast.makeText(this, "不能再删除了", Toast.LENGTH_SHORT).show();
                 return;
@@ -562,6 +618,8 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_chooseD_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
                 isCheckD = false;
             }
+        } else if (v.getId() == R.id.iv_isCollect) {
+
         }
     }
 
@@ -614,6 +672,14 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
         }
     }
 }

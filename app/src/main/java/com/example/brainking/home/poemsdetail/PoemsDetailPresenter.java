@@ -38,7 +38,8 @@ public class PoemsDetailPresenter extends BasePresenter<PoemsDetailView> {
     void collectPoem(int id) {
         baseView.showLoading();
         CollectJson json = new CollectJson();
-        json.setId(id);
+        json.setTargerId(id);
+        json.setType("2");
         addSubscription(apiStores.collectPoem(json), new ApiCallback<CollectModel>() {
             @Override
             public void onSuccess(CollectModel model) {

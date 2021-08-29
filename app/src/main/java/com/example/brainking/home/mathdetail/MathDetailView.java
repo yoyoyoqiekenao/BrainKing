@@ -8,4 +8,9 @@ public interface MathDetailView extends BaseView {
     void getMathDetailSuccess(MathDetailModel mathDetailModel);
 
     void getMathDetailFail(String msg);
+
+    void collectSuccess();
+
+    void collectFail(String err);
+
 }

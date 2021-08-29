@@ -9,6 +9,7 @@ import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
 import com.example.brainking.model.CancelRoomModel;
+import com.example.brainking.model.CollectListModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
 import com.example.brainking.model.FriendListModel;
@@ -41,9 +42,9 @@ import retrofit2.http.Query;
  */
 public interface ApiStores {
 
-    //public static final String BASE_URL = "http://42.192.234.149:8080/";
+    public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    public static final String BASE_URL = "http://192.168.1.104:8080/";
+    //public static final String BASE_URL = "http://192.168.1.104:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
@@ -160,7 +161,7 @@ public interface ApiStores {
      * @param json
      * @return
      */
-    @POST("learn/collect")
+    @POST("collect")
     Observable<CollectModel> collectPoem(@Body CollectJson json);
 
 
@@ -274,5 +275,15 @@ public interface ApiStores {
      */
     @POST("friend/refuseApply")
     Observable<Friend_Pass_refuse_Model> passRefuse(@Body Friend_Pass_refuse_Json json);
+
+    /**
+     * 获取收藏列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("collect/list")
+    Observable<CollectListModel> getCollectList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
 }
 

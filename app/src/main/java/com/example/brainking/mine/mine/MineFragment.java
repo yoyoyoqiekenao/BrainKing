@@ -5,27 +5,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.mine.about.AboutActivity;
+import com.example.brainking.mine.collect.CollectActivity;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.playabout.PlayAboutActivity;
 import com.example.brainking.mine.record.RecordActivity;
 import com.example.brainking.mine.timeteam.TimeTeamActivity;
+import com.example.brainking.model.UserInfoModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public class MineFragment extends BrainFragment implements View.OnClickListener {
+public class MineFragment extends BrainFragment<MinePresenter> implements MineView, View.OnClickListener {
 
     @BindView(R.id.rl_friend)
     RelativeLayout rl_friend;
@@ -37,11 +44,14 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
     RelativeLayout rl_about;
     @BindView(R.id.rl_play_about)
     RelativeLayout rl_play_about;
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.tv_remark)
+    TextView tv_remark;
+    @BindView(R.id.rl_collect)
+    RelativeLayout rl_collect;
 
 
     @Nullable
@@ -62,6 +72,9 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
         rl_timeTeam.setOnClickListener(this);
         rl_about.setOnClickListener(this);
         rl_play_about.setOnClickListener(this);
+        rl_collect.setOnClickListener(this);
+
+        createPresenter().getUserInfo();
     }
 
 
@@ -77,6 +90,35 @@ public class MineFragment extends BrainFragment implements View.OnClickListener 
             startActivity(new Intent(getContext(), AboutActivity.class));
         } else if (view.getId() == R.id.rl_play_about) {
             startActivity(new Intent(getContext(), PlayAboutActivity.class));
+        } else if (view.getId() == R.id.rl_collect) {
+            startActivity(new Intent(getContext(), CollectActivity.class));
         }
+    }
+
+    @Override
+    protected MinePresenter createPresenter() {
+        return new MinePresenter(this);
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoModel model) {
+        Glide.with(getContext()).load(model.getData().getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
+        tv_name.setText(model.getData().getNickName());
+        tv_remark.setText(model.getData().getRemark());
+    }
+
+    @Override
+    public void getUserInfoFail(String msg) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }
