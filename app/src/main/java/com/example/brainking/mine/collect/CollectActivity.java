@@ -1,5 +1,6 @@
 package com.example.brainking.mine.collect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -13,6 +14,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.MyCollectAdapter;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.mine.collect.collect_poen.CollectPoemDetailActivity;
 import com.example.brainking.model.CollectListModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -63,7 +65,18 @@ public class CollectActivity extends BrainActivity<CollectPresenter> implements 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull @NotNull BaseQuickAdapter<?, ?> adapter, @NonNull @NotNull View view, int position) {
+                switch (model.getRows().get(position).getType()) {
+                    case "1":
 
+                        break;
+                    case "2":
+                        //古诗词
+                        Intent intent = new Intent(CollectActivity.this, CollectPoemDetailActivity.class);
+                        intent.putExtra("subjectId", model.getRows().get(position).getSubjectId());
+                        startActivity(intent);
+                        break;
+                    default:
+                }
             }
         });
     }

@@ -9,6 +9,7 @@ import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
 import com.example.brainking.model.CancelRoomModel;
+import com.example.brainking.model.CollectDetailModel;
 import com.example.brainking.model.CollectListModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
@@ -285,5 +286,15 @@ public interface ApiStores {
      */
     @GET("collect/list")
     Observable<CollectListModel> getCollectList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 收藏列表详情
+     *
+     * @param subjectId
+     * @param type
+     * @return
+     */
+    @GET("collect/details")
+    Observable<CollectDetailModel> getCollectDetail(@Query("subjectId") String subjectId, @Query("type") String type);
 }
 

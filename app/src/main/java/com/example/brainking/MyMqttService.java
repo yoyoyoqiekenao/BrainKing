@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -52,7 +53,10 @@ public class MyMqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mUserId = intent.getStringExtra("userId");
+        if (!TextUtils.isEmpty(intent.getStringExtra("userId"))) {
+            mUserId = intent.getStringExtra("userId");
+        }
+
         PUBLISH_TOPIC = "/public/TEST/" + mUserId;
         RESPONSE_TOPIC = "/public/TEST/" + mUserId;
         CLIENTID = mUserId;
@@ -189,7 +193,7 @@ public class MyMqttService extends Service {
         public void onSuccess(IMqttToken arg0) {
             Log.i(TAG, "连接成功 ");
             try {
-                Log.d("xuwudi","dddddddddd=="+PUBLISH_TOPIC);
+                Log.d("xuwudi", "dddddddddd==" + PUBLISH_TOPIC);
                 mqttAndroidClient.subscribe(PUBLISH_TOPIC, 2);//订阅主题，参数：主题、服务质量
             } catch (MqttException e) {
                 e.printStackTrace();
