@@ -8,6 +8,7 @@ import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
+import com.example.brainking.model.BattleNormalModel;
 import com.example.brainking.model.CancelRoomModel;
 import com.example.brainking.model.CollectDetailModel;
 import com.example.brainking.model.CollectListModel;
@@ -18,6 +19,7 @@ import com.example.brainking.model.Friend_Pass_refuse_Model;
 import com.example.brainking.model.JoinRoomModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.LoginOutModel;
 import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
@@ -296,5 +298,13 @@ public interface ApiStores {
      */
     @GET("collect/details")
     Observable<CollectDetailModel> getCollectDetail(@Query("subjectId") String subjectId, @Query("type") String type);
+
+    /**
+     * 退出登陆
+     *
+     * @return
+     */
+    @POST("logout")
+    Observable<LoginOutModel> logOut();
 }
 

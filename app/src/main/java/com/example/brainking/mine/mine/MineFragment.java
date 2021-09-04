@@ -15,17 +15,21 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
+import com.example.brainking.login.LoginActivity;
 import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.collect.CollectActivity;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.playabout.PlayAboutActivity;
 import com.example.brainking.mine.record.RecordActivity;
 import com.example.brainking.mine.timeteam.TimeTeamActivity;
+import com.example.brainking.model.LoginOutModel;
 import com.example.brainking.model.UserInfoModel;
+import com.example.brainking.util.SpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +56,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     TextView tv_remark;
     @BindView(R.id.rl_collect)
     RelativeLayout rl_collect;
+    @BindView(R.id.rl_loginOut)
+    RelativeLayout rl_loginOut;
 
 
     @Nullable
@@ -73,6 +79,7 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         rl_about.setOnClickListener(this);
         rl_play_about.setOnClickListener(this);
         rl_collect.setOnClickListener(this);
+        rl_loginOut.setOnClickListener(this);
 
         createPresenter().getUserInfo();
     }
@@ -92,6 +99,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
             startActivity(new Intent(getContext(), PlayAboutActivity.class));
         } else if (view.getId() == R.id.rl_collect) {
             startActivity(new Intent(getContext(), CollectActivity.class));
+        } else if (view.getId() == R.id.rl_loginOut) {
+            createPresenter().loginOut();
         }
     }
 
@@ -109,6 +118,19 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
 
     @Override
     public void getUserInfoFail(String msg) {
+
+    }
+
+    @Override
+    public void loginOutSuccess(LoginOutModel model) {
+        SpUtils.getInstance().clear();
+        MyMqttService.stopService(getContext());
+        startActivity(new Intent(getContext(), LoginActivity.class));
+        getActivity().finish();
+    }
+
+    @Override
+    public void loginOutFail(String msg) {
 
     }
 

@@ -173,6 +173,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     @Override
     public void goReLogin() {
         SpUtils.getInstance().clear();
+        MyMqttService.stopService(getContext());
         startActivity(new Intent(getContext(), LoginActivity.class));
         getActivity().finish();
     }
