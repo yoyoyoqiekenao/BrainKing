@@ -2,6 +2,7 @@ package com.example.brainking.net;
 
 import com.example.brainking.json.CollectJson;
 import com.example.brainking.json.CreateBattleRoomJson;
+import com.example.brainking.json.DeleteFriendJson;
 import com.example.brainking.json.Friend_Pass_refuse_Json;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.MatchAnswerJson;
@@ -14,6 +15,7 @@ import com.example.brainking.model.CollectDetailModel;
 import com.example.brainking.model.CollectListModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.model.DeleteFriendModel;
 import com.example.brainking.model.FriendListModel;
 import com.example.brainking.model.Friend_Pass_refuse_Model;
 import com.example.brainking.model.JoinRoomModel;
@@ -306,5 +308,13 @@ public interface ApiStores {
      */
     @POST("logout")
     Observable<LoginOutModel> logOut();
+
+    /**
+     * 删除好友
+     * @param json
+     * @return
+     */
+    @POST("friend/deleteFriend")
+    Observable<DeleteFriendModel> deleteFriend(@Body DeleteFriendJson json);
 }
 
