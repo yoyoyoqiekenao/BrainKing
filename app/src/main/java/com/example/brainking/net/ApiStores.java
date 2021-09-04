@@ -6,6 +6,7 @@ import com.example.brainking.json.DeleteFriendJson;
 import com.example.brainking.json.Friend_Pass_refuse_Json;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.MatchAnswerJson;
+import com.example.brainking.json.MessageReadJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
@@ -26,6 +27,7 @@ import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
+import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
@@ -311,10 +313,15 @@ public interface ApiStores {
 
     /**
      * 删除好友
+     *
      * @param json
      * @return
      */
     @POST("friend/deleteFriend")
     Observable<DeleteFriendModel> deleteFriend(@Body DeleteFriendJson json);
+
+    @POST("message/read")
+    Observable<MessageReadModel> messageRead(@Body MessageReadJson json);
+
 }
 

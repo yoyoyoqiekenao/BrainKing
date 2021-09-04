@@ -16,6 +16,7 @@
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="50dp">
+
         <RelativeLayout
             android:id="@+id/rl_back"
             android:layout_width="40dp"
@@ -42,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/color_F3F5F7"></View>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -90,9 +92,9 @@
                 android:layout_toLeftOf="@id/iv_emoji"
                 android:layout_toRightOf="@id/iv_voice"
                 android:background="@drawable/rectangle_ffffff_8"
+                android:imeOptions="actionSend"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:imeOptions="actionSend"
                 android:textColor="@color/color_000000"
                 android:textSize="14dp"></EditText>
         </RelativeLayout>
@@ -101,14 +103,13 @@
             android:id="@+id/smartView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_above="@id/rl_panel">
+            android:layout_above="@id/rl_panel"
+            android:background="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_message"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                 ></androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 

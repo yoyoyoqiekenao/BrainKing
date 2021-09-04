@@ -1,13 +1,17 @@
 package com.example.brainking.news.news;
 
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.json.MessageReadJson;
 import com.example.brainking.model.MessageListModel;
+import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.net.ApiCallback;
 
 public class NewsPresenter extends BasePresenter<NewsView> {
     public NewsPresenter(NewsView view) {
         attachView(view);
     }
+
+
 
     public void getMessageList(int pageNum) {
         baseView.showLoading();

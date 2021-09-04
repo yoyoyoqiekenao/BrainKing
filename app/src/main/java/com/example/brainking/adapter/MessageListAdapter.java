@@ -26,5 +26,10 @@ public class MessageListAdapter extends BaseQuickAdapter<MessageListModel.DataDT
         ImageView iv = helper.getView(R.id.iv_avatar);
         Glide.with(getContext()).load(item.getAvatar()).error(R.mipmap.iv_head).into(iv);
 
+        if (item.getStatus() == 0) {
+            helper.setVisible(R.id.iv_news, false);
+        } else {
+            helper.setVisible(R.id.iv_news, true);
+        }
     }
 }
