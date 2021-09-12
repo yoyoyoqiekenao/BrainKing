@@ -76,7 +76,7 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(PoemsActivity.this, PoemsDetailActivity.class);
-                intent.putExtra("pid", model.getData().get(position).getPid());
+                intent.putExtra("pid", model.getData().get(position).getId());
                 startActivity(intent);
             }
         });

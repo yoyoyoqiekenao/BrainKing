@@ -29,6 +29,7 @@ import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
 import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.model.NewDetailModel;
+import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
@@ -320,8 +321,23 @@ public interface ApiStores {
     @POST("friend/deleteFriend")
     Observable<DeleteFriendModel> deleteFriend(@Body DeleteFriendJson json);
 
+    /**
+     * 消息已读
+     *
+     * @param json
+     * @return
+     */
     @POST("message/read")
     Observable<MessageReadModel> messageRead(@Body MessageReadJson json);
 
+    /**
+     * 诗词列表(新)
+     * @param pageNum
+     * @param pageSize
+     * @param pid
+     * @return
+     */
+    @GET("learn/poetry/list")
+    Observable<PoemListModel> getPoemList(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize, @Query("pid") int pid);
 }
 
