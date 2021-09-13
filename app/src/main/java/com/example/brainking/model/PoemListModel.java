@@ -2,9 +2,10 @@ package com.example.brainking.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PoemListModel {
+public class PoemListModel   {
 
     @SerializedName("code")
     public Integer code;
@@ -47,7 +48,7 @@ public class PoemListModel {
         this.rows = rows;
     }
 
-    public static class RowsDTO {
+    public static class RowsDTO implements Serializable{
         @SerializedName("author")
         public String author;
         @SerializedName("free")

@@ -24,9 +24,13 @@ import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
+import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,6 +87,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     private boolean isRotation;
 
     private PoemsMenuDialogFragment menuDialog;
+    private List<PoemListModel.RowsDTO> mList = new ArrayList<>();
+    private int mIndex = 0;
+    private int mPage = 1;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -109,7 +116,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poemsdetail);
-        ImmersionBar.with(this).statusBarView(mView).init();
+        ImmersionBar.with(this).statusBarView(mView)
+                .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).
+                init();
         ButterKnife.bind(this);
 
         mRotation = ObjectAnimator.ofFloat(iv_musicNote, "rotation", 0f, 360f);
@@ -189,8 +198,22 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         } else if (v.getId() == R.id.iv_menu) {
             menuDialog = new PoemsMenuDialogFragment();
             menuDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("list", (Serializable) mList);
+            bundle.putInt("index", mIndex);
+            bundle.putInt("page", mPage);
+            bundle.putInt("pid", mPid);
+            menuDialog.setArguments(bundle);
             menuDialog.show(getSupportFragmentManager(), "");
+
+            menuDialog.setPoemMenuSelect(new PoemsMenuDialogFragment.PoemMenuListener() {
+                @Override
+                public void menuSelect(List<PoemListModel.RowsDTO> list, int index, int page) {
+                    mList = list;
+                    mIndex = index;
+                    mPage = page;
+                }
+            });
         }
     }
 
@@ -251,7 +274,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
     @Override
     public void getPoemListSuccess(PoemListModel model) {
-
+        mList.addAll(model.getRows());
     }
 
     @Override
