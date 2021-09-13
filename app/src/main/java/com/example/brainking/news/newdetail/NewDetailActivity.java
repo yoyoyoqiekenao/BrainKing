@@ -73,7 +73,7 @@ public class NewDetailActivity extends BrainActivity<NewDetailPresenter> impleme
         setContentView(R.layout.activity_newdetail);
 
         ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarView(mView).init();
+        ImmersionBar.with(this).statusBarView(mView).keyboardEnable(true).init();
 
         mToId = getIntent().getIntExtra("toId", 0);
         mName = getIntent().getStringExtra("name");
