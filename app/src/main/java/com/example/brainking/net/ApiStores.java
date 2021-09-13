@@ -91,14 +91,14 @@ public interface ApiStores {
     @GET("learn/category/list?pid=2")
     Observable<LearnListModel> getLearnList_poems();
 
-    /**
+    /* *//**
      * 获取诗词详情
      *
      * @param pid
      * @return
-     */
+     *//*
     @GET("learn/poetry/learn")
-    Observable<PoemsDetailModel> getPoemsDetail(@Query("pid") int pid);
+    Observable<PoemsDetailModel> getPoemsDetail(@Query("pid") int pid);*/
 
     /**
      * 获取小学数学详情
@@ -332,6 +332,7 @@ public interface ApiStores {
 
     /**
      * 诗词列表(新)
+     *
      * @param pageNum
      * @param pageSize
      * @param pid
@@ -339,5 +340,14 @@ public interface ApiStores {
      */
     @GET("learn/poetry/list")
     Observable<PoemListModel> getPoemList(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize, @Query("pid") int pid);
+
+    /**
+     * 获取诗词详情
+     *
+     * @param id
+     * @return
+     */
+    @GET("learn/poetry/details")
+    Observable<PoemsDetailModel> getPoemsDetail(@Query("id") int id);
 }
 

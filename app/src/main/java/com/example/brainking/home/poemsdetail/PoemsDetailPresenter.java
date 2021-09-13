@@ -37,9 +37,9 @@ public class PoemsDetailPresenter extends BasePresenter<PoemsDetailView> {
         });
     }
 
-    void getPoemsDetail(int pid) {
+    void getPoemsDetail(int id) {
         baseView.showLoading();
-        addSubscription(apiStores.getPoemsDetail(pid), new ApiCallback<PoemsDetailModel>() {
+        addSubscription(apiStores.getPoemsDetail(id), new ApiCallback<PoemsDetailModel>() {
             @Override
             public void onSuccess(PoemsDetailModel model) {
                 if (200 == model.getCode()) {

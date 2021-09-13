@@ -136,9 +136,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
         basePresenter.getPoemsList(mPid);
-        basePresenter.getPoemsDetail(11);
 
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
+
+        /*scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -163,7 +163,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
                 }
                 return false;
             }
-        });
+        });*/
 
 
     }
@@ -190,9 +190,21 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             }
 
         } else if (v.getId() == R.id.iv_left) {
-            basePresenter.getPoemsDetail(11);
+            //basePresenter.getPoemsDetail(11);
+            if (mIndex == 0) {
+
+            } else {
+                mIndex = mIndex - 1;
+                createPresenter().getPoemsDetail(mList.get(mIndex).getId());
+            }
         } else if (v.getId() == R.id.iv_right) {
-            basePresenter.getPoemsDetail(11);
+            //basePresenter.getPoemsDetail(11);
+            if (mIndex == mList.size() - 1) {
+
+            } else {
+                mIndex = mIndex + 1;
+                createPresenter().getPoemsDetail(mList.get(mIndex).getId());
+            }
         } else if (v.getId() == R.id.iv_isPlay) {
             pause();
         } else if (v.getId() == R.id.iv_menu) {
@@ -203,15 +215,19 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             bundle.putInt("index", mIndex);
             bundle.putInt("page", mPage);
             bundle.putInt("pid", mPid);
+            bundle.putInt("id", mId);
             menuDialog.setArguments(bundle);
             menuDialog.show(getSupportFragmentManager(), "");
 
             menuDialog.setPoemMenuSelect(new PoemsMenuDialogFragment.PoemMenuListener() {
                 @Override
-                public void menuSelect(List<PoemListModel.RowsDTO> list, int index, int page) {
+                public void menuSelect(List<PoemListModel.RowsDTO> list, int index, int page, int id) {
                     mList = list;
                     mIndex = index;
                     mPage = page;
+                    mId = id;
+                    menuDialog.dismiss();
+                    createPresenter().getPoemsDetail(mId);
                 }
             });
         }
@@ -275,6 +291,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     @Override
     public void getPoemListSuccess(PoemListModel model) {
         mList.addAll(model.getRows());
+        basePresenter.getPoemsDetail(mList.get(0).getId());
     }
 
     @Override

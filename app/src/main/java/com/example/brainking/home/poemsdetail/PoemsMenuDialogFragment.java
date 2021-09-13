@@ -47,6 +47,7 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
     private int mIndex;
     private int mPage;
     private int mPid;
+    private int mId;
     private List<PoemListModel.RowsDTO> mList = new ArrayList<>();
     private PoemMenuAdapter mAdapter;
     private PoemMenuListener menuListener;
@@ -72,6 +73,7 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
         mIndex = getArguments().getInt("index");
         mPid = getArguments().getInt("pid");
         mPage = getArguments().getInt("page");
+        mId = getArguments().getInt("id");
 
         ClassicsFooter classicsFooter = new ClassicsFooter(getContext());
         smartLayout.setRefreshFooter(classicsFooter);
@@ -92,7 +94,8 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
             public void onItemClick(@NonNull @NotNull BaseQuickAdapter<?, ?> adapter, @NonNull @NotNull View view, int position) {
                 mAdapter.setIndex(position);
                 mIndex = position;
-                menuListener.menuSelect(mList, mIndex, mPage);
+                mId = mList.get(position).getId();
+                menuListener.menuSelect(mList, mIndex, mPage, mId);
             }
         });
 
@@ -150,7 +153,7 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
     }
 
     public interface PoemMenuListener {
-        void menuSelect(List<PoemListModel.RowsDTO> list, int index, int page);
+        void menuSelect(List<PoemListModel.RowsDTO> list, int index, int page, int id);
     }
 
     public void setPoemMenuSelect(PoemMenuListener listener) {
