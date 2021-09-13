@@ -25,6 +25,7 @@ import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.collect.CollectActivity;
 import com.example.brainking.mine.friend.FriendActivity;
 import com.example.brainking.mine.playabout.PlayAboutActivity;
+import com.example.brainking.mine.question.QuestionActivity;
 import com.example.brainking.mine.record.RecordActivity;
 import com.example.brainking.mine.timeteam.TimeTeamActivity;
 import com.example.brainking.model.LoginOutModel;
@@ -58,6 +59,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     RelativeLayout rl_collect;
     @BindView(R.id.rl_loginOut)
     RelativeLayout rl_loginOut;
+    @BindView(R.id.rl_question)
+    RelativeLayout rl_question;
 
 
     @Nullable
@@ -80,6 +83,7 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         rl_play_about.setOnClickListener(this);
         rl_collect.setOnClickListener(this);
         rl_loginOut.setOnClickListener(this);
+        rl_question.setOnClickListener(this);
 
         createPresenter().getUserInfo();
     }
@@ -101,6 +105,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
             startActivity(new Intent(getContext(), CollectActivity.class));
         } else if (view.getId() == R.id.rl_loginOut) {
             createPresenter().loginOut();
+        } else if (view.getId() == R.id.rl_question) {
+            startActivity(new Intent(getContext(), QuestionActivity.class));
         }
     }
 

@@ -7,6 +7,7 @@ import com.example.brainking.json.Friend_Pass_refuse_Json;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.MessageReadJson;
+import com.example.brainking.json.QuestionJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
@@ -31,6 +32,7 @@ import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
+import com.example.brainking.model.QuestionModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
 import com.example.brainking.model.SendMsgModel;
@@ -349,5 +351,13 @@ public interface ApiStores {
      */
     @GET("learn/poetry/details")
     Observable<PoemsDetailModel> getPoemsDetail(@Query("id") int id);
+
+    /**
+     * 出题
+     * @param json
+     * @return
+     */
+    @POST("question/userQuestion")
+    Observable<QuestionModel> putQuestion(@Body QuestionJson json);
 }
 
