@@ -1,18 +1,35 @@
 package com.example.brainking.net;
 
 import com.example.brainking.json.CollectJson;
+import com.example.brainking.json.CreateBattleRoomJson;
+import com.example.brainking.json.DeleteFriendJson;
+import com.example.brainking.json.Friend_Pass_refuse_Json;
 import com.example.brainking.json.LoginJson;
 import com.example.brainking.json.MatchAnswerJson;
+import com.example.brainking.json.MessageReadJson;
 import com.example.brainking.json.SendMsgJson;
 import com.example.brainking.json.VerCodeJson;
+import com.example.brainking.model.BattleListModel;
+import com.example.brainking.model.BattleNormalModel;
+import com.example.brainking.model.CancelRoomModel;
+import com.example.brainking.model.CollectDetailModel;
+import com.example.brainking.model.CollectListModel;
 import com.example.brainking.model.CollectModel;
+import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.model.DeleteFriendModel;
+import com.example.brainking.model.FriendListModel;
+import com.example.brainking.model.Friend_Pass_refuse_Model;
+import com.example.brainking.model.JoinRoomModel;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
+import com.example.brainking.model.LoginOutModel;
 import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
+import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.model.NewDetailModel;
+import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
@@ -22,15 +39,9 @@ import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 /**
  * @author : 徐无敌
@@ -41,6 +52,7 @@ public interface ApiStores {
 
     public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
+    //public static final String BASE_URL = "http://192.168.1.104:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
@@ -157,7 +169,7 @@ public interface ApiStores {
      * @param json
      * @return
      */
-    @POST("learn/collect")
+    @POST("collect")
     Observable<CollectModel> collectPoem(@Body CollectJson json);
 
 
@@ -191,12 +203,141 @@ public interface ApiStores {
 
     /**
      * 答题
+     *
      * @param json
      * @return
      */
     @POST("match/answer")
     Observable<MatchAnswerModel> matchAnswer(@Body MatchAnswerJson json);
 
+    /**
+     * 获取房间列表
+     */
+    @GET("match/battle/list")
+    Observable<BattleListModel> getBattleList();
 
+    /**
+     * 创建好友房间
+     *
+     * @param json
+     * @return
+     */
+    @POST("match/create")
+    Observable<CreateRoomModel> createBattleRoom(@Body CreateBattleRoomJson json);
+
+    /**
+     * 多人对战开始
+     *
+     * @return
+     */
+    @GET("match/multi/ready")
+    Observable<CreateRoomModel> multiReady(@Query("roomId") String roomId);
+
+    /**
+     * 加入对战房间
+     *
+     * @param roomId
+     * @return
+     */
+    @GET("match/join")
+    Observable<JoinRoomModel> joinRoom(@Query("roomId") String roomId);
+
+    /**
+     * 销毁房间
+     */
+    @GET("match/cancelRoom")
+    Observable<CancelRoomModel> cancelRoom(@Query("roomId") String roomId);
+
+    /**
+     * 好友列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("friend/list")
+    Observable<FriendListModel> getFriendList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 好友申请列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("friend/checkApply")
+    Observable<FriendListModel> getFriendApplyList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 通过申请
+     *
+     * @return
+     */
+    @POST("friend/passAdd")
+    Observable<Friend_Pass_refuse_Model> passAdd(@Body Friend_Pass_refuse_Json json);
+
+    /**
+     * 通过申请
+     *
+     * @return
+     */
+    @POST("friend/refuseApply")
+    Observable<Friend_Pass_refuse_Model> passRefuse(@Body Friend_Pass_refuse_Json json);
+
+    /**
+     * 获取收藏列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @GET("collect/list")
+    Observable<CollectListModel> getCollectList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 收藏列表详情
+     *
+     * @param subjectId
+     * @param type
+     * @return
+     */
+    @GET("collect/details")
+    Observable<CollectDetailModel> getCollectDetail(@Query("subjectId") String subjectId, @Query("type") String type);
+
+    /**
+     * 退出登陆
+     *
+     * @return
+     */
+    @POST("logout")
+    Observable<LoginOutModel> logOut();
+
+    /**
+     * 删除好友
+     *
+     * @param json
+     * @return
+     */
+    @POST("friend/deleteFriend")
+    Observable<DeleteFriendModel> deleteFriend(@Body DeleteFriendJson json);
+
+    /**
+     * 消息已读
+     *
+     * @param json
+     * @return
+     */
+    @POST("message/read")
+    Observable<MessageReadModel> messageRead(@Body MessageReadJson json);
+
+    /**
+     * 诗词列表(新)
+     * @param pageNum
+     * @param pageSize
+     * @param pid
+     * @return
+     */
+    @GET("learn/poetry/list")
+    Observable<PoemListModel> getPoemList(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize, @Query("pid") int pid);
 }
 

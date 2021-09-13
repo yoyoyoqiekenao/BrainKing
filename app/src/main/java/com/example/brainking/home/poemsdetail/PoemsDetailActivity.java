@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -119,6 +120,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
+        basePresenter.getPoemsList(mPid);
         basePresenter.getPoemsDetail(11);
 
         scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -233,6 +235,16 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
     @Override
     public void collectFail(String err) {
+
+    }
+
+    @Override
+    public void getPoemListSuccess(PoemListModel model) {
+
+    }
+
+    @Override
+    public void getPoemListFail(String err) {
 
     }
 

@@ -7,29 +7,31 @@ import java.util.List;
 public class MqttAnswerNoticeModel  {
 
     @SerializedName("score")
-    private Integer score;
+    public String score;
     @SerializedName("time")
-    private Integer time;
+    public String time;
     @SerializedName("totalScore")
-    private String totalScore;
+    public String totalScore;
     @SerializedName("type")
-    private String type;
+    public String type;
+    @SerializedName("userId")
+    public String userId;
     @SerializedName("choice")
-    private List<String> choice;
+    public List<String> choice;
 
-    public Integer getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
-    public Integer getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -47,6 +49,14 @@ public class MqttAnswerNoticeModel  {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public List<String> getChoice() {

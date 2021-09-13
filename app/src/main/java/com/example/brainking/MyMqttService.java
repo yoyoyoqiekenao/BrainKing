@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,11 +36,12 @@ public class MyMqttService extends Service {
     private MqttConnectOptions mMqttConnectOptions;
     public String HOST = "ws://116.62.213.165:1883";//服务器地址（协议+地址+端口号）
     //public static String PUBLISH_TOPIC = "/public/TEST/" + SpUtils.getInstance().getString("userid");//发布主题
-    public static String PUBLISH_TOPIC = "";
-    public static String RESPONSE_TOPIC = "";//响应主题
+    public static String PUBLISH_TOPIC = "/public/TEST/";
+    public static String RESPONSE_TOPIC = "/public/TEST/";//响应主题
 
+    private String mUserId;
 
-    public String CLIENTID;
+    public String CLIENTID = "";
     /*public String CLIENTID = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
             ? Build.getSerial() : Build.SERIAL;//客户端ID，一般以客户端唯一标识符表示，这里用设备序列号表示*/
 
@@ -51,9 +53,13 @@ public class MyMqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        CLIENTID = intent.getStringExtra("clientId");
-        PUBLISH_TOPIC = "/public/TEST/" + CLIENTID;
-        RESPONSE_TOPIC = "/public/TEST/" + CLIENTID;
+        if (!TextUtils.isEmpty(intent.getStringExtra("userId"))) {
+            mUserId = intent.getStringExtra("userId");
+        }
+
+        PUBLISH_TOPIC = "/public/TEST/" + mUserId;
+        RESPONSE_TOPIC = "/public/TEST/" + mUserId;
+        CLIENTID = mUserId;
         init();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -61,8 +67,10 @@ public class MyMqttService extends Service {
     /**
      * 开启服务
      */
-    public static void startService(Context mContext) {
-        mContext.startService(new Intent(mContext, MyMqttService.class));
+    public static void startService(Context mContext, String userId) {
+        Intent intent = new Intent(mContext, MyMqttService.class);
+        intent.putExtra("userId", userId);
+        mContext.startService(intent);
     }
 
     /**
@@ -185,6 +193,7 @@ public class MyMqttService extends Service {
         public void onSuccess(IMqttToken arg0) {
             Log.i(TAG, "连接成功 ");
             try {
+                Log.d("xuwudi", "dddddddddd==" + PUBLISH_TOPIC);
                 mqttAndroidClient.subscribe(PUBLISH_TOPIC, 2);//订阅主题，参数：主题、服务质量
             } catch (MqttException e) {
                 e.printStackTrace();

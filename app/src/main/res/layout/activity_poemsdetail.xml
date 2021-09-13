@@ -78,6 +78,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text=" "
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
                         android:textColor="@color/color_333333"
                         android:textSize="24dp"></TextView>
 
@@ -189,12 +191,20 @@
 
         </LinearLayout>
     </ScrollView>
+
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_poem_play">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@mipmap/iv_poem_list"></ImageView>
 
         <ImageView
             android:id="@+id/iv_isPlay"

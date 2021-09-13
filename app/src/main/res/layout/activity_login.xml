@@ -20,10 +20,11 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
+                android:scaleType="centerInside"
                 android:src="@mipmap/iv_back_black"></ImageView>
 
         </RelativeLayout>

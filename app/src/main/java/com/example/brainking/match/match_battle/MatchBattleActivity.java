@@ -20,6 +20,7 @@ import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
 import com.example.brainking.mqttmodel.MqttOptionModel;
 import com.example.brainking.mqttmodel.MqttResultModel;
+import com.example.brainking.util.SpUtils;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -102,7 +103,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     public void ready(MatchStartEvent event) {
         String str = event.getMsg();
 
-        if (!TextUtils.isEmpty(new Gson().fromJson(str, MqttOptionModel.class).getTitle())) { //题目的message
+        //题目
+        if ("subject".equals(new Gson().fromJson(str, MqttOptionModel.class).getType())) {
             MqttOptionModel optionModel = new Gson().fromJson(str, MqttOptionModel.class);
             tv_title.setText(optionModel.getTitle());
             tv_answer_1.setText(optionModel.getOption().get(0).getContent());
@@ -124,21 +126,16 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             tv_answer_2.setBackgroundResource(R.drawable.rectangle_ffffff_50);
             tv_answer_3.setBackgroundResource(R.drawable.rectangle_ffffff_50);
             tv_answer_4.setBackgroundResource(R.drawable.rectangle_ffffff_50);
-
-            Log.d("xuwudi", "数据1===" + optionModel.toString());
-        }
-
-        if (TextUtils.isEmpty(new Gson().fromJson(str, MqttAnswerNoticeModel.class).getTotalScore())) { //对手的答题数据
-
-        } else {
-            MqttAnswerNoticeModel mqttAnswerNoticeModel = new Gson().fromJson(str, MqttAnswerNoticeModel.class);
-            tv_score_right.setText(mqttAnswerNoticeModel.getTotalScore() + "");
-
-        }
-
-        if (TextUtils.isEmpty(new Gson().fromJson(str, MqttResultModel.class).getResultType())) {  //答题结果
-
-        } else {
+        } else if ("AnswerNotice".equals(new Gson().fromJson(str, MqttAnswerNoticeModel.class).getType())) {
+            //分数
+            MqttAnswerNoticeModel answerModel = new Gson().fromJson(str, MqttAnswerNoticeModel.class);
+            if (answerModel.getUserId().equals(SpUtils.getInstance().getString("userId"))) {
+                tv_score_left.setText(answerModel.getTotalScore() + "");
+            } else {
+                tv_score_right.setText(answerModel.getTotalScore() + "");
+            }
+        } else if ("FinalResult".equals(new Gson().fromJson(str, MqttResultModel.class).getType())) {
+            //答题结果
             tv_title.setVisibility(View.INVISIBLE);
             ll_answer.setVisibility(View.GONE);
             progress_view.setVisibility(View.GONE);
@@ -154,6 +151,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
             iv_result.setVisibility(View.VISIBLE);
             tv_next.setVisibility(View.VISIBLE);
+
+            basePresenter.matchExit(mRoomId);
         }
 
     }
@@ -162,7 +161,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        basePresenter.matchExit(mRoomId);
+
     }
 
     @Override
@@ -179,14 +178,13 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
     @Override
     public void matchExitSuccess(MatchStartModel model) {
-        MyMqttService.stopService(this);
-        Toast.makeText(this, "退出房间", Toast.LENGTH_SHORT).show();
-        finish();
+        //Toast.makeText(this, "退出房间", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void matchAnswerSuccess(MatchAnswerModel matchAnswerModel) {
-        tv_score_left.setText(matchAnswerModel.getData().getTotalScore() + "");
+        //tv_score_left.setText(matchAnswerModel.getData().getTotalScore() + "");
     }
 
     @Override

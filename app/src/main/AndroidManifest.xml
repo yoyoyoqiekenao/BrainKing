@@ -89,7 +89,8 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".news.newdetail.NewDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity
             android:name=".match.match_detail.MatchDetailActivity"
             android:screenOrientation="portrait"></activity>
@@ -99,6 +100,27 @@
 
         <activity
             android:name=".match.match_battle.MatchBattleActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".battle.battleready.BattleReadyActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".battle.battledetail.BattleDetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".battle.joinroom.JoinRoomActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.friendapply.FriendApplyActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.playabout.PlayAboutActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.collect.CollectActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".mine.collect.collect_poen.CollectPoemDetailActivity"
             android:screenOrientation="portrait"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" /> <!--MqttService-->

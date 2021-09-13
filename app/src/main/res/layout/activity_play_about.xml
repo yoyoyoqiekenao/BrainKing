@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3B4DD0"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"></View>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/iv_back_white"></ImageView>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="玩法了解"
+            android:textColor="@color/color_ffffff"
+            android:textSize="18dp"></TextView>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F3F5F7"></View>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="规则说明"
+                android:textColor="@color/color_333333"
+                android:textSize="16dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="1、首先，参与到在线游戏"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:text="游戏将定期举行。开始前我们将进行消息提醒。请确保以打开推送，避免迟到。"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="11dp"
+                android:text="2、回答问题，要准要快"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:text="点选你认为正确的答案，你必须在10秒内审题和作答。答案不可修改"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="11dp"
+                android:text="3、超时或答题，就会出局"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:text="如果你点选了错误答案，或超时未作答，你都将遭遇淘汰，将无法角逐当期的奖金。"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="11dp"
+                android:text="4、全部答对，即冲顶成功"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:text="如果超过一个人答题成功，你们讲平分奖金；否则你将独占当期所有奖金。"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="11dp"
+                android:text="5、没人成功？奖金也不浪费"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:text="如果所有人都被淘汰出局了，档期奖金将会自动进入下一期游戏的奖金池。"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

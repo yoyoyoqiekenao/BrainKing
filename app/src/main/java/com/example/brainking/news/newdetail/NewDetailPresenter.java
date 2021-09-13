@@ -1,7 +1,9 @@
 package com.example.brainking.news.newdetail;
 
 import com.example.brainking.base.BasePresenter;
+import com.example.brainking.json.MessageReadJson;
 import com.example.brainking.json.SendMsgJson;
+import com.example.brainking.model.MessageReadModel;
 import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.SendMsgModel;
 import com.example.brainking.net.ApiCallback;
@@ -9,6 +11,32 @@ import com.example.brainking.net.ApiCallback;
 public class NewDetailPresenter extends BasePresenter<NewDetailView> {
     public NewDetailPresenter(NewDetailView view) {
         attachView(view);
+    }
+
+    public void MessageRead(String userId) {
+        MessageReadJson json = new MessageReadJson();
+        json.setUserId(userId);
+
+        addSubscription(apiStores.messageRead(json), new ApiCallback<MessageReadModel>() {
+            @Override
+            public void onSuccess(MessageReadModel model) {
+                if (model.getCode() == 200) {
+                    baseView.messageReadSuccess(model);
+                } else {
+                    baseView.messageReadFail(model.msg);
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                baseView.messageReadFail(msg);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 
     public void getNewDetail(int pageNum, int toId) {

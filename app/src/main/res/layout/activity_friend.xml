@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3B4DD0"
@@ -34,6 +35,18 @@
             android:text="好友列表"
             android:textColor="@color/color_ffffff"
             android:textSize="18dp"></TextView>
+
+        <TextView
+            android:id="@+id/tv_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:text="申请列表"
+            android:textColor="@color/color_ffffff"
+            android:textSize="18dp"></TextView>
+
     </RelativeLayout>
 
     <View
@@ -43,7 +56,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_friend"
-        android:background="@color/color_ffffff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

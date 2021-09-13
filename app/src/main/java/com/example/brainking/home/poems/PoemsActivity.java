@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.LearnListAdapter_poems;
 import com.example.brainking.base.BrainActivity;
@@ -70,12 +71,12 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
     @Override
     public void getLearnListSuccess(LearnListModel model) {
 
-        mAdapter_poems.setNewData(model.getData());
-        mAdapter_poems.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter_poems.setList(model.getData());
+        mAdapter_poems.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(PoemsActivity.this, PoemsDetailActivity.class);
-                intent.putExtra("pid", model.getData().get(position).getPid());
+                intent.putExtra("pid", model.getData().get(position).getId());
                 startActivity(intent);
             }
         });

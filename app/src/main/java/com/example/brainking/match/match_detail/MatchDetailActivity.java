@@ -89,10 +89,6 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
         EventBus.getDefault().register(this);
 
-        Intent intent = new Intent(this, MyMqttService.class);
-        intent.putExtra("clientId", SpUtils.getInstance().getString("userId"));
-        startService(intent);
-        //MyMqttService.startService(this);
 
 
         rlBack.setOnClickListener(this);
@@ -153,7 +149,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         }
 
         EventBus.getDefault().unregister(this);
-        MyMqttService.stopService(this);
+
     }
 
     @Override

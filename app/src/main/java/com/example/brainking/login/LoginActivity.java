@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
     EditText ed_pwd;
     @BindView(R.id.tv_login)
     TextView tv_login;
+    @BindView(R.id.rl_back)
+    RelativeLayout rl_back;
 
     private String mUuid;
 
@@ -74,6 +77,7 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
         ivDelete.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         tv_verCode.setOnClickListener(this);
+        rl_back.setOnClickListener(this);
     }
 
 
@@ -94,7 +98,8 @@ public class LoginActivity extends BrainActivity<LoginPresenter> implements Logi
             basePresenter.getVerCode(ed_phone.getText().toString());
         } else if (view.getId() == R.id.tv_login) {
             basePresenter.goLogin(ed_phone.getText().toString(), ed_pwd.getText().toString(), mUuid);
-
+        } else if (view.getId() == R.id.rl_back) {
+            finish();
         }
     }
 

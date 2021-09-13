@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.brainking.R;
 import com.example.brainking.adapter.MessageListAdapter;
 import com.example.brainking.base.BaseFragment;
@@ -24,7 +25,12 @@ import com.example.brainking.model.NewDetailModel;
 
 import com.example.brainking.news.newdetail.NewDetailActivity;
 import com.gyf.immersionbar.ImmersionBar;
+import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +65,17 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
         rvMessage.setLayoutManager(manager);
         rvMessage.setAdapter(mAdapter);
 
+        ClassicsHeader classicsHeader = new ClassicsHeader(getContext());
+        smartView.setRefreshHeader(classicsHeader);
+
         smartView.setEnableLoadMore(false);
-        smartView.setEnableRefresh(false);
+        smartView.setEnableRefresh(true);
+        smartView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull @NotNull RefreshLayout refreshLayout) {
+                createPresenter().getMessageList(1);
+            }
+        });
 
     }
 
@@ -88,9 +103,9 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
 
     @Override
     public void getMessageListSuccess(MessageListModel messageListModel) {
-        Log.d("xuwudi", "获取信息列表成功");
-        mAdapter.setNewData(messageListModel.getData());
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        smartView.finishRefresh();
+        mAdapter.setList(messageListModel.getData());
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getContext(), NewDetailActivity.class);

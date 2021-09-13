@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +20,20 @@ import com.example.brainking.adapter.BattleAdapter;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
-import com.example.brainking.battle.friend_pk.FriendPkActivity;
-import com.gyf.immersionbar.ImmersionBar;
 
+import com.example.brainking.battle.friend_pk.FriendPkActivity;
+import com.example.brainking.battle.joinroom.JoinRoomActivity;
+import com.example.brainking.model.BattleListModel;
+import com.example.brainking.model.JoinRoomModel;
+import com.gyf.immersionbar.ImmersionBar;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +43,20 @@ import butterknife.ButterKnife;
 
 
 //对战大厅
-public class BattleFragment extends BrainFragment {
+public class BattleFragment extends BrainFragment<BattlePresenter> implements BattleView, View.OnClickListener {
 
     @BindView(R.id.view)
     View mView;
     @BindView(R.id.rc_battle)
     RecyclerView rc_battle;
+    @BindView(R.id.iv_create)
+    ImageView iv_create;
+    @BindView(R.id.smartLayout)
+    SmartRefreshLayout smartLayout;
 
     private BattleAdapter mAdapter;
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
+    private String mRoomId;
+    private List<JoinRoomModel.DataDTO> mList = new ArrayList<>();
 
 
     @Nullable
@@ -65,68 +79,83 @@ public class BattleFragment extends BrainFragment {
         rc_battle.setLayoutManager(manager);
         rc_battle.setAdapter(mAdapter);
 
-        List<String> mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mAdapter.setNewData(mList);
+        iv_create.setOnClickListener(this);
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+
+        smartLayout.setEnableLoadMore(false);
+        smartLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        smartLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.tv_pk) {
-                    Intent intent = new Intent(mActivity, FriendPkActivity.class);
-                    startActivity(intent);
-                }
+            public void onRefresh(@NonNull @NotNull RefreshLayout refreshLayout) {
+                smartLayout.finishRefresh(2000);
+                createPresenter().getBattleList();
             }
         });
-
-        /*String webSocketUrl = "ws://192.168.5.16:8080/websocket/" + SpUtils.getInstance().getString("userId");
-        OkHttpClient client = new OkHttpClient.Builder()
-                .pingInterval(10, TimeUnit.SECONDS)
-                .build();
-        Request request = new Request.Builder()
-                .url(webSocketUrl)
-                .build();
-        WebSocket webSocket = client.newWebSocket(request, new WebSocketListener() {
-            @Override
-            public void onOpen(WebSocket webSocket, Response response) {
-                super.onOpen(webSocket, response);
-            }
-
-            @Override
-            public void onMessage(WebSocket webSocket, String text) {
-                super.onMessage(webSocket, text);
-                Log.d("xuwudi", "我收到收到信息了" + text);
-                webSocket.send("我发送给你信息了");
-            }
-
-            @Override
-            public void onMessage(WebSocket webSocket, ByteString bytes) {
-                super.onMessage(webSocket, bytes);
-            }
-
-            @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                super.onClosing(webSocket, code, reason);
-            }
-
-            @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
-                super.onClosed(webSocket, code, reason);
-                Log.d("xuwudi", "连接成功");
-            }
-
-            @Override
-            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-                super.onFailure(webSocket, t, response);
-                Log.d("xuwudi", "连接失败");
-            }
-        });*/
-
-
     }
 
 
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    protected BattlePresenter createPresenter() {
+        return new BattlePresenter(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createPresenter().getBattleList();
+    }
+
+    @Override
+    public void getBattleListSuccess(BattleListModel model) {
+
+        mAdapter.setList(model.getData());
+
+
+        mAdapter.addChildClickViewIds(R.id.tv_pk);
+        mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_pk) {
+                    mRoomId = model.getData().get(position).getRoomID();
+                    createPresenter().joinRoom(model.getData().get(position).getRoomID());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void Failed(String msg) {
+        Toast.makeText(getContext(), msg + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void joinRoomSuccess(JoinRoomModel model) {
+        mList.clear();
+        mList.addAll(model.getData());
+        Intent intent = new Intent(getContext(), JoinRoomActivity.class);
+        intent.putExtra("list", (Serializable) mList);
+        intent.putExtra("roomId", mRoomId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_create:
+                Intent intent = new Intent(mActivity, FriendPkActivity.class);
+                startActivity(intent);
+                break;
+            default:
+        }
+    }
 }
