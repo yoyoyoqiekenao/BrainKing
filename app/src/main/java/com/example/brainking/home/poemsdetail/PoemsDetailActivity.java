@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
@@ -59,6 +60,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     ImageView iv_right;
     @BindView(R.id.iv_isPlay)
     ImageView iv_isPlay;
+    @BindView(R.id.iv_menu)
+    ImageView iv_menu;
 
     private int mPid;
     private String mAudioUrl;
@@ -78,6 +81,8 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     private ObjectAnimator mRotation;
     //是否旋转
     private boolean isRotation;
+
+    private PoemsMenuDialogFragment menuDialog;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -117,6 +122,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         iv_left.setOnClickListener(this);
         iv_right.setOnClickListener(this);
         iv_isPlay.setOnClickListener(this);
+        iv_menu.setOnClickListener(this);
 
         //暂时使用pid=11
         //basePresenter.getPoemsDetail(mPid);
@@ -180,6 +186,11 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             basePresenter.getPoemsDetail(11);
         } else if (v.getId() == R.id.iv_isPlay) {
             pause();
+        } else if (v.getId() == R.id.iv_menu) {
+            menuDialog = new PoemsMenuDialogFragment();
+            menuDialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_FullScreen);
+
+            menuDialog.show(getSupportFragmentManager(), "");
         }
     }
 
