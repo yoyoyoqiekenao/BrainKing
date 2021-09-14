@@ -58,6 +58,7 @@
                 android:textSize="14dp"></EditText>
 
             <EditText
+                android:id="@+id/ed_content"
                 android:layout_width="match_parent"
                 android:layout_height="109dp"
                 android:layout_marginTop="16dp"
@@ -97,6 +98,7 @@
                     android:src="@mipmap/iv_question_unselect"></ImageView>
 
                 <EditText
+                    android:id="@+id/ed_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -127,6 +129,7 @@
                     android:src="@mipmap/iv_question_unselect"></ImageView>
 
                 <EditText
+                    android:id="@+id/ed_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -157,6 +160,7 @@
                     android:src="@mipmap/iv_question_unselect"></ImageView>
 
                 <EditText
+                    android:id="@+id/ed_c"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -187,6 +191,7 @@
                     android:src="@mipmap/iv_question_unselect"></ImageView>
 
                 <EditText
+                    android:id="@+id/ed_d"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -201,6 +206,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="16dp"
