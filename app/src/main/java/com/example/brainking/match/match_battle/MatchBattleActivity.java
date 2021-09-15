@@ -61,11 +61,18 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     ImageView iv_result;
     @BindView(R.id.tv_next)
     TextView tv_next;
+    @BindView(R.id.tv_name_left)
+    TextView tv_name_left;
+    @BindView(R.id.tv_name_right)
+    TextView tv_name_right;
+
 
     private String mAnswer_1;
     private String mAnswer_2;
     private String mAnswer_3;
     private String mAnswer_4;
+
+    private String mAnswer;
 
 
     private String mRoomId = "";
@@ -107,6 +114,13 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         if ("subject".equals(new Gson().fromJson(str, MqttOptionModel.class).getType())) {
             MqttOptionModel optionModel = new Gson().fromJson(str, MqttOptionModel.class);
             tv_title.setText(optionModel.getTitle());
+
+            for (int i = 0; i < optionModel.getOption().size(); i++) {
+                if (optionModel.getOption().get(i).isRight) {
+                    mAnswer = optionModel.getOption().get(i).getId();
+                }
+            }
+
             tv_answer_1.setText(optionModel.getOption().get(0).getContent());
             tv_answer_2.setText(optionModel.getOption().get(1).getContent());
             tv_answer_3.setText(optionModel.getOption().get(2).getContent());
@@ -191,7 +205,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_answer_1:
-                tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_1.equals(mAnswer)) {
+                    tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                } else {
+                    tv_answer_1.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                }
+
                 basePresenter.matchAnswer(mAnswer_1, mRoomId);
 
                 tv_answer_1.setClickable(false);
@@ -200,7 +219,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_2:
-                tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_2.equals(mAnswer)) {
+                    tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                } else {
+                    tv_answer_2.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                }
+
                 basePresenter.matchAnswer(mAnswer_2, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);
@@ -208,7 +232,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_3:
-                tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_3.equals(mAnswer)) {
+                    tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                } else {
+                    tv_answer_3.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                }
+
                 basePresenter.matchAnswer(mAnswer_3, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);
@@ -216,6 +245,13 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_4:
+
+                if (mAnswer_4.equals(mAnswer)) {
+                    tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                } else {
+                    tv_answer_4.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                }
+
                 tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                 basePresenter.matchAnswer(mAnswer_4, mRoomId);
                 tv_answer_1.setClickable(false);
