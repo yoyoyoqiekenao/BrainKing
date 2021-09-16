@@ -147,6 +147,22 @@
                     android:visibility="gone"></ImageView>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rl_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/bg_time_logo">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="10"
+                    android:textColor="@color/white"
+                    android:textSize="42dp"></TextView>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -154,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="21dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="23dp"
                 android:layout_marginRight="21dp"
                 android:gravity="center"
                 android:textColor="@color/white"

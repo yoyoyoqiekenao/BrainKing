@@ -1,6 +1,8 @@
 package com.example.brainking.match.match_battle;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
@@ -65,6 +69,10 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     TextView tv_name_left;
     @BindView(R.id.tv_name_right)
     TextView tv_name_right;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
+    @BindView(R.id.rl_time)
+    RelativeLayout rl_time;
 
 
     private String mAnswer_1;
@@ -78,6 +86,28 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private String mRoomId = "";
 
     private boolean isReallyExit = false;
+    private int mTime = 10;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 1:
+                    if (mTime > 0) {
+                        tv_time.setText(mTime + "");
+                        mTime--;
+                        mHandler.sendEmptyMessageDelayed(1, 1000);
+
+                    } else if (mTime == 0) {
+
+                    }
+                    break;
+                case 2:
+                    rl_time.setVisibility(View.VISIBLE);
+                    break;
+                default:
+            }
+        }
+    };
 
     @Override
     protected MatchBattlePresenter createPresenter() {
@@ -121,6 +151,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                 }
             }
 
+            mTime = 10;
+            mHandler.sendEmptyMessageDelayed(1, 1000);
+
             tv_answer_1.setText(optionModel.getOption().get(0).getContent());
             tv_answer_2.setText(optionModel.getOption().get(1).getContent());
             tv_answer_3.setText(optionModel.getOption().get(2).getContent());
@@ -155,6 +188,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             progress_view.setVisibility(View.GONE);
             tv_score_right.setVisibility(View.GONE);
             tv_score_left.setVisibility(View.GONE);
+            mHandler.sendEmptyMessage(2);
 
             MqttResultModel mqttResultModel = new Gson().fromJson(str, MqttResultModel.class);
             if (mqttResultModel.getResultType().equals("win")) {
@@ -175,7 +209,10 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler = null;
+        }
     }
 
     @Override
@@ -281,4 +318,6 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         return super.onKeyDown(keyCode, event);
 
     }
+
+
 }
