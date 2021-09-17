@@ -33,6 +33,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -59,8 +62,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     TextView tv_score_left;
     @BindView(R.id.ll_answer)
     LinearLayout ll_answer;
-    @BindView(R.id.progress_view)
-    View progress_view;
+    @BindView(R.id.ll_view)
+    LinearLayout ll_view;
     @BindView(R.id.iv_result)
     ImageView iv_result;
     @BindView(R.id.tv_next)
@@ -73,6 +76,16 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     TextView tv_time;
     @BindView(R.id.rl_time)
     RelativeLayout rl_time;
+    @BindView(R.id.view_left)
+    View view_left;
+    @BindView(R.id.rl_totalScore)
+    RelativeLayout rl_totalScore;
+    @BindView(R.id.tv_totalScoreLeft)
+    TextView tv_totalScoreLeft;
+    @BindView(R.id.tv_totalScoreRight)
+    TextView tv_totalScoreRight;
+    @BindView(R.id.view_left2)
+    View view_left2;
 
 
     private String mAnswer_1;
@@ -81,6 +94,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private String mAnswer_4;
 
     private String mAnswer;
+    private int leftTotal = 0;
+    private int rightTotal = 0;
 
 
     private String mRoomId = "";
@@ -102,7 +117,19 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                     }
                     break;
                 case 2:
-                    rl_time.setVisibility(View.VISIBLE);
+                    rl_time.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    if (leftTotal == 0) {
+                        return;
+                    }
+                    if (rightTotal == 0 && leftTotal > 0) {
+                        view_left.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 100f));
+                        return;
+                    }
+
+
+                    view_left.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, (float) div(leftTotal, (leftTotal + rightTotal), 2)));
                     break;
                 default:
             }
@@ -178,14 +205,19 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             MqttAnswerNoticeModel answerModel = new Gson().fromJson(str, MqttAnswerNoticeModel.class);
             if (answerModel.getUserId().equals(SpUtils.getInstance().getString("userId"))) {
                 tv_score_left.setText(answerModel.getTotalScore() + "");
+                leftTotal = Integer.parseInt(answerModel.getTotalScore());
+                mHandler.sendEmptyMessage(3);
             } else {
                 tv_score_right.setText(answerModel.getTotalScore() + "");
+                rightTotal = Integer.parseInt(answerModel.getTotalScore());
+                mHandler.sendEmptyMessage(3);
             }
+
         } else if ("FinalResult".equals(new Gson().fromJson(str, MqttResultModel.class).getType())) {
             //答题结果
             tv_title.setVisibility(View.INVISIBLE);
             ll_answer.setVisibility(View.GONE);
-            progress_view.setVisibility(View.GONE);
+            ll_view.setVisibility(View.GONE);
             tv_score_right.setVisibility(View.GONE);
             tv_score_left.setVisibility(View.GONE);
             mHandler.sendEmptyMessage(2);
@@ -196,9 +228,16 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             } else {
                 iv_result.setImageResource(R.mipmap.iv_lose);
             }
+            tv_totalScoreLeft.setText(mqttResultModel.getPlayer().get(0).getScore() + "分");
+            tv_totalScoreRight.setText(mqttResultModel.getPlayer().get(1).getScore() + "分");
+            double a= Double.parseDouble(mqttResultModel.getPlayer().get(0).getScore());
+            double b= Double.parseDouble(mqttResultModel.getPlayer().get(1).getScore());
+            view_left2.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, (float) div(a, (a + b), 2)));
+
 
             iv_result.setVisibility(View.VISIBLE);
             tv_next.setVisibility(View.VISIBLE);
+            rl_totalScore.setVisibility(View.VISIBLE);
 
             basePresenter.matchExit(mRoomId);
         }
@@ -304,7 +343,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     }
 
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (isReallyExit == false) {
@@ -317,7 +356,26 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         }
         return super.onKeyDown(keyCode, event);
 
-    }
+    }*/
 
+
+    /**
+     * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指
+     * 定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @return 两个参数的商
+     */
+    public static double div(double v1, double v2, int scale) {
+        if (scale < 0) {
+            throw new IllegalArgumentException(
+                    "The scale must be a positive integer or zero");
+        }
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue() * 100;
+    }
 
 }
