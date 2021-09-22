@@ -75,6 +75,7 @@ public class PoemsActivity extends BrainActivity<PoemsPresenter> implements Poem
         mAdapter_poems.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mAdapter_poems.setSelect(position);
                 Intent intent = new Intent(PoemsActivity.this, PoemsDetailActivity.class);
                 intent.putExtra("pid", model.getData().get(position).getId());
                 startActivity(intent);

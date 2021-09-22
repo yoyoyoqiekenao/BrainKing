@@ -10,13 +10,15 @@
         android:id="@+id/rl"
         android:layout_width="82dp"
         android:layout_height="82dp"
+        android:background="@mipmap/iv_poems_blue"
         android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/iv_bg"
             android:layout_width="82dp"
             android:layout_height="82dp"
             android:layout_centerInParent="true"
-            android:src="@mipmap/iv_poems_blue"></ImageView>
+            ></ImageView>
 
         <TextView
             android:id="@+id/tv_name"
@@ -24,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:ems="1"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:gravity="center"
             android:text="三字经"
             android:textColor="@color/color_ffffff"></TextView>
