@@ -248,53 +248,145 @@
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_answer_1"
+                <RelativeLayout
+                    android:id="@+id/rl_answer_1"
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="36dp"
-                    android:layout_marginRight="36dp"
-                    android:background="@drawable/rectangle_ffffff_50"
-                    android:gravity="center"
-                    android:textColor="@color/color_333333"
-                    android:textSize="18dp"></TextView>
+                    android:layout_marginRight="36dp">
 
-                <TextView
-                    android:id="@+id/tv_answer_2"
+
+                    <TextView
+                        android:id="@+id/tv_answer_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:background="@drawable/rectangle_ffffff_50"
+                        android:gravity="center"
+                        android:textColor="@color/color_333333"
+                        android:textSize="18dp"></TextView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer1_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:src="@mipmap/iv_answer_success"></ImageView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer1_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:src="@mipmap/iv_answer_error"></ImageView>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="36dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="36dp"
-                    android:background="@drawable/rectangle_ffffff_50"
-                    android:gravity="center"
-                    android:textColor="@color/color_333333"
-                    android:textSize="18dp"></TextView>
+                    android:layout_marginRight="36dp">
 
-                <TextView
-                    android:id="@+id/tv_answer_3"
+                    <TextView
+                        android:id="@+id/tv_answer_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:background="@drawable/rectangle_ffffff_50"
+                        android:gravity="center"
+                        android:textColor="@color/color_333333"
+                        android:textSize="18dp"></TextView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer2_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:src="@mipmap/iv_answer_success"></ImageView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer2_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:src="@mipmap/iv_answer_error"></ImageView>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="36dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="36dp"
+                    android:layout_marginRight="36dp">
 
-                    android:background="@drawable/rectangle_ffffff_50"
-                    android:gravity="center"
-                    android:textColor="@color/color_333333"
-                    android:textSize="18dp"></TextView>
+                    <TextView
+                        android:id="@+id/tv_answer_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:background="@drawable/rectangle_ffffff_50"
+                        android:gravity="center"
+                        android:textColor="@color/color_333333"
+                        android:textSize="18dp"></TextView>
 
-                <TextView
-                    android:id="@+id/tv_answer_4"
+                    <ImageView
+                        android:id="@+id/iv_answer3_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:src="@mipmap/iv_answer_success"></ImageView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer3_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:src="@mipmap/iv_answer_error"></ImageView>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="58dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="36dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginRight="36dp"
-                    android:background="@drawable/rectangle_ffffff_50"
-                    android:gravity="center"
-                    android:textColor="@color/color_333333"
-                    android:textSize="18dp"></TextView>
+                    android:layout_marginRight="36dp">
+
+                    <TextView
+                        android:id="@+id/tv_answer_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:background="@drawable/rectangle_ffffff_50"
+                        android:gravity="center"
+                        android:textColor="@color/color_333333"
+                        android:textSize="18dp"></TextView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer4_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:src="@mipmap/iv_answer_success"></ImageView>
+
+                    <ImageView
+                        android:id="@+id/iv_answer4_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:src="@mipmap/iv_answer_error"></ImageView>
+                </RelativeLayout>
+
 
             </LinearLayout>
         </LinearLayout>

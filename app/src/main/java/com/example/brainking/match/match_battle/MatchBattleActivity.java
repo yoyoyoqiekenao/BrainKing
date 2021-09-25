@@ -86,6 +86,22 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     TextView tv_totalScoreRight;
     @BindView(R.id.view_left2)
     View view_left2;
+    @BindView(R.id.iv_answer1_success)
+    ImageView iv_answer1_success;
+    @BindView(R.id.iv_answer2_success)
+    ImageView iv_answer2_success;
+    @BindView(R.id.iv_answer3_success)
+    ImageView iv_answer3_success;
+    @BindView(R.id.iv_answer4_success)
+    ImageView iv_answer4_success;
+    @BindView(R.id.iv_answer1_error)
+    ImageView iv_answer1_error;
+    @BindView(R.id.iv_answer2_error)
+    ImageView iv_answer2_error;
+    @BindView(R.id.iv_answer3_error)
+    ImageView iv_answer3_error;
+    @BindView(R.id.iv_answer4_error)
+    ImageView iv_answer4_error;
 
 
     private String mAnswer_1;
@@ -230,8 +246,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             }
             tv_totalScoreLeft.setText(mqttResultModel.getPlayer().get(0).getScore() + "分");
             tv_totalScoreRight.setText(mqttResultModel.getPlayer().get(1).getScore() + "分");
-            double a= Double.parseDouble(mqttResultModel.getPlayer().get(0).getScore());
-            double b= Double.parseDouble(mqttResultModel.getPlayer().get(1).getScore());
+            double a = Double.parseDouble(mqttResultModel.getPlayer().get(0).getScore());
+            double b = Double.parseDouble(mqttResultModel.getPlayer().get(1).getScore());
             view_left2.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, (float) div(a, (a + b), 2)));
 
 
@@ -283,8 +299,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             case R.id.tv_answer_1:
                 if (mAnswer_1.equals(mAnswer)) {
                     tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer1_success.setVisibility(View.VISIBLE);
+                    iv_answer1_error.setVisibility(View.GONE);
                 } else {
                     tv_answer_1.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer1_success.setVisibility(View.GONE);
+                    iv_answer1_error.setVisibility(View.VISIBLE);
                 }
 
                 basePresenter.matchAnswer(mAnswer_1, mRoomId);
@@ -297,8 +317,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             case R.id.tv_answer_2:
                 if (mAnswer_2.equals(mAnswer)) {
                     tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer2_success.setVisibility(View.VISIBLE);
+                    iv_answer2_error.setVisibility(View.GONE);
                 } else {
                     tv_answer_2.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer2_success.setVisibility(View.GONE);
+                    iv_answer2_error.setVisibility(View.VISIBLE);
                 }
 
                 basePresenter.matchAnswer(mAnswer_2, mRoomId);
@@ -310,8 +334,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             case R.id.tv_answer_3:
                 if (mAnswer_3.equals(mAnswer)) {
                     tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer3_success.setVisibility(View.VISIBLE);
+                    iv_answer3_error.setVisibility(View.GONE);
                 } else {
                     tv_answer_3.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer3_success.setVisibility(View.GONE);
+                    iv_answer3_error.setVisibility(View.VISIBLE);
                 }
 
                 basePresenter.matchAnswer(mAnswer_3, mRoomId);
@@ -324,8 +352,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
                 if (mAnswer_4.equals(mAnswer)) {
                     tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer4_success.setVisibility(View.VISIBLE);
+                    iv_answer4_error.setVisibility(View.GONE);
                 } else {
                     tv_answer_4.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer4_success.setVisibility(View.GONE);
+                    iv_answer4_error.setVisibility(View.VISIBLE);
                 }
 
                 tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
