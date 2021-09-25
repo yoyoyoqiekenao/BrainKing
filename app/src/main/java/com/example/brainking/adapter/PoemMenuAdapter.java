@@ -24,6 +24,14 @@ public class PoemMenuAdapter extends BaseQuickAdapter<PoemListModel.RowsDTO, Bas
         } else {
             baseViewHolder.setVisible(R.id.iv_play, false);
         }
+
+        if (rowsDTO.getFree()) {
+            baseViewHolder.setImageResource(R.id.iv_free, R.mipmap.iv_unlock);
+        } else {
+            baseViewHolder.setImageResource(R.id.iv_free, R.mipmap.iv_lock);
+
+        }
+
     }
 
     public void setIndex(int position) {
