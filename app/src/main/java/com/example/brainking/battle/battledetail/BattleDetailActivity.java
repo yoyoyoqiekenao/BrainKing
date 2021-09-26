@@ -127,8 +127,10 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             MqttResultModel model = new Gson().fromJson(event.getMsg(), MqttResultModel.class);
             if ("win".equals(model.getResultType())) {
                 iv_result.setImageResource(R.mipmap.iv_win);
-            } else {
+            } else if("lose".equals(model.getResultType())){
                 iv_result.setImageResource(R.mipmap.iv_lose);
+            }else {
+                iv_result.setImageResource(R.mipmap.iv_equal);
             }
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {

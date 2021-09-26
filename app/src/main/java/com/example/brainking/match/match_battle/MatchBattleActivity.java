@@ -241,8 +241,10 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             MqttResultModel mqttResultModel = new Gson().fromJson(str, MqttResultModel.class);
             if (mqttResultModel.getResultType().equals("win")) {
                 iv_result.setImageResource(R.mipmap.iv_win);
-            } else {
+            } else if (mqttResultModel.getResultType().equals("lose")) {
                 iv_result.setImageResource(R.mipmap.iv_lose);
+            } else {
+                iv_result.setImageResource(R.mipmap.iv_equal);
             }
             tv_totalScoreLeft.setText(mqttResultModel.getPlayer().get(0).getScore() + "分");
             tv_totalScoreRight.setText(mqttResultModel.getPlayer().get(1).getScore() + "分");
