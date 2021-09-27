@@ -61,6 +61,22 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     TextView tv_answer_4;
     @BindView(R.id.iv_result)
     ImageView iv_result;
+    @BindView(R.id.iv_answer1_success)
+    ImageView iv_answer1_success;
+    @BindView(R.id.iv_answer2_success)
+    ImageView iv_answer2_success;
+    @BindView(R.id.iv_answer3_success)
+    ImageView iv_answer3_success;
+    @BindView(R.id.iv_answer4_success)
+    ImageView iv_answer4_success;
+    @BindView(R.id.iv_answer1_error)
+    ImageView iv_answer1_error;
+    @BindView(R.id.iv_answer2_error)
+    ImageView iv_answer2_error;
+    @BindView(R.id.iv_answer3_error)
+    ImageView iv_answer3_error;
+    @BindView(R.id.iv_answer4_error)
+    ImageView iv_answer4_error;
 
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
@@ -74,6 +90,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     private String mAnswer_4;
 
     private String mRoomId;
+
+    private String mAnswer;
 
     @Override
     protected BattleDetailPresenter createPresenter() {
@@ -135,6 +153,13 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
             MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
+
+            for (int i = 0; i < model.getOption().size(); i++) {
+                if (model.getOption().get(i).isRight) {
+                    mAnswer = model.getOption().get(i).getId();
+                }
+            }
+
             tv_title.setText(model.getTitle());
             tv_answer_1.setText(model.getOption().get(0).getContent());
             tv_answer_2.setText(model.getOption().get(1).getContent());
@@ -177,7 +202,18 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                 finish();
                 break;
             case R.id.tv_answer_1:
-                tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+
+                if (mAnswer_1.equals(mAnswer)) {
+                    tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer1_success.setVisibility(View.VISIBLE);
+                    iv_answer1_error.setVisibility(View.GONE);
+                } else {
+                    tv_answer_1.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer1_success.setVisibility(View.GONE);
+                    iv_answer1_error.setVisibility(View.VISIBLE);
+                }
+
+               //tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                 basePresenter.matchAnswer(mAnswer_1, mRoomId);
 
                 tv_answer_1.setClickable(false);
@@ -186,7 +222,15 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_2:
-                tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_2.equals(mAnswer)) {
+                    tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer2_success.setVisibility(View.VISIBLE);
+                    iv_answer2_error.setVisibility(View.GONE);
+                } else {
+                    tv_answer_2.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer2_success.setVisibility(View.GONE);
+                    iv_answer2_error.setVisibility(View.VISIBLE);
+                }
                 basePresenter.matchAnswer(mAnswer_2, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);
@@ -194,7 +238,15 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_3:
-                tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_3.equals(mAnswer)) {
+                    tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer3_success.setVisibility(View.VISIBLE);
+                    iv_answer3_error.setVisibility(View.GONE);
+                } else {
+                    tv_answer_3.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer3_success.setVisibility(View.GONE);
+                    iv_answer3_error.setVisibility(View.VISIBLE);
+                }
                 basePresenter.matchAnswer(mAnswer_3, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);
@@ -202,7 +254,15 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                 tv_answer_4.setClickable(false);
                 break;
             case R.id.tv_answer_4:
-                tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                if (mAnswer_4.equals(mAnswer)) {
+                    tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                    iv_answer4_success.setVisibility(View.VISIBLE);
+                    iv_answer4_error.setVisibility(View.GONE);
+                } else {
+                    tv_answer_4.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
+                    iv_answer4_success.setVisibility(View.GONE);
+                    iv_answer4_error.setVisibility(View.VISIBLE);
+                }
                 basePresenter.matchAnswer(mAnswer_4, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);

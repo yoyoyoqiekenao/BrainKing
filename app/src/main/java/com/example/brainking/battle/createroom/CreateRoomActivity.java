@@ -87,8 +87,8 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
                 Toast.makeText(this, "请选择等级", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (Integer.valueOf(ed_num.getText().toString()) > 6 || Integer.valueOf(ed_num.getText().toString()) < 2) {
-                Toast.makeText(this, "房间人数在2-6人", Toast.LENGTH_SHORT).show();
+            if (Integer.valueOf(ed_num.getText().toString()) > 10 || Integer.valueOf(ed_num.getText().toString()) < 2) {
+                Toast.makeText(this, "房间人数在2-10人", Toast.LENGTH_SHORT).show();
                 return;
             }
             createPresenter().createBattleRoom(mLevel, ed_num.getText().toString(), ed_roomname.getText().toString());
