@@ -1,12 +1,16 @@
 package com.example.brainking.home.poemsdetail;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,7 @@ import com.example.brainking.R;
 import com.example.brainking.adapter.PoemMenuAdapter;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainDialogFragment;
+import com.example.brainking.events.PlayEvent;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.util.NavigationUtil;
 import com.gyf.immersionbar.BarHide;
@@ -29,6 +34,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -37,12 +43,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresenter> implements PoemsMenuView {
+public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresenter> implements PoemsMenuView, View.OnClickListener {
 
     @BindView(R.id.smartLayout)
     SmartRefreshLayout smartLayout;
     @BindView(R.id.rc_menu)
     RecyclerView rc_menu;
+    @BindView(R.id.ll_mode)
+    LinearLayout ll_mode;
+    @BindView(R.id.tv_mode)
+    TextView tv_mode;
+    @BindView(R.id.iv_play_mode)
+    ImageView iv_play_mode;
 
     private int mIndex;
     private int mPage;
@@ -52,6 +64,7 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
     private PoemMenuAdapter mAdapter;
     private PoemMenuListener menuListener;
 
+    private Boolean isSequential;
 
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -74,6 +87,16 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
         mPid = getArguments().getInt("pid");
         mPage = getArguments().getInt("page");
         mId = getArguments().getInt("id");
+        isSequential = getArguments().getBoolean("sequential");
+        Log.d("xuwudi", "收到的数据==" + isSequential);
+
+        if (isSequential == true) {
+            iv_play_mode.setImageResource(R.mipmap.iv_play_mode_1);
+            tv_mode.setText("顺序播放");
+        } else {
+            iv_play_mode.setImageResource(R.mipmap.iv_play_mode_2);
+            tv_mode.setText("随机播放");
+        }
 
         ClassicsFooter classicsFooter = new ClassicsFooter(getContext());
         smartLayout.setRefreshFooter(classicsFooter);
@@ -106,6 +129,9 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
                 createPresenter().getPoemsList(mPid, mPage);
             }
         });
+
+
+        ll_mode.setOnClickListener(this);
 
         return view;
     }
@@ -150,6 +176,25 @@ public class PoemsMenuDialogFragment extends BrainDialogFragment<PoemsMenuPresen
     @Override
     protected PoemsMenuPresenter createPresenter() {
         return new PoemsMenuPresenter(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_mode:
+                if (isSequential) {
+                    tv_mode.setText("随机播放");
+                    iv_play_mode.setImageResource(R.mipmap.iv_play_mode_2);
+                    isSequential = false;
+                } else {
+                    tv_mode.setText("顺序播放");
+                    iv_play_mode.setImageResource(R.mipmap.iv_play_mode_1);
+                    isSequential = true;
+                }
+                EventBus.getDefault().post(new PlayEvent(isSequential));
+                break;
+            default:
+        }
     }
 
     public interface PoemMenuListener {

@@ -22,10 +22,15 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.events.PlayEvent;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,7 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> implements PoemsDetailView, View.OnClickListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener {
+public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> implements PoemsDetailView, View.OnClickListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
 
     @BindView(R.id.view)
@@ -85,6 +90,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
     private ObjectAnimator mRotation;
     //是否旋转
     private boolean isRotation;
+    private boolean isSequential = true;
 
     private PoemsMenuDialogFragment menuDialog;
     private List<PoemListModel.RowsDTO> mList = new ArrayList<>();
@@ -120,6 +126,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
                 .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).
                 init();
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         mRotation = ObjectAnimator.ofFloat(iv_musicNote, "rotation", 0f, 360f);
 
@@ -216,6 +223,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             bundle.putInt("page", mPage);
             bundle.putInt("pid", mPid);
             bundle.putInt("id", mId);
+            bundle.putBoolean("sequential", isSequential);
             menuDialog.setArguments(bundle);
             menuDialog.show(getSupportFragmentManager(), "");
 
@@ -294,6 +302,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         basePresenter.getPoemsDetail(mList.get(0).getId());
     }
 
+
     @Override
     public void getPoemListFail(String err) {
 
@@ -309,6 +318,11 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         mp.start();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getChange(PlayEvent event) {
+        isSequential = event.isChange();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -320,6 +334,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
+        EventBus.getDefault().unregister(this);
     }
 
     //停止播放
@@ -394,5 +409,11 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
 
     }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+
+    }
+
 
 }
