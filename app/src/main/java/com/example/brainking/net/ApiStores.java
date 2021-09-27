@@ -9,6 +9,7 @@ import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.json.MessageReadJson;
 import com.example.brainking.json.QuestionJson;
 import com.example.brainking.json.SendMsgJson;
+import com.example.brainking.json.UpdateUserInfoJson;
 import com.example.brainking.json.VerCodeJson;
 import com.example.brainking.model.BattleListModel;
 import com.example.brainking.model.BattleNormalModel;
@@ -36,6 +37,7 @@ import com.example.brainking.model.QuestionModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
 import com.example.brainking.model.SendMsgModel;
+import com.example.brainking.model.UpdateUserInfoModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
@@ -354,10 +356,20 @@ public interface ApiStores {
 
     /**
      * 出题
+     *
      * @param json
      * @return
      */
     @POST("question/userQuestion")
     Observable<QuestionModel> putQuestion(@Body QuestionJson json);
+
+    /**
+     * 修改用户信息
+     *
+     * @param json
+     * @return
+     */
+    @POST("f/user/updateUserInfo")
+    Observable<UpdateUserInfoModel> updateUserInfo(@Body UpdateUserInfoJson json);
 }
 

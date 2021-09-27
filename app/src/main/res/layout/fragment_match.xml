@@ -37,7 +37,7 @@
             android:layout_height="27dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="26dp"
-            android:src="@mipmap/iv_level"></ImageView>
+            android:src="@mipmap/iv_level_1"></ImageView>
 
         <RelativeLayout
             android:layout_width="match_parent"

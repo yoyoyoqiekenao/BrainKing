@@ -33,6 +33,7 @@ import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.mathdetail.MathDetailActivity;
 import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.home.search.SearchActivity;
+import com.example.brainking.home.userinfo.UserInfoActivity;
 import com.example.brainking.login.LoginActivity;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.UserInfoModel;
@@ -63,10 +64,15 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     ImageView iv_update;
     @BindView(R.id.rl_search)
     RelativeLayout rlSearch;
+    @BindView(R.id.iv_edit)
+    ImageView iv_edit;
 
     private PopupWindow mPop;
     private LearnListAdapter_math mAdapter_match;
 
+    private String mImg;
+    private String mName;
+    private String mRemark;
 
     @Override
     protected HomePresenter createPresenter() {
@@ -91,9 +97,10 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         rl_poems.setOnClickListener(this);
         iv_update.setOnClickListener(this);
         rlSearch.setOnClickListener(this);
+        iv_edit.setOnClickListener(this);
 
 
-        createPresenter().getUserInfo();
+        //createPresenter().getUserInfo();
     }
 
 
@@ -104,8 +111,14 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         } else if (view.getId() == R.id.rl_poems) {
             startActivity(new Intent(getContext(), PoemsActivity.class));
         } else if (view.getId() == R.id.iv_update) {
-            //startActivity();
+            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            intent.putExtra("img", mImg);
+            intent.putExtra("name", mName);
+            intent.putExtra("remark", mRemark);
+            startActivity(intent);
         } else if (view.getId() == R.id.rl_search) {
+            startActivity(new Intent(getContext(), SearchActivity.class));
+        } else if (view.getId() == R.id.iv_edit) {
             startActivity(new Intent(getContext(), SearchActivity.class));
         }
     }
@@ -155,6 +168,11 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
 
     @Override
     public void getUserInfoSuccess(UserInfoModel model) {
+        mImg = model.getData().getAvatar();
+        mName = model.getData().getNickName();
+        mRemark = model.getData().getRemark();
+
+
         Glide.with(getContext()).load(model.getData().getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
         tv_name.setText(model.getData().getNickName());
         tv_remark.setText(model.getData().getRemark());
@@ -187,5 +205,11 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createPresenter().getUserInfo();
     }
 }
