@@ -18,6 +18,7 @@ import com.example.brainking.model.CollectDetailModel;
 import com.example.brainking.model.CollectListModel;
 import com.example.brainking.model.CollectModel;
 import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.model.DelAllHistoryModel;
 import com.example.brainking.model.DeleteFriendModel;
 import com.example.brainking.model.FriendListModel;
 import com.example.brainking.model.Friend_Pass_refuse_Model;
@@ -34,6 +35,7 @@ import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.QuestionModel;
+import com.example.brainking.model.SearchHistoryModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
 import com.example.brainking.model.SendMsgModel;
@@ -371,5 +373,24 @@ public interface ApiStores {
      */
     @POST("f/user/updateUserInfo")
     Observable<UpdateUserInfoModel> updateUserInfo(@Body UpdateUserInfoJson json);
+
+    /**
+     * 搜索历史记录
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param userId
+     * @return
+     */
+    @GET("user/history/list")
+    Observable<SearchHistoryModel> getSearchHistory(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize, @Query("userId") String userId);
+
+    /**
+     * 删除所有搜索历史记录
+     *
+     * @return
+     */
+    @GET("user/history/delAll")
+    Observable<DelAllHistoryModel> delAllHistory();
 }
 
