@@ -146,7 +146,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mPop.dismiss();
                 Intent intent = new Intent(getContext(), MathDetailActivity.class);
-                intent.putExtra("pid", model.getData().get(position).getPid());
+                intent.putExtra("pid", model.getData().get(position).getId());
                 startActivity(intent);
             }
         });

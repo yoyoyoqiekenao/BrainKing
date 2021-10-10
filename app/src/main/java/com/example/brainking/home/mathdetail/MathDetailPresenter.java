@@ -38,9 +38,9 @@ public class MathDetailPresenter extends BasePresenter<MathDetailView> {
         });
     }
 
-    void getMathDetail() {
+    void getMathDetail(int pid) {
         baseView.showLoading();
-        addSubscription(apiStores.getMathDetail(), new ApiCallback<MathDetailModel>() {
+        addSubscription(apiStores.getMathDetail(pid), new ApiCallback<MathDetailModel>() {
             @Override
             public void onSuccess(MathDetailModel model) {
                 if (200 == model.getCode()) {

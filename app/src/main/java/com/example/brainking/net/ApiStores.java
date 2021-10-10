@@ -111,8 +111,8 @@ public interface ApiStores {
      *
      * @return
      */
-    @GET("learn/math/learn?pid=3")
-    Observable<MathDetailModel> getMathDetail();
+    @GET("learn/math/learn")
+    Observable<MathDetailModel> getMathDetail(@Query("pid") int pid);
 
     /**
      * 获取用户信息

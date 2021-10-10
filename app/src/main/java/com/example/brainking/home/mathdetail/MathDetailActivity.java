@@ -114,6 +114,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @BindView(R.id.iv_isCollect)
     ImageView iv_isCollect;
 
+
+    private int mPid;
+
     //是否隐藏解析
     private boolean isHide = true;
     //当前题型
@@ -186,9 +189,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
-
-
-        basePresenter.getMathDetail();
+        mPid = getIntent().getIntExtra("pid", -1);
+        Log.d("xuwudi", "pid===" + mPid);
+        basePresenter.getMathDetail(mPid);
 
         tvShow.setOnClickListener(this);
         tvNext.setOnClickListener(this);
@@ -631,7 +634,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
                     mJudgeAnswer_ = "";
                     mJudgeAnswer = "";
-                    basePresenter.getMathDetail();
+                    basePresenter.getMathDetail(mPid);
                 } else {
                     Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
@@ -651,7 +654,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
                     tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
                     tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
-                    basePresenter.getMathDetail();
+                    basePresenter.getMathDetail(mPid);
                 } else {
                     Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
@@ -667,7 +670,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     mCompletionAnswer_ = "";
                     mCompletionAnswer = "";
                     tv_answer_completion.setText("");
-                    basePresenter.getMathDetail();
+                    basePresenter.getMathDetail(mPid);
                 } else {
                     Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
