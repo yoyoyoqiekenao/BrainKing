@@ -176,6 +176,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         tv_answer_3.setOnClickListener(this);
         tv_answer_4.setOnClickListener(this);
         tv_next.setOnClickListener(this);
+        rlBack.setOnClickListener(this);
     }
 
 
@@ -299,6 +300,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rl_back:
+                finish();
+                break;
             case R.id.tv_answer_1:
                 if (mAnswer_1.equals(mAnswer)) {
                     tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
