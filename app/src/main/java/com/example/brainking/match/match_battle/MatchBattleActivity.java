@@ -194,6 +194,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                 }
             }
 
+            mHandler.removeCallbacksAndMessages(null);
             mTime = 10;
             mHandler.sendEmptyMessageDelayed(1, 1000);
 
