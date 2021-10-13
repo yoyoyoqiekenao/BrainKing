@@ -167,7 +167,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     }
                     break;
                 case 2:
-                    mTime = 180;
+                    mTime = 600;
                     mHandler.sendEmptyMessageDelayed(1, 1000);
                     break;
                 default:
@@ -201,6 +201,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @Override
     public void getMathDetailSuccess(MathDetailModel model) {
 
+        mHandler.removeCallbacksAndMessages(null);
         mHandler.sendEmptyMessage(2);
         //每次刷新数据的时候都隐藏解析
         isHide = false;

@@ -42,7 +42,7 @@
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/rl_title"
         android:background="@color/color_ffffff"></View>
 
@@ -94,7 +94,7 @@
                 android:layout_below="@id/tv_title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="6dp"
-                android:text="唐 李白"
+                android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="16dp"></TextView>
 
@@ -108,6 +108,7 @@
                 android:layout_marginTop="33dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center_horizontal"
+                android:lineSpacingMultiplier="2"
                 android:textColor="@color/color_333333"></TextView>
 
             <View

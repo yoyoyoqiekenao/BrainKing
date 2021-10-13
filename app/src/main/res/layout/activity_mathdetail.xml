@@ -38,10 +38,11 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/color_ffffff"></View>
 
 
+    《
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,7 +63,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/rectangle_ffffff_8">
 
-            <ScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -372,7 +373,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="33dp"
+                            android:layout_marginTop="25dp"
                             android:text=" "
                             android:textColor="@color/color_333333"
                             android:textSize="28dp"></TextView>
@@ -586,7 +587,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="66dp"
+                        android:layout_marginTop="50dp"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
@@ -622,7 +623,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="38dp"
+                        android:layout_marginTop="30dp"
                         android:text="本题解析"
                         android:textColor="@color/color_00AEE9"
                         android:textSize="14dp"></TextView>
@@ -640,7 +641,7 @@
                         android:textSize="14dp"
                         android:visibility="visible"></TextView>
                 </LinearLayout>
-            </ScrollView>
+            </androidx.core.widget.NestedScrollView>
         </RelativeLayout>
 
 
