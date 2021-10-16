@@ -2,6 +2,7 @@ package com.example.brainking.mine.friendapply;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class FriendApplyActivity extends BrainActivity<FriendApplyPresenter> imp
     RelativeLayout mRlBack;
     @BindView(R.id.rc_friendApply)
     RecyclerView rc_friendApply;
+    @BindView(R.id.ll_empty)
+    LinearLayout ll_empty;
 
     private FriendApplyAdapter mAdapter;
 
@@ -71,7 +74,15 @@ public class FriendApplyActivity extends BrainActivity<FriendApplyPresenter> imp
 
     @Override
     public void getFriendListSuccess(FriendListModel model) {
-        mAdapter.setList(model.getRows());
+        if (model.getRows() != null && model.getRows().size() > 0) {
+            mAdapter.setList(model.getRows());
+            ll_empty.setVisibility(View.GONE);
+            rc_friendApply.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty.setVisibility(View.VISIBLE);
+            rc_friendApply.setVisibility(View.GONE);
+        }
+
 
         mAdapter.addChildClickViewIds(R.id.tv_agree);
         mAdapter.addChildClickViewIds(R.id.tv_refuse);

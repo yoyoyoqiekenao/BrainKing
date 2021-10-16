@@ -53,6 +53,8 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
     TextView tv_apply;
     @BindView(R.id.rootView)
     LinearLayout rootView;
+    @BindView(R.id.ll_empty)
+    LinearLayout ll_empty;
 
     private MyFriendAdapter mAdapter;
     private PopupWindow mPop;
@@ -100,6 +102,13 @@ public class FriendActivity extends BrainActivity<FriendPresenter> implements Fr
 
     @Override
     public void getFriendListSuccess(FriendListModel model) {
+        if(model.getRows()!=null&&model.getRows().size()>0){
+            ll_empty.setVisibility(View.GONE);
+            rc_friend.setVisibility(View.VISIBLE);
+        }else {
+            ll_empty.setVisibility(View.VISIBLE);
+            rc_friend.setVisibility(View.GONE);
+        }
         mAdapter.setList(model.getRows());
         mAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override

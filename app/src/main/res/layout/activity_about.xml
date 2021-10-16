@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="微信公众号: 爱答题"
+                android:text="微信公众号: 我的时代"
                 android:textColor="@color/color_333333"
                 android:textSize="16dp"></TextView>
         </LinearLayout>
@@ -73,6 +73,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:lineSpacingExtra="5dp"
             android:text="拥有一批专业化的编辑团队,放眼全球工控和自动化领域的先进技术和发展趋势,为用户全面报道国内外最新技术趋势、市场动态和产品信息,为中国控制工程师以及管理人员提供了..."
             android:textColor="@color/color_333333"
             android:textSize="12dp"></TextView>

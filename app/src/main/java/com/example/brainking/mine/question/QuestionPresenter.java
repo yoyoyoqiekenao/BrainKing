@@ -13,7 +13,7 @@ public class QuestionPresenter extends BasePresenter<QuestionView> {
         attachView(view);
     }
 
-    public void MakeQuestion(String content, String a, String b, String c, String d, int type) {
+    public void MakeQuestion(String content, String a, String b, String c, String d, int type,String right) {
         baseView.showLoading();
         QuestionJson json = new QuestionJson();
         List<String> list = new ArrayList<>();
@@ -24,6 +24,7 @@ public class QuestionPresenter extends BasePresenter<QuestionView> {
         json.setList(list);
         json.setTitle(content);
         json.setQuType(type);
+        json.setRight(right);
 
         addSubscription(apiStores.putQuestion(json), new ApiCallback<QuestionModel>() {
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,8 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
     RecyclerView rvMessage;
     @BindView(R.id.smartView)
     SmartRefreshLayout smartView;
+    @BindView(R.id.ll_empty)
+    LinearLayout ll_empty;
 
 
     private MessageListAdapter mAdapter;
@@ -103,6 +106,13 @@ public class NewsFragment extends BrainFragment<NewsPresenter> implements NewsVi
 
     @Override
     public void getMessageListSuccess(MessageListModel messageListModel) {
+        if (messageListModel.getData() != null && messageListModel.getData().size() > 0) {
+            ll_empty.setVisibility(View.GONE);
+            smartView.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty.setVisibility(View.VISIBLE);
+            smartView.setVisibility(View.GONE);
+        }
         smartView.finishRefresh();
         mAdapter.setList(messageListModel.getData());
         mAdapter.setOnItemClickListener(new OnItemClickListener() {

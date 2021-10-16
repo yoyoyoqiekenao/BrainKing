@@ -20,6 +20,7 @@ import com.example.brainking.R;
 import com.example.brainking.base.BaseFragment;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
+import com.example.brainking.home.userinfo.UserInfoActivity;
 import com.example.brainking.login.LoginActivity;
 import com.example.brainking.mine.about.AboutActivity;
 import com.example.brainking.mine.collect.CollectActivity;
@@ -61,7 +62,14 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     RelativeLayout rl_loginOut;
     @BindView(R.id.rl_question)
     RelativeLayout rl_question;
+    @BindView(R.id.iv_edit)
+    ImageView iv_edit;
+    @BindView(R.id.iv_level)
+    ImageView iv_level;
 
+    private String mImg;
+    private String mName;
+    private String mRemark;
 
     @Nullable
     @Override
@@ -84,6 +92,7 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         rl_collect.setOnClickListener(this);
         rl_loginOut.setOnClickListener(this);
         rl_question.setOnClickListener(this);
+        iv_edit.setOnClickListener(this);
 
         createPresenter().getUserInfo();
     }
@@ -107,6 +116,12 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
             createPresenter().loginOut();
         } else if (view.getId() == R.id.rl_question) {
             startActivity(new Intent(getContext(), QuestionActivity.class));
+        } else if (view.getId() == R.id.iv_edit) {
+            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            intent.putExtra("img", mImg);
+            intent.putExtra("name", mName);
+            intent.putExtra("remark", mRemark);
+            startActivity(intent);
         }
     }
 
@@ -120,6 +135,10 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         Glide.with(getContext()).load(model.getData().getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
         tv_name.setText(model.getData().getNickName());
         tv_remark.setText(model.getData().getRemark());
+
+        mImg = model.getData().getAvatar();
+        mName = model.getData().getNickName();
+        mRemark = model.getData().getRemark();
     }
 
     @Override

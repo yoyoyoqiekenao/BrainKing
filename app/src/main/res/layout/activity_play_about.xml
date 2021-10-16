@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
                 android:layout_marginTop="16dp"
                 android:text="1、首先，参与到在线游戏"
                 android:textColor="@color/color_333333"
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
                 android:layout_marginTop="11dp"
                 android:text="2、回答问题，要准要快"
                 android:textColor="@color/color_333333"
@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
                 android:layout_marginTop="11dp"
                 android:text="3、超时或答题，就会出局"
                 android:textColor="@color/color_333333"
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
                 android:layout_marginTop="11dp"
                 android:text="4、全部答对，即冲顶成功"
                 android:textColor="@color/color_333333"
@@ -150,7 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
                 android:layout_marginTop="11dp"
                 android:text="5、没人成功？奖金也不浪费"
                 android:textColor="@color/color_333333"
@@ -168,6 +168,69 @@
                 android:textColor="@color/color_333333"
                 android:textSize="12dp"></TextView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="36dp"
+                android:text="关于我们"
+                android:textColor="@color/color_333333"
+                android:textSize="16dp"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/wx_logo_green"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="微信公众号: 我的时代"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16dp"></TextView>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="36dp"
+                android:text="常见问题"
+                android:textColor="@color/color_333333"
+                android:textSize="16dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="11dp"
+                android:text="1、什么是爱答题？"
+                android:textColor="@color/color_333333"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginBottom="20dp"
+                android:text="爱答题是一款益智类公平竞答游戏，你需要通过参与互动答题，冲顶成功就可以领走奖金。"
+                android:textColor="@color/color_333333"
+                android:textSize="12dp"></TextView>
 
         </LinearLayout>
     </ScrollView>

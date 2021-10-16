@@ -54,9 +54,32 @@
         android:layout_height="10dp"
         android:background="#F3F5F7"></View>
 
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/iv_chat_empty"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="没有更多的好友"></TextView>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_friend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_ffffff"></androidx.recyclerview.widget.RecyclerView>
+        android:background="@color/color_ffffff"
+        android:visibility="visible"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

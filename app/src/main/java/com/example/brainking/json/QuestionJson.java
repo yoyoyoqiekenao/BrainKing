@@ -6,6 +6,15 @@ public class QuestionJson {
     private List<String> list;
     private int quType;
     private String title;
+    private String right;
+
+    public String getRight() {
+        return right;
+    }
+
+    public void setRight(String right) {
+        this.right = right;
+    }
 
     public List<String> getList() {
         return list;

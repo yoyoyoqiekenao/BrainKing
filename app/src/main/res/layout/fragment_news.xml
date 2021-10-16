@@ -33,6 +33,29 @@
         android:layout_height="10dp"
         android:background="@color/color_F3F5F7"></View>
 
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/iv_chat_empty"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="没有更多的好友"></TextView>
+    </LinearLayout>
+
+
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smartView"
         android:layout_width="match_parent"

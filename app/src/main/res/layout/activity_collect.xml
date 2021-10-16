@@ -47,5 +47,31 @@
         android:id="@+id/rc_friend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_ffffff"></androidx.recyclerview.widget.RecyclerView>
+        android:background="@color/color_ffffff"
+        android:visibility="visible"></androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/iv_collect_empty"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="暂时没有收藏"
+            android:textColor="@color/color_666666"
+            android:textSize="14dp"></TextView>
+    </LinearLayout>
 </LinearLayout>

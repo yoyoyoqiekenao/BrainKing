@@ -127,6 +127,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".mine.question.QuestionActivity"
+
             android:screenOrientation="portrait"></activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" /> <!--MqttService-->

@@ -3,6 +3,7 @@ package com.example.brainking.mine.collect;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ public class CollectActivity extends BrainActivity<CollectPresenter> implements 
     RelativeLayout rl_back;
     @BindView(R.id.rc_friend)
     RecyclerView rc_friend;
+    @BindView(R.id.ll_empty)
+    LinearLayout ll_empty;
 
     private MyCollectAdapter mAdapter;
 
@@ -54,13 +57,22 @@ public class CollectActivity extends BrainActivity<CollectPresenter> implements 
         rc_friend.setAdapter(mAdapter);
 
         rl_back.setOnClickListener(this);
+        ll_empty.setOnClickListener(this);
 
         createPresenter().getCollectList();
     }
 
     @Override
     public void getCollectSuccess(CollectListModel model) {
-        mAdapter.setList(model.getRows());
+        if (model.getRows() != null && model.getRows().size() > 0) {
+            mAdapter.setList(model.getRows());
+            rc_friend.setVisibility(View.VISIBLE);
+            ll_empty.setVisibility(View.GONE);
+        } else {
+            ll_empty.setVisibility(View.VISIBLE);
+            rc_friend.setVisibility(View.GONE);
+        }
+
 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -92,6 +104,7 @@ public class CollectActivity extends BrainActivity<CollectPresenter> implements 
             case R.id.rl_back:
                 finish();
                 break;
+
             default:
         }
     }
