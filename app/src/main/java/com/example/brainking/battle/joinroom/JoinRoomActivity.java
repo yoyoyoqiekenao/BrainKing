@@ -71,7 +71,7 @@ public class JoinRoomActivity extends BrainActivity<JoinRoomPresenter> implement
 
         mList = (List<JoinRoomModel.DataDTO>) getIntent().getSerializableExtra("list");
         for (int i = 0; i < mList.size(); i++) {
-            mNormalList.add(new BattleNormalModel(mList.get(i).getNickName(), mList.get(i).getAvatar(), mList.get(i).getUserId()));
+            mNormalList.add(new BattleNormalModel(mList.get(i).getNickName(), mList.get(i).getAvatar(), mList.get(i).getUserId(),""));
         }
 
         mAdapter = new BattleReadyAdapter();
@@ -90,7 +90,7 @@ public class JoinRoomActivity extends BrainActivity<JoinRoomPresenter> implement
 
         if ("JoinRoom".equals(new Gson().fromJson(str, MqttBattleDetailModel.class).getType())) {
             MqttBattleDetailModel model = new Gson().fromJson(str, MqttBattleDetailModel.class);
-            mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar(), model.getJoinUser().getUserId()));
+            mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar(), model.getJoinUser().getUserId(),""));
             mAdapter.setList(mNormalList);
         }
         if ("QuitRoom".equals(new Gson().fromJson(str, MqttQuitRoomModel.class).getType())) {

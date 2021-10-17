@@ -1,5 +1,6 @@
 package com.example.brainking.adapter;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +19,10 @@ public class BattleReadyAdapter extends BaseQuickAdapter<BattleNormalModel, Base
 
     @Override
     protected void convert(BaseViewHolder helper, BattleNormalModel item) {
+
+
         helper.setText(R.id.tv_name, item.getName() + "");
         Glide.with(getContext()).load(item.getImg()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into((ImageView) helper.getView(R.id.iv_head));
+
     }
 }

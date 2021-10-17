@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,8 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
     ImageView iv_create;
     @BindView(R.id.smartLayout)
     SmartRefreshLayout smartLayout;
+    @BindView(R.id.ll_empty)
+    LinearLayout ll_empty;
 
     private BattleAdapter mAdapter;
     private String mRoomId;
@@ -117,8 +120,14 @@ public class BattleFragment extends BrainFragment<BattlePresenter> implements Ba
 
     @Override
     public void getBattleListSuccess(BattleListModel model) {
-
-        mAdapter.setList(model.getData());
+        if (model.getData() != null && model.getData().size() > 0) {
+            mAdapter.setList(model.getData());
+            smartLayout.setVisibility(View.VISIBLE);
+            ll_empty.setVisibility(View.GONE);
+        } else {
+            smartLayout.setVisibility(View.GONE);
+            ll_empty.setVisibility(View.VISIBLE);
+        }
 
 
         mAdapter.addChildClickViewIds(R.id.tv_pk);

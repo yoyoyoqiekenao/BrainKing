@@ -53,21 +53,39 @@
         android:layout_marginTop="8dp"></androidx.recyclerview.widget.RecyclerView>
 
 
-    <TextView
-        android:id="@+id/tv"
+    <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="376dp"
-        android:text="等待对手加入比赛"
-        android:textColor="@color/white"
-        android:textSize="24dp"></TextView>
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/iv_clock"></ImageView>
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="等待对手加入比赛"
+            android:textColor="@color/white"
+            android:textSize="24dp"></TextView>
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv"
+        android:layout_below="@id/ll"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="共10道题，每题10秒钟回答时间"
@@ -84,6 +102,21 @@
         android:layout_marginBottom="130dp"
         android:background="@drawable/rectangle_f2cb51_21"
         android:gravity="center"
-        android:text="开始挑战"
+        android:text="进入比赛"
         android:textSize="16dp"></TextView>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/rectangle_3b4dd0_21"
+        android:gravity="center"
+        android:text="解散房间"
+        android:textColor="@color/white"
+        android:textSize="16dp"></TextView>
+
 </RelativeLayout>

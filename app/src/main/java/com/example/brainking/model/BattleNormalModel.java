@@ -6,11 +6,21 @@ public class BattleNormalModel implements Serializable {
     private String name;
     private String img;
     private String userId;
+    private String type;
 
-    public BattleNormalModel(String name, String img, String userId) {
+    public BattleNormalModel(String name, String img, String userId, String type) {
         this.name = name;
         this.img = img;
         this.userId = userId;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUserId() {

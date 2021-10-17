@@ -53,11 +53,15 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
     RecyclerView rc;
     @BindView(R.id.tv_start)
     TextView tv_start;
+    @BindView(R.id.tv_cancel)
+    TextView tv_cancel;
 
 
     private BattleReadyAdapter mAdapter;
     private String mRoomId;
     private String mNum;
+
+    private View footView;
 
     private List<BattleNormalModel> mNormalList = new ArrayList<>();
     private Handler mHandler = new Handler() {
@@ -91,14 +95,16 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
 
         rl_back.setOnClickListener(this);
         tv_start.setOnClickListener(this);
+        tv_cancel.setOnClickListener(this);
 
 
-        mNormalList.add(new BattleNormalModel(SpUtils.getInstance().getString("name"), SpUtils.getInstance().getString("headImg"), SpUtils.getInstance().getString("userId")));
+        mNormalList.add(new BattleNormalModel(SpUtils.getInstance().getString("name"), SpUtils.getInstance().getString("headImg"), SpUtils.getInstance().getString("userId"), ""));
         mAdapter = new BattleReadyAdapter();
         GridLayoutManager manager = new GridLayoutManager(this, 5);
         manager.setOrientation(RecyclerView.VERTICAL);
         rc.setLayoutManager(manager);
         rc.setAdapter(mAdapter);
+
         mAdapter.setList(mNormalList);
 
 
@@ -107,6 +113,7 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_cancel:
             case R.id.rl_back:
                 createPresenter().cancelRoom(mRoomId);
                 break;
@@ -129,7 +136,7 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
 
         if ("JoinRoom".equals(new Gson().fromJson(str, MqttBattleDetailModel.class).getType())) {
             MqttBattleDetailModel model = new Gson().fromJson(str, MqttBattleDetailModel.class);
-            mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar(), model.getJoinUser().getUserId()));
+            mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar(), model.getJoinUser().getUserId(), ""));
             mAdapter.setList(mNormalList);
         }
 

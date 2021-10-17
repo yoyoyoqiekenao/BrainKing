@@ -76,6 +76,10 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     ImageView iv_answer3_error;
     @BindView(R.id.iv_answer4_error)
     ImageView iv_answer4_error;
+    @BindView(R.id.ll_fee)
+    LinearLayout ll_fee;
+    @BindView(R.id.tv_fees)
+    TextView tv_fees;
 
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
@@ -141,14 +145,16 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             ll_answer.setVisibility(View.INVISIBLE);
             tv_finish.setVisibility(View.VISIBLE);
             iv_result.setVisibility(View.VISIBLE);
+            ll_fee.setVisibility(View.VISIBLE);
             MqttResultModel model = new Gson().fromJson(event.getMsg(), MqttResultModel.class);
             if ("win".equals(model.getResultType())) {
                 iv_result.setImageResource(R.mipmap.iv_win);
-            } else if("lose".equals(model.getResultType())){
+            } else if ("lose".equals(model.getResultType())) {
                 iv_result.setImageResource(R.mipmap.iv_lose);
-            }else {
+            } else {
                 iv_result.setImageResource(R.mipmap.iv_equal);
             }
+            tv_fees.setText(model.getAddScore() + "");
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
             MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
@@ -212,7 +218,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
                     iv_answer1_error.setVisibility(View.VISIBLE);
                 }
 
-               //tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
+                //tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                 basePresenter.matchAnswer(mAnswer_1, mRoomId);
 
                 tv_answer_1.setClickable(false);
