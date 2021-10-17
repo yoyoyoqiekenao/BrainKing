@@ -21,7 +21,6 @@ import com.example.brainking.model.BattleNormalModel;
 import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
 import com.example.brainking.mqttmodel.MqttOptionModel;
-import com.example.brainking.mqttmodel.MqttReadyModel;
 import com.example.brainking.mqttmodel.MqttResultModel;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;

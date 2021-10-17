@@ -57,7 +57,7 @@
 
                 <RelativeLayout
                     android:id="@+id/ll_left"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:orientation="vertical">
@@ -73,13 +73,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/iv_left"
-                        android:layout_centerHorizontal="true"></TextView>
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text=" "
+                        android:textColor="@color/white"></TextView>
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/ll_right"
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="16dp"
@@ -96,7 +99,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/iv_right"
-                        android:layout_centerHorizontal="true"></TextView>
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"></TextView>
 
                 </RelativeLayout>
 
@@ -157,45 +161,79 @@
                 android:layout_marginTop="30dp"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/tv_totalScoreLeft"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="28dp"></TextView>
+                <RelativeLayout
+                    android:id="@+id/rl_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_totalScoreRight"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
-                    android:textColor="@color/white"
-                    android:textSize="28dp"></TextView>
+                    <TextView
+                        android:id="@+id/tv_totalScoreLeft"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="16dp"
+                        android:textColor="#FFD400"
+                        android:textSize="28dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_totalScoreRight"
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp"
+                        android:textColor="@color/white"
+                        android:textSize="28dp"></TextView>
+
+                    <LinearLayout
+                        android:id="@+id/ll_view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_toLeftOf="@id/tv_totalScoreRight"
+                        android:layout_toRightOf="@id/tv_totalScoreLeft"
+                        android:background="#00AEE9"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <View
+                            android:id="@+id/view_left2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_06DEF1"></View>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
 
                 <LinearLayout
-                    android:id="@+id/ll_view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_toLeftOf="@id/tv_totalScoreRight"
-                    android:layout_toRightOf="@id/tv_totalScoreLeft"
-                    android:background="#00AEE9"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_view2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-                    <View
-                        android:id="@+id/view_left2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/color_06DEF1"></View>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/iv_star"></ImageView>
 
-
+                    <TextView
+                        android:id="@+id/tv_fees"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text=" "
+                        android:textColor="@color/white"
+                        android:textSize="26dp"
+                        android:textStyle="bold"></TextView>
                 </LinearLayout>
-
             </RelativeLayout>
 
             <RelativeLayout

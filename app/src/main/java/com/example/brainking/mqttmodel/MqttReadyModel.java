@@ -8,12 +8,22 @@ public class MqttReadyModel {
 
     @SerializedName("multiplayer")
     public Boolean multiplayer;
+    @SerializedName("players")
+    public List<PlayersDTO> players;
     @SerializedName("roomId")
     public String roomId;
     @SerializedName("type")
     public String type;
-    @SerializedName("players")
-    public List<Object> players;
+
+    @Override
+    public String toString() {
+        return "MqttReadyModel{" +
+                "multiplayer=" + multiplayer +
+                ", players=" + players +
+                ", roomId='" + roomId + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 
     public Boolean getMultiplayer() {
         return multiplayer;
@@ -21,6 +31,14 @@ public class MqttReadyModel {
 
     public void setMultiplayer(Boolean multiplayer) {
         this.multiplayer = multiplayer;
+    }
+
+    public List<PlayersDTO> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayersDTO> players) {
+        this.players = players;
     }
 
     public String getRoomId() {
@@ -39,11 +57,57 @@ public class MqttReadyModel {
         this.type = type;
     }
 
-    public List<Object> getPlayers() {
-        return players;
-    }
+    public static class PlayersDTO {
+        @SerializedName("avatar")
+        public String avatar;
+        @SerializedName("score")
+        public String score;
+        @SerializedName("userId")
+        public String userId;
+        @SerializedName("userName")
+        public String userName;
+        @SerializedName("fees")
+        private String fees;
 
-    public void setPlayers(List<Object> players) {
-        this.players = players;
+
+        public String getFees() {
+            return fees;
+        }
+
+        public void setFees(String fees) {
+            this.fees = fees;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getScore() {
+            return score;
+        }
+
+        public void setScore(String score) {
+            this.score = score;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
     }
 }

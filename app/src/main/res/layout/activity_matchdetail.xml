@@ -46,14 +46,52 @@
         android:layout_below="@id/rl_title"
         android:background="@color/color_ffffff"></View>
 
-    <ImageView
-        android:id="@+id/iv_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+    <RelativeLayout
+        android:id="@+id/ll_left"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:src="@mipmap/iv_matchdetail_left"
-        android:visibility="visible"></ImageView>
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/iv_head"></ImageView>
+
+        <View
+            android:id="@+id/view_left"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_left"
+            android:background="@color/color_2455F2"></View>
+
+        <TextView
+            android:id="@+id/tv_name_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/view_left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/iv_left"
+            android:text=""
+            android:textColor="#06DEF1"
+            android:textSize="16dp"></TextView>
+
+        <TextView
+            android:id="@+id/tv_fees_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_left"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/iv_left"
+            android:text="222"
+            android:textColor="#FFA533"></TextView>
+    </RelativeLayout>
+
 
     <ImageView
         android:layout_width="wrap_content"
@@ -75,13 +113,59 @@
         android:textColor="@color/color_F2CB51"
         android:textSize="18dp"></TextView>
 
-    <ImageView
-        android:id="@+id/iv_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/ll_right"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_gravity="right"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="16dp"
-        android:src="@mipmap/iv_matchdetail_left"
-        android:visibility="visible"></ImageView>
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iv_head"></ImageView>
+
+        <View
+            android:id="@+id/view_right"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_right"
+            android:background="@color/color_2455F2"></View>
+
+        <TextView
+            android:id="@+id/tv_name_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/view_right"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@id/iv_right"
+            android:textColor="#06DEF1"
+            android:textSize="16dp"></TextView>
+
+        <TextView
+            android:id="@+id/tv_fees_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_right"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_right"
+            android:text="1111"
+            android:textColor="#FFA533"
+            android:textSize="16dp"></TextView>
+
+    </RelativeLayout>
+
+
 </LinearLayout>

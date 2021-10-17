@@ -58,7 +58,7 @@ public interface ApiStores {
 
     public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    //public static final String BASE_URL = "http://192.168.1.104:8080/";
+    //public static final String BASE_URL = "http://192.168.1.107:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 

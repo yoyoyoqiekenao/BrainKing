@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
@@ -102,6 +105,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     ImageView iv_answer3_error;
     @BindView(R.id.iv_answer4_error)
     ImageView iv_answer4_error;
+    @BindView(R.id.iv_left)
+    ImageView iv_left;
+    @BindView(R.id.iv_right)
+    ImageView iv_right;
+    @BindView(R.id.tv_fees)
+    TextView tv_fees;
 
 
     private String mAnswer_1;
@@ -112,6 +121,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private String mAnswer;
     private int leftTotal = 0;
     private int rightTotal = 0;
+
+    private String mName;
+    private String mImg;
 
 
     private String mRoomId = "";
@@ -169,6 +181,14 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
 
         mRoomId = getIntent().getStringExtra("roomId");
+        mName = getIntent().getStringExtra("name");
+        mImg = getIntent().getStringExtra("img");
+
+        Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
+        tv_name_left.setText(SpUtils.getInstance().getString("name"));
+        Glide.with(this).load(mImg).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_right);
+        tv_name_right.setText(mName + "");
+
         basePresenter.ready(mRoomId);
 
         tv_answer_1.setOnClickListener(this);
@@ -248,6 +268,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             } else {
                 iv_result.setImageResource(R.mipmap.iv_equal);
             }
+            tv_fees.setText(mqttResultModel.getAddScore() + "");
             tv_totalScoreLeft.setText(mqttResultModel.getPlayer().get(0).getScore() + "分");
             tv_totalScoreRight.setText(mqttResultModel.getPlayer().get(1).getScore() + "分");
             double a = Double.parseDouble(mqttResultModel.getPlayer().get(0).getScore());
@@ -301,6 +322,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
+                basePresenter.matchExit(mRoomId);
                 finish();
                 break;
             case R.id.tv_answer_1:
