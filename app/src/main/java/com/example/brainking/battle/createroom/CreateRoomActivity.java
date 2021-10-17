@@ -3,6 +3,7 @@ package com.example.brainking.battle.createroom;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -10,16 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.battle.battleready.BattleReadyActivity;
 import com.example.brainking.model.CreateRoomModel;
+import com.example.brainking.util.SpUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -44,6 +50,10 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
     EditText ed_roomname;
     @BindView(R.id.ed_num)
     EditText ed_num;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.iv_head)
+    ImageView iv_head;
 
     private TextView tv_level_1, tv_level_2, tv_level_3;
 
@@ -66,6 +76,9 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
         rl_back.setOnClickListener(this);
         tv_createRoom.setOnClickListener(this);
         rl_level.setOnClickListener(this);
+
+        tv_name.setText(SpUtils.getInstance().getString("name"));
+        Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
 
 
     }
@@ -97,15 +110,15 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
             showLevelPop();
         } else if (v.getId() == R.id.tv_level_1) {
             mLevel = "1";
-            tv_level.setText("1");
+            tv_level.setText("一般");
             mPop.dismiss();
         } else if (v.getId() == R.id.tv_level_2) {
             mLevel = "2";
-            tv_level.setText("2");
+            tv_level.setText("中等");
             mPop.dismiss();
         } else if (v.getId() == R.id.tv_level_3) {
             mLevel = "3";
-            tv_level.setText("3");
+            tv_level.setText("困难");
             mPop.dismiss();
         }
     }

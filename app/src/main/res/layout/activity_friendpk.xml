@@ -39,7 +39,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/color_ffffff"></View>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +80,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_name"></TextView>
 
         <TextView
-
+            android:id="@+id/tv_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -90,6 +90,29 @@
             app:layout_constraintLeft_toLeftOf="@id/tv_values"
             app:layout_constraintTop_toBottomOf="@id/tv_values"></TextView>
 
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rectangle_3b4dd0_8"
+            app:layout_constraintBottom_toBottomOf="@id/tv_values"
+            app:layout_constraintLeft_toRightOf="@id/tv_values"
+            app:layout_constraintTop_toTopOf="@id/tv_values">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_f2cb51_8"></View>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="8/10"
+                android:textColor="@color/white"
+                android:textSize="10dp"></TextView>
+        </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -97,9 +120,58 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="34dp"
         android:layout_marginTop="61dp"
-        android:textSize="16dp"
         android:text="邀请你和好友对战答题游戏。"
-        android:textColor="@color/color_ffffff"></TextView>
+        android:textColor="@color/color_ffffff"
+        android:textSize="16dp"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="34dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击“发起挑战”按钮,你可以开房间并向你的好友发起挑战。"
+            android:textColor="@color/color_ffffff"
+            android:textSize="14dp"></TextView>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="34dp"
+        android:text="你在房间里等待他们加入,带他们进入房间后,你们就可以对战答题了。"
+        android:textColor="@color/color_ffffff"
+        android:textSize="14dp"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="34dp"
+        android:text="当然,你也可以通过点击“加入房间”进入到好友创建的房间,仅需输入房间号即可。"
+        android:textColor="@color/color_ffffff"
+        android:textSize="14dp"></TextView>
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="34dp"
+        android:text="tips: 每个房间最多10人一起对战"
+        android:textColor="@color/color_ffffff"
+        android:textSize="14dp"></TextView>
 
     <ImageView
         android:id="@+id/iv_create"

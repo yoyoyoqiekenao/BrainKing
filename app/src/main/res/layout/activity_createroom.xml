@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_battle"
-     android:orientation="vertical">
+    android:orientation="vertical">
 
     <View
         android:id="@+id/view"
@@ -39,7 +39,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/color_ffffff"></View>
 
 
@@ -55,6 +55,17 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="35dp"
             android:src="@mipmap/iv_head"></ImageView>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_head"
+            android:layout_alignLeft="@id/iv_head"
+            android:layout_alignRight="@id/iv_head"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textColor="@color/white"></TextView>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -88,9 +99,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:textColorHint="@color/gray"
             android:hint="请输入房间名称"
             android:textColor="@color/white"
+            android:textColorHint="@color/gray"
             android:textSize="14dp"></EditText>
     </RelativeLayout>
 
@@ -109,10 +120,10 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@null"
-            android:inputType="number"
             android:hint="请输入房间人数"
-            android:textColorHint="@color/gray"
+            android:inputType="number"
             android:textColor="@color/white"
+            android:textColorHint="@color/gray"
             android:textSize="14dp"></EditText>
     </RelativeLayout>
 
@@ -134,8 +145,8 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请选择难易程度"
-            android:textColorHint="@color/gray"
             android:textColor="@color/white"
+            android:textColorHint="@color/gray"
             android:textSize="14dp"></TextView>
     </RelativeLayout>
 
