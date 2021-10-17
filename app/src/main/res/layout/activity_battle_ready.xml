@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@id/rl_title"
-        android:background="@color/color_ffffff"></View>
+        android:background="#33ffffff"></View>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -50,16 +50,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_title"
-        android:layout_marginTop="8dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="376dp"
+        android:layout_marginTop="276dp"
         android:gravity="center"
         android:orientation="horizontal">
 

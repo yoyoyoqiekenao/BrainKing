@@ -190,10 +190,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
             } else {
                 isRotation = true;
                 rePlay();
-                mRotation.setRepeatCount(ObjectAnimator.INFINITE);
-                mRotation.setInterpolator(new LinearInterpolator());
-                mRotation.setDuration(5000);
-                mRotation.start();
+
             }
 
         } else if (v.getId() == R.id.iv_left) {
@@ -213,6 +210,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
                 createPresenter().getPoemsDetail(mList.get(mIndex).getId());
             }
         } else if (v.getId() == R.id.iv_isPlay) {
+
             pause();
         } else if (v.getId() == R.id.iv_menu) {
             menuDialog = new PoemsMenuDialogFragment();
@@ -348,6 +346,9 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
     //重新播放
     private void rePlay() {
+
+
+
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.seekTo(0);
             return;
@@ -393,6 +394,7 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
      * 暂停
      */
     protected void pause() {
+        mRotation.end();
         if (isPause == false) {
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
@@ -412,7 +414,12 @@ public class PoemsDetailActivity extends BrainActivity<PoemsDetailPresenter> imp
 
     @Override
     public void onCompletion(MediaPlayer mp) {
+        if (mIndex == mList.size() - 1) {
 
+        } else {
+            mIndex = mIndex + 1;
+            createPresenter().getPoemsDetail(mList.get(mIndex).getId());
+        }
     }
 
 

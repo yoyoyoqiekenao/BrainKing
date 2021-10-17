@@ -40,7 +40,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/color_ffffff"></View>
+        android:background="#33ffffff"></View>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="经验值100"
+            android:text="经验值 100"
             android:textColor="@color/color_ffffff"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="@id/tv_values"
@@ -153,6 +153,7 @@
         android:textSize="14dp"></TextView>
 
     <TextView
+        android:id="@+id/tv_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="34dp"
@@ -163,7 +164,6 @@
         android:textSize="14dp"></TextView>
 
     <TextView
-        android:id="@+id/tv_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="34dp"

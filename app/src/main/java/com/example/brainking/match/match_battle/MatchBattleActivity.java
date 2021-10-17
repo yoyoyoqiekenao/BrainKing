@@ -280,7 +280,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             tv_next.setVisibility(View.VISIBLE);
             rl_totalScore.setVisibility(View.VISIBLE);
 
-            basePresenter.matchExit(mRoomId);
+            //basePresenter.matchExit(mRoomId);
         }
 
     }
@@ -322,7 +322,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
-                basePresenter.matchExit(mRoomId);
+                //basePresenter.matchExit(mRoomId);
                 finish();
                 break;
             case R.id.tv_answer_1:

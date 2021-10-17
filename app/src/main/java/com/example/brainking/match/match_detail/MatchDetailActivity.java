@@ -119,8 +119,13 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
         EventBus.getDefault().register(this);
 
-        //Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
-        //tv_name_left.setText(SpUtils.getInstance().getString("name"));
+        Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
+        tv_name_left.setText(SpUtils.getInstance().getString("name"));
+        mObjectAnimator_1 = ObjectAnimator.ofFloat(ll_left, "alpha", 0f, 1f);
+        mObjectAnimator_1.setDuration(2000);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(mObjectAnimator_1);
+        mObjectAnimator_1.start();
 
         rlBack.setOnClickListener(this);
 
@@ -163,12 +168,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
             tv_name_left.setText("Lv." + model_.getPlayers().get(0).getScore() + " " + model_.getPlayers().get(0).getUserName());
             tv_fees_left.setText("出场费: " + model_.getPlayers().get(0).getFees() + "个星星");
-            Glide.with(this).load(model_.getPlayers().get(0).getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
-            mObjectAnimator_1 = ObjectAnimator.ofFloat(ll_left, "alpha", 0f, 1f);
-            mObjectAnimator_1.setDuration(2000);
-            AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(mObjectAnimator_1);
-            mObjectAnimator_1.start();
+            //Glide.with(this).load(model_.getPlayers().get(0).getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
 
 
             tv_name_right.setText("Lv." + model_.getPlayers().get(1).getScore() + " " + mName);

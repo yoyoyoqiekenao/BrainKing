@@ -1,7 +1,11 @@
 package com.example.brainking.battle.friend_pk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -62,8 +66,9 @@ public class FriendPkActivity extends BrainActivity<FriendPkPresenter> implement
         iv_create.setOnClickListener(this);
         rl_back.setOnClickListener(this);
 
+        tv_1.setText(setColor_1(this,"点击“发起挑战”按钮,你可以开房间并向你的好友发起挑战。"));;
+        tv_2.setText(setColor_2(this,"当然,你也可以通过点击“加入房间”进入到好友创建的房间,仅需输入房间号即可。"));
         createPresenter().getUserInfo();
-
 
 
     }
@@ -93,5 +98,16 @@ public class FriendPkActivity extends BrainActivity<FriendPkPresenter> implement
     @Override
     public void getUserInfoFail(String msg) {
 
+    }
+
+    public static CharSequence setColor_1(Context context, String text) {
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+        style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_F2CB51)), 2, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return style;
+    }
+    public static CharSequence setColor_2(Context context, String text) {
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+        style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.color_F2CB51)), 11, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return style;
     }
 }

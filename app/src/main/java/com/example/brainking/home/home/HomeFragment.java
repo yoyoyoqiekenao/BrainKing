@@ -35,6 +35,7 @@ import com.example.brainking.home.poems.PoemsActivity;
 import com.example.brainking.home.search.SearchActivity;
 import com.example.brainking.home.userinfo.UserInfoActivity;
 import com.example.brainking.login.LoginActivity;
+import com.example.brainking.mine.playabout.PlayAboutActivity;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.util.SpUtils;
@@ -66,6 +67,8 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     RelativeLayout rlSearch;
     @BindView(R.id.iv_edit)
     ImageView iv_edit;
+    @BindView(R.id.rl_playAbout)
+    RelativeLayout rl_playAbout;
 
     private PopupWindow mPop;
     private LearnListAdapter_math mAdapter_match;
@@ -98,6 +101,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         iv_update.setOnClickListener(this);
         rlSearch.setOnClickListener(this);
         iv_edit.setOnClickListener(this);
+        rl_playAbout.setOnClickListener(this);
 
 
         //createPresenter().getUserInfo();
@@ -124,6 +128,8 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
             intent.putExtra("name", mName);
             intent.putExtra("remark", mRemark);
             startActivity(intent);
+        } else if (view.getId() == R.id.rl_playAbout) {
+            startActivity(new Intent(getContext(), PlayAboutActivity.class));
         }
     }
 
