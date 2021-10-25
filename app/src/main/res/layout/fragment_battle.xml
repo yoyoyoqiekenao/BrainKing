@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/bg_battle"
     android:orientation="vertical">
 
@@ -10,11 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"></View>
 
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_below="@id/view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="对战大厅"
+            android:textColor="@color/color_ffffff"
+            android:textSize="18dp"></TextView>
+    </RelativeLayout>
+
+
     <LinearLayout
         android:id="@+id/ll_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/view"
+        android:layout_below="@id/rl_title"
         android:background="@color/color_ffffff"
         android:orientation="vertical"
         android:visibility="gone">
@@ -38,32 +56,17 @@
         android:id="@+id/smartLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view">
+        android:layout_below="@id/rl_title">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/rl_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="对战大厅"
-                    android:textColor="@color/color_ffffff"
-                    android:textSize="18dp"></TextView>
-            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_battle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/rl_title"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"></androidx.recyclerview.widget.RecyclerView>
 

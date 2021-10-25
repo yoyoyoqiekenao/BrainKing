@@ -53,9 +53,12 @@ public class MyMqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!TextUtils.isEmpty(intent.getStringExtra("userId"))) {
-            mUserId = intent.getStringExtra("userId");
+        if(intent!=null){
+            if (!TextUtils.isEmpty(intent.getStringExtra("userId"))) {
+                mUserId = intent.getStringExtra("userId");
+            }
         }
+
 
         PUBLISH_TOPIC = "/public/TEST/" + mUserId;
         RESPONSE_TOPIC = "/public/TEST/" + mUserId;
@@ -251,6 +254,7 @@ public class MyMqttService extends Service {
 
     @Override
     public void onDestroy() {
+        Log.d("xuwudi","退出了");
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
             try {
                 mqttAndroidClient.disconnect(); //断开连接

@@ -44,9 +44,13 @@ import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -392,5 +396,14 @@ public interface ApiStores {
      */
     @GET("user/history/delAll")
     Observable<DelAllHistoryModel> delAllHistory();
+
+    /**
+     * 上传File
+     * @param body
+     * @return
+     */
+    @Multipart
+    @POST("common/upload")
+    Observable<DelAllHistoryModel> getFile(@Part("file") RequestBody body);
 }
 

@@ -2,19 +2,15 @@ package com.example.brainking;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.graphics.Color;
+import android.Manifest;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.brainking.adapter.ExamplePagerAdapter;
-import com.example.brainking.base.BaseActivity;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.battle.battle.BattleFragment;
@@ -25,12 +21,6 @@ import com.example.brainking.news.news.NewsFragment;
 import com.example.brainking.views.NoScrollViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,7 +71,16 @@ public class MainActivity extends BrainActivity implements View.OnClickListener 
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private ExamplePagerAdapter mExamplePagerAdapter;
     private List<Fragment> mList = new ArrayList<>();
+    private static final String[] BASIC_PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION};
 
+    private static final int BASIC_PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,12 +89,18 @@ public class MainActivity extends BrainActivity implements View.OnClickListener 
 
         ButterKnife.bind(this);
         initMagicIndicator();
+
     }
 
     @Override
     protected BasePresenter createPresenter() {
         return null;
     }
+
+
+
+
+
 
 
     private void initMagicIndicator() {

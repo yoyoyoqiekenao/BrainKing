@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
 import com.example.brainking.model.MathDetailModel;
+import com.example.brainking.util.CountDownView;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -110,9 +111,12 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @BindView(R.id.tv_next)
     TextView tvNext;
     @BindView(R.id.tv_time)
-    TextView tv_time;
+    CountDownView tv_time;
     @BindView(R.id.iv_isCollect)
     ImageView iv_isCollect;
+
+    @BindView(R.id.tv_auto)
+    TextView tv_auto;
 
 
     private int mPid;
@@ -150,6 +154,8 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     private String mCompletionAnswer;
     //填空题自己选的答案
     private String mCompletionAnswer_ = "";
+
+    private boolean isAuto = false;
 
     private int mTime = 180;
     private Handler mHandler = new Handler() {
@@ -190,19 +196,29 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
         mPid = getIntent().getIntExtra("pid", -1);
-        Log.d("xuwudi", "pid===" + mPid);
+
+        tv_time.initTime(10, 0);
+        tv_time.setOnTimeCompleteListener(new CountDownView.OnTimeCompleteListener() {
+            @Override
+            public void onTimeComplete() {
+                basePresenter.getMathDetail(mPid);
+            }
+        });
         basePresenter.getMathDetail(mPid);
+
 
         tvShow.setOnClickListener(this);
         tvNext.setOnClickListener(this);
         rl_back.setOnClickListener(this);
+        tv_auto.setOnClickListener(this);
     }
 
     @Override
     public void getMathDetailSuccess(MathDetailModel model) {
 
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler.sendEmptyMessage(2);
+        //mHandler.removeCallbacksAndMessages(null);
+        //mHandler.sendEmptyMessage(2);
+        tv_time.reStart();
         //每次刷新数据的时候都隐藏解析
         isHide = false;
         tv_analysis.setVisibility(View.GONE);
@@ -337,153 +353,101 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_0) {
-
             mCompletionAnswer_ = mCompletionAnswer_ + "0";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* //首位不能是0
-            if (completionList.size() > 0 && completionList.get(0).equals("0")) {
-
-            } else {
-                completionList.add("0");
-            }
-
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
-
+            }
         } else if (v.getId() == R.id.tv_1) {
-
             mCompletionAnswer_ = mCompletionAnswer_ + "1";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("1");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
-                }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
-        } else if (v.getId() == R.id.tv_2) {
 
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
+                }
+            }
+        } else if (v.getId() == R.id.tv_2) {
             mCompletionAnswer_ = mCompletionAnswer_ + "2";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("2");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_3) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "3";
             tv_answer_completion.setText(mCompletionAnswer_);
-            /*completionList.add("3");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_4) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "4";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("4");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_5) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "5";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("5");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_6) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "6";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("6");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_7) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "7";
             tv_answer_completion.setText(mCompletionAnswer_);
-           /* completionList.add("7");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_8) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "8";
             tv_answer_completion.setText(mCompletionAnswer_);
-            /*completionList.add("8");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_9) {
 
             mCompletionAnswer_ = mCompletionAnswer_ + "9";
             tv_answer_completion.setText(mCompletionAnswer_);
-            /*completionList.add("9");
-            if (completionList.size() == 1) {
-                tv_answer_completion.setText(completionList.get(0));
-            } else if (completionList.size() > 1) {
-                for (int i = 0; i < completionList.size(); i++) {
-                    String s = completionList.get(i);
-                    answer_complete = answer_complete + s;
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
                 }
-                tv_answer_completion.setText(answer_complete + "");
-            }*/
+            }
         } else if (v.getId() == R.id.tv_point) {
+            mCompletionAnswer_ = mCompletionAnswer_ + ".";
+            tv_answer_completion.setText(mCompletionAnswer_);
+            if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
+                if (isAuto) {
+                    nextMatch(mType);
+                }
+            }
             /*//首位不能是.
             if (completionList.size() == 0) {
                 Toast.makeText(this, "首位不可以是.", Toast.LENGTH_SHORT);
@@ -500,12 +464,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
         } else if (v.getId() == R.id.rl_delete) {
             mCompletionAnswer_ = "";
             tv_answer_completion.setText("");
-           /* if (completionList.size() == 0) {
-                Toast.makeText(this, "不能再删除了", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            completionList.clear();
-            tv_answer_completion.setText("");*/
+
         } else if (v.getId() == R.id.tv_isShow) {
             if (isHide == true) {
                 tv_analysis.setVisibility(View.GONE);
@@ -523,6 +482,11 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
             tv_judge_a.setTextColor(getResources().getColor(R.color.color_ffffff));
             tv_judge_b.setTextColor(getResources().getColor(R.color.color_00AEE9));
+
+            if (isAuto) {
+                nextMatch(mType);
+            }
+
         } else if (v.getId() == R.id.tv_judge_b) {
             mJudgeAnswer_ = "B";
 
@@ -531,6 +495,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
             tv_judge_a.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_judge_b.setTextColor(getResources().getColor(R.color.color_ffffff));
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseA_single) {
             mSingleAnswer = "A";
 
@@ -543,6 +510,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseB_single) {
             mSingleAnswer = "B";
 
@@ -555,6 +525,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_ffffff));
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseC_single) {
             mSingleAnswer = "C";
 
@@ -567,6 +540,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_ffffff));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseD_single) {
             mSingleAnswer = "D";
 
@@ -579,6 +555,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_ffffff));
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.rl_back) {
             finish();
         } else if (v.getId() == R.id.tv_chooseA_multiple) {
@@ -591,6 +570,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_chooseA_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
                 isCheckA = false;
             }
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseB_multiple) {
 
             if (isCheckB == false) {
@@ -602,6 +584,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_chooseB_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
                 isCheckB = false;
             }
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.tv_chooseC_multiple) {
             if (isCheckC == false) {
                 tv_chooseC_multiple.setBackgroundResource(R.drawable.rectangle_00aee9_8);
@@ -611,6 +596,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_chooseC_multiple.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
                 tv_chooseC_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
                 isCheckC = false;
+            }
+            if (isAuto) {
+                nextMatch(mType);
             }
         } else if (v.getId() == R.id.tv_chooseB_multiple) {
             if (isCheckD == false) {
@@ -622,7 +610,19 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 tv_chooseD_multiple.setTextColor(getResources().getColor(R.color.color_00AEE9));
                 isCheckD = false;
             }
+            if (isAuto) {
+                nextMatch(mType);
+            }
         } else if (v.getId() == R.id.iv_isCollect) {
+
+        } else if (v.getId() == R.id.tv_auto) {
+            if (isAuto) {
+                isAuto = false;
+                tv_auto.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+            } else {
+                isAuto = true;
+                tv_auto.setBackgroundResource(R.drawable.rectangle_00aee9_8);
+            }
 
         }
     }

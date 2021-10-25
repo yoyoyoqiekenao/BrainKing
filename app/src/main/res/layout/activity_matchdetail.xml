@@ -155,7 +155,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/iv_right"
-            android:text="1111"
+            android:text=" "
             android:textColor="#FFA533"
             android:textSize="16dp"></TextView>
 
