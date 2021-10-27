@@ -38,7 +38,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -137,7 +140,9 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
         if ("JoinRoom".equals(new Gson().fromJson(str, MqttBattleDetailModel.class).getType())) {
             MqttBattleDetailModel model = new Gson().fromJson(str, MqttBattleDetailModel.class);
             mNormalList.add(new BattleNormalModel(model.getJoinUser().getNickName(), model.getJoinUser().getAvatar(), model.getJoinUser().getUserId(), ""));
+            mNormalList = removeDuplicate(mNormalList);
             mAdapter.setList(mNormalList);
+
         }
 
         if ("QuitRoom".equals(new Gson().fromJson(str, MqttQuitRoomModel.class).getType())) {
@@ -145,6 +150,7 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
             for (int i = 0; i < mNormalList.size(); i++) {
                 if (model.getUserId().equals(mNormalList.get(i).getUserId())) {
                     mNormalList.remove(i);
+                    mNormalList = removeDuplicate(mNormalList);
                     mAdapter.setList(mNormalList);
                 }
             }
@@ -183,5 +189,18 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
     @Override
     public void fail(String err) {
         finish();
+    }
+
+    private List<BattleNormalModel> removeDuplicate(List<BattleNormalModel> list) {
+        Set<BattleNormalModel> set = new TreeSet<BattleNormalModel>(new Comparator<BattleNormalModel>() {
+            @Override
+            public int compare(BattleNormalModel o1, BattleNormalModel o2) {
+                //字符串,则按照asicc码升序排列
+                return o1.getUserId().compareTo(o2.getUserId());
+            }
+        });
+        set.addAll(list);
+        return new ArrayList<BattleNormalModel>(set);
+
     }
 }
