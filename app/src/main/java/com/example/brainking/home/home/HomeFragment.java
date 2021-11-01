@@ -187,10 +187,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         tv_name.setText(model.getData().getNickName());
         tv_remark.setText(model.getData().getRemark());
 
-        SpUtils.getInstance().putString("name", model.getData().getNickName());
-        SpUtils.getInstance().putString("headImg", model.getData().getAvatar());
 
-        MyMqttService.startService(getContext(), SpUtils.getInstance().getString("userId"));
     }
 
     @Override

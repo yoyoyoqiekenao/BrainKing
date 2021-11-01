@@ -3,6 +3,10 @@ package com.example.brainking.match.match_detail;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +48,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//
 public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> implements MatchDetailView, View.OnClickListener {
 
     @BindView(R.id.view)
@@ -71,6 +76,8 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
     private ObjectAnimator mObjectAnimator_1, mObjectAnimator_2;
 
+    private SoundPool mSoundPool;
+    private int mVoiceId;
 
     private final Timer timer = new Timer();
     private TimerTask task;
@@ -141,7 +148,26 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
 
         basePresenter.createRoom();
-
+        if (Build.VERSION.SDK_INT >= 21) {
+            SoundPool.Builder builder = new SoundPool.Builder();
+            //传入最多播放音频数量,
+            builder.setMaxStreams(1);
+            //AudioAttributes是一个封装音频各种属性的方法
+            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+            //设置音频流的合适的属性
+            attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+            //加载一个AudioAttributes
+            builder.setAudioAttributes(attrBuilder.build());
+            mSoundPool = builder.build();
+        } else {
+            /**
+             * 第一个参数：int maxStreams：SoundPool对象的最大并发流数
+             * 第二个参数：int streamType：AudioManager中描述的音频流类型
+             *第三个参数：int srcQuality：采样率转换器的质量。 目前没有效果。 使用0作为默认值。
+             */
+            mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+        mVoiceId = mSoundPool.load(this, R.raw.shuangren_load, 1);
     }
 
     @Override
@@ -180,6 +206,9 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
             animatorSet_2.playTogether(mObjectAnimator_2);
             mObjectAnimator_2.start();
 
+            mSoundPool.play(mVoiceId, 1, 1, 1, 0, 1);
+
+
             mHandler.sendEmptyMessageDelayed(2, 3000);
         } else {
 
@@ -197,7 +226,9 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         if (timer != null) {
             timer.cancel();
         }
-
+        if (mSoundPool != null) {
+            mSoundPool.release();
+        }
         EventBus.getDefault().unregister(this);
 
     }

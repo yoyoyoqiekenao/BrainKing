@@ -2,6 +2,8 @@ package com.example.brainking.battle.battleready;
 
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.brainking.MyMqttService;
+
 import com.example.brainking.R;
 import com.example.brainking.adapter.BattleReadyAdapter;
 import com.example.brainking.base.BrainActivity;
@@ -64,6 +66,8 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
     private String mRoomId;
     private String mNum;
 
+    public MediaPlayer mediaPlayer;
+
     private View footView;
 
     private List<BattleNormalModel> mNormalList = new ArrayList<>();
@@ -96,6 +100,13 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.more_load);
+        // 设置媒体流类型
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        //设置循环播放
+        mediaPlayer.setLooping(true);
+        playMusic();
+
         rl_back.setOnClickListener(this);
         tv_start.setOnClickListener(this);
         tv_cancel.setOnClickListener(this);
@@ -111,6 +122,29 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
         mAdapter.setList(mNormalList);
 
 
+    }
+
+    private void playMusic() {
+        mediaPlayer.start();
+
+        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    rePlay();
+                }
+                return false;
+            }
+        });
+    }
+
+    //重新播放
+    private void rePlay() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(0);
+            return;
+        }
+        playMusic();
     }
 
     @Override
@@ -163,6 +197,11 @@ public class BattleReadyActivity extends BrainActivity<BattleReadyPresenter> imp
         EventBus.getDefault().unregister(this);
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 

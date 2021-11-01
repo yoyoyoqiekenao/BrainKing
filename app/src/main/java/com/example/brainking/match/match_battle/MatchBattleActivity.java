@@ -1,5 +1,10 @@
 package com.example.brainking.match.match_battle;
 
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -125,6 +131,10 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private String mName;
     private String mImg;
 
+    public MediaPlayer mediaPlayer;
+    private SoundPool mSoundPool;
+    private int mVoiceId_right;
+    private int mVoiceId_error;
 
     private String mRoomId = "";
 
@@ -178,6 +188,34 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         ButterKnife.bind(this);
 
         EventBus.getDefault().register(this);
+        mediaPlayer = MediaPlayer.create(this, R.raw.shuangren_music);
+        // 设置媒体流类型
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        //设置循环播放
+        mediaPlayer.setLooping(true);
+        playMusic();
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            SoundPool.Builder builder = new SoundPool.Builder();
+            //传入最多播放音频数量,
+            builder.setMaxStreams(1);
+            //AudioAttributes是一个封装音频各种属性的方法
+            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+            //设置音频流的合适的属性
+            attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+            //加载一个AudioAttributes
+            builder.setAudioAttributes(attrBuilder.build());
+            mSoundPool = builder.build();
+        } else {
+            /**
+             * 第一个参数：int maxStreams：SoundPool对象的最大并发流数
+             * 第二个参数：int streamType：AudioManager中描述的音频流类型
+             *第三个参数：int srcQuality：采样率转换器的质量。 目前没有效果。 使用0作为默认值。
+             */
+            mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+        mVoiceId_right = mSoundPool.load(this, R.raw.right_voice, 1);
+        mVoiceId_error = mSoundPool.load(this, R.raw.error_voice, 1);
 
 
         mRoomId = getIntent().getStringExtra("roomId");
@@ -197,8 +235,42 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         tv_answer_4.setOnClickListener(this);
         tv_next.setOnClickListener(this);
         rlBack.setOnClickListener(this);
+
     }
 
+    private void playMusic() {
+
+
+        mediaPlayer.start();
+
+        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    rePlay();
+                }
+                return false;
+            }
+        });
+    }
+
+    //重新播放
+    private void rePlay() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(0);
+            return;
+        }
+        playMusic();
+    }
+
+    //停止播放
+    private void stop() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void ready(MatchStartEvent event) {
@@ -293,6 +365,14 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             mHandler.removeCallbacksAndMessages(null);
             mHandler = null;
         }
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        if (mSoundPool != null) {
+            mSoundPool.release();
+        }
     }
 
     @Override
@@ -310,7 +390,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     @Override
     public void matchExitSuccess(MatchStartModel model) {
         //Toast.makeText(this, "退出房间", Toast.LENGTH_SHORT).show();
-
+        //finish();
     }
 
     @Override
@@ -322,7 +402,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_back:
-                //basePresenter.matchExit(mRoomId);
+                basePresenter.matchExit(mRoomId);
                 finish();
                 break;
             case R.id.tv_answer_1:
@@ -330,10 +410,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                     tv_answer_1.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                     iv_answer1_success.setVisibility(View.VISIBLE);
                     iv_answer1_error.setVisibility(View.GONE);
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                 } else {
                     tv_answer_1.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
                     iv_answer1_success.setVisibility(View.GONE);
                     iv_answer1_error.setVisibility(View.VISIBLE);
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
                 }
 
                 basePresenter.matchAnswer(mAnswer_1, mRoomId);
@@ -348,10 +430,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                     tv_answer_2.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                     iv_answer2_success.setVisibility(View.VISIBLE);
                     iv_answer2_error.setVisibility(View.GONE);
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                 } else {
                     tv_answer_2.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
                     iv_answer2_success.setVisibility(View.GONE);
                     iv_answer2_error.setVisibility(View.VISIBLE);
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
                 }
 
                 basePresenter.matchAnswer(mAnswer_2, mRoomId);
@@ -365,10 +449,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                     tv_answer_3.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                     iv_answer3_success.setVisibility(View.VISIBLE);
                     iv_answer3_error.setVisibility(View.GONE);
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                 } else {
                     tv_answer_3.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
                     iv_answer3_success.setVisibility(View.GONE);
                     iv_answer3_error.setVisibility(View.VISIBLE);
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
                 }
 
                 basePresenter.matchAnswer(mAnswer_3, mRoomId);
@@ -383,13 +469,14 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
                     tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                     iv_answer4_success.setVisibility(View.VISIBLE);
                     iv_answer4_error.setVisibility(View.GONE);
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                 } else {
                     tv_answer_4.setBackgroundResource(R.drawable.gradient_f43750_ff637f);
                     iv_answer4_success.setVisibility(View.GONE);
                     iv_answer4_error.setVisibility(View.VISIBLE);
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
                 }
 
-                tv_answer_4.setBackgroundResource(R.drawable.gradient_11d5c9_00db9e);
                 basePresenter.matchAnswer(mAnswer_4, mRoomId);
                 tv_answer_1.setClickable(false);
                 tv_answer_2.setClickable(false);
@@ -404,20 +491,18 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     }
 
 
-    /*@Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (isReallyExit == false) {
-                Toast.makeText(this, "您已经在房间中,是否确认退出？", Toast.LENGTH_SHORT).show();
-                isReallyExit = true;
-            } else {
-                basePresenter.matchExit(mRoomId);
-            }
+
+
+            basePresenter.matchExit(mRoomId);
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);
 
-    }*/
+    }
 
 
     /**
@@ -438,5 +523,6 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue() * 100;
     }
+
 
 }

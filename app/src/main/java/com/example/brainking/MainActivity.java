@@ -17,7 +17,9 @@ import com.example.brainking.battle.battle.BattleFragment;
 import com.example.brainking.home.home.HomeFragment;
 import com.example.brainking.match.match.MatchFragment;
 import com.example.brainking.mine.mine.MineFragment;
+import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.news.news.NewsFragment;
+import com.example.brainking.util.SpUtils;
 import com.example.brainking.views.NoScrollViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -29,7 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BrainActivity implements View.OnClickListener {
+public class MainActivity extends BrainActivity<MainPresenter> implements MainView, View.OnClickListener {
 
     @BindView(R.id.magic_indicator)
     MagicIndicator mMagicIndicator;
@@ -90,15 +92,13 @@ public class MainActivity extends BrainActivity implements View.OnClickListener 
         ButterKnife.bind(this);
         initMagicIndicator();
 
+         createPresenter().getUserInfo();
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected MainPresenter createPresenter() {
+        return new MainPresenter(this);
     }
-
-
-
 
 
 
@@ -121,99 +121,8 @@ public class MainActivity extends BrainActivity implements View.OnClickListener 
         rl_battle.setOnClickListener(this);
         rl_news.setOnClickListener(this);
         rl_mine.setOnClickListener(this);
-        /*mMagicIndicator.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdjustMode(true);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return mDataList.size();
-            }
 
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                CommonPagerTitleView commonPagerTitleView = new CommonPagerTitleView(context);
-                View customLayout = LayoutInflater.from(context).inflate(R.layout.simple_pager_title_layout, null);
-                final ImageView titleImg = (ImageView) customLayout.findViewById(R.id.title_img);
-                final TextView titleText = (TextView) customLayout.findViewById(R.id.title_text);
-                //titleImg.setImageResource(R.mipmap.ic_launcher);
-                titleText.setText(mDataList.get(index));
-                commonPagerTitleView.setContentView(customLayout);
-                commonPagerTitleView.setOnPagerTitleChangeListener(new CommonPagerTitleView.OnPagerTitleChangeListener() {
-                    @Override
-                    public void onSelected(int index, int totalCount) {
-                        titleText.setTextColor(Color.parseColor("#3B4DD0"));
-                    }
 
-                    @Override
-                    public void onDeselected(int index, int totalCount) {
-                        titleText.setTextColor(Color.BLACK);
-                    }
-
-                    @Override
-                    public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
-                        switch (index) {
-                            case 0:
-                                titleImg.setImageResource(R.mipmap.iv_home_unselect);
-                                break;
-                            case 1:
-                                titleImg.setImageResource(R.mipmap.iv_match_unselect);
-                                break;
-                            case 2:
-                                titleImg.setImageResource(R.mipmap.iv_battle_unselect);
-                                break;
-                            case 3:
-                                titleImg.setImageResource(R.mipmap.iv_news_unselect);
-                                break;
-                            case 4:
-                                titleImg.setImageResource(R.mipmap.iv_mine_unselect);
-                                break;
-                            default:
-                        }
-                       // titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
-                       // titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
-                    }
-
-                    @Override
-                    public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
-                        switch (index) {
-                            case 0:
-                                titleImg.setImageResource(R.mipmap.iv_home_select);
-                                break;
-                            case 1:
-                                titleImg.setImageResource(R.mipmap.iv_match_select);
-                                break;
-                            case 2:
-                                titleImg.setImageResource(R.mipmap.iv_battle_select);
-                                break;
-                            case 3:
-                                titleImg.setImageResource(R.mipmap.iv_news_select);
-                                break;
-                            case 4:
-                                titleImg.setImageResource(R.mipmap.iv_mine_select);
-                                break;
-                        }
-
-                        titleImg.setScaleX(0.8f + (1.3f - 0.8f) * enterPercent);
-                        titleImg.setScaleY(0.8f + (1.3f - 0.8f) * enterPercent);
-                    }
-                });
-                commonPagerTitleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mViewPager.setCurrentItem(index);
-                    }
-                });
-                return commonPagerTitleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                return null;
-            }
-        });
-        mMagicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(mMagicIndicator, mViewPager);*/
     }
 
 
@@ -287,5 +196,18 @@ public class MainActivity extends BrainActivity implements View.OnClickListener 
             iv_mine.setImageResource(R.mipmap.iv_mine_select);
             mViewPager.setCurrentItem(4);
         }
+    }
+
+    @Override
+    public void getUserInfoSuccess(UserInfoModel model) {
+        SpUtils.getInstance().putString("name", model.getData().getNickName());
+        SpUtils.getInstance().putString("headImg", model.getData().getAvatar());
+
+        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"));
+    }
+
+    @Override
+    public void getUserInfoFail(String msg) {
+
     }
 }

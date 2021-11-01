@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.brainking.MyMqttService;
+
 import com.example.brainking.R;
 import com.example.brainking.adapter.BattleDetailAdapter;
 import com.example.brainking.adapter.BattleReadyAdapter;
