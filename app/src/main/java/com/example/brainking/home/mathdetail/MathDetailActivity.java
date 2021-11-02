@@ -1,5 +1,9 @@
 package com.example.brainking.home.mathdetail;
 
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -119,6 +123,11 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
     TextView tv_auto;
 
 
+    private SoundPool mSoundPool;
+    private int mVoiceId_right;
+    private int mVoiceId_error;
+
+
     private int mPid;
 
     //是否隐藏解析
@@ -205,6 +214,28 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             }
         });
         basePresenter.getMathDetail(mPid);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            SoundPool.Builder builder = new SoundPool.Builder();
+            //传入最多播放音频数量,
+            builder.setMaxStreams(1);
+            //AudioAttributes是一个封装音频各种属性的方法
+            AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
+            //设置音频流的合适的属性
+            attrBuilder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
+            //加载一个AudioAttributes
+            builder.setAudioAttributes(attrBuilder.build());
+            mSoundPool = builder.build();
+        } else {
+            /**
+             * 第一个参数：int maxStreams：SoundPool对象的最大并发流数
+             * 第二个参数：int streamType：AudioManager中描述的音频流类型
+             *第三个参数：int srcQuality：采样率转换器的质量。 目前没有效果。 使用0作为默认值。
+             */
+            mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+        mVoiceId_right = mSoundPool.load(this, R.raw.right_voice, 1);
+        mVoiceId_error = mSoundPool.load(this, R.raw.error_voice, 1);
 
 
         tvShow.setOnClickListener(this);
@@ -635,9 +666,14 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
                     mJudgeAnswer_ = "";
                     mJudgeAnswer = "";
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                     basePresenter.getMathDetail(mPid);
                 } else {
-                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                    mJudgeAnswer_ = "";
+                    mJudgeAnswer = "";
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
+                    basePresenter.getMathDetail(mPid);
+                    //Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case 2:
@@ -655,14 +691,30 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
                     tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
                     tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                     basePresenter.getMathDetail(mPid);
                 } else {
-                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                    mSingleAnswer_ = "";
+                    mSingleAnswer = "";
+                    tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseB_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseC_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+                    tv_chooseD_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
+
+                    tv_chooseA_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseB_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+                    tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
+
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
+                    basePresenter.getMathDetail(mPid);
+                    //Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case 3:
                 //多选题
                 Log.d("xuwudi", "答案====" + mMultipleAnswer_.toString());
+                basePresenter.getMathDetail(mPid);
                 break;
             case 4:
                 //填空题
@@ -671,9 +723,16 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     mCompletionAnswer_ = "";
                     mCompletionAnswer = "";
                     tv_answer_completion.setText("");
+                    mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
                     basePresenter.getMathDetail(mPid);
                 } else {
-                    Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
+                    mCompletionAnswer_ = "";
+                    mCompletionAnswer = "";
+                    tv_answer_completion.setText("");
+
+                    mSoundPool.play(mVoiceId_error, 1, 1, 1, 0, 1);
+                    basePresenter.getMathDetail(mPid);
+                    //Toast.makeText(this, "答题错误，请查看答案解析", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

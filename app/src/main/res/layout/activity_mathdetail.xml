@@ -399,6 +399,7 @@
                             android:layout_height="50dp"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:weightSum="4">
@@ -466,7 +467,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="10dp"
+                            android:layout_weight="4"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp">
 
@@ -508,17 +511,32 @@
                                 android:textColor="@color/color_ffffff"
                                 android:textSize="24dp"></TextView>
 
-                            <TextView
-                                android:id="@+id/tv_0"
-                                android:layout_width="72dp"
+                            <RelativeLayout
+
+                                android:layout_width="0dp"
                                 android:layout_height="44dp"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/rectangle_00aee9_8"
                                 android:gravity="center"
-                                android:text="0"
+                                android:text="1"
                                 android:textColor="@color/color_ffffff"
-                                android:textSize="24dp"></TextView>
+                                android:textSize="24dp">
+
+                                <TextView
+                                    android:id="@+id/tv_0"
+                                    android:layout_width="72dp"
+                                    android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/rectangle_00aee9_8"
+                                    android:gravity="center"
+                                    android:text="0"
+                                    android:textColor="@color/color_ffffff"
+                                    android:textSize="24dp"></TextView>
+
+                            </RelativeLayout>
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -526,8 +544,10 @@
                             android:layout_height="50dp"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingLeft="12dp"
-                            android:paddingRight="12dp">
+                            android:paddingRight="12dp"
+                            android:weightSum="4">
 
                             <TextView
                                 android:id="@+id/tv_7"

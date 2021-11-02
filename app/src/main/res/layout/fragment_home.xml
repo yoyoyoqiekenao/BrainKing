@@ -201,13 +201,36 @@
         android:layout_marginRight="16dp"
         android:background="@mipmap/bg_math">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="小学数学"
-            android:textColor="@color/color_EEEEEE"
-            android:textSize="18dp"></TextView>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_math"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rectangle_translate_25"
+                android:paddingLeft="10dp"
+                android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:text="脑力训练"
+                android:textColor="@color/color_EEEEEE"
+                android:textSize="20dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="(每天十分钟，养成一个最强大脑)"
+                android:textColor="@color/black"
+                android:textSize="14dp"></TextView>
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -219,13 +242,37 @@
         android:layout_marginRight="16dp"
         android:background="@mipmap/bg_poems">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="国学诗词"
-            android:textColor="@color/color_EEEEEE"
-            android:textSize="18dp"></TextView>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_poem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rectangle_translate_25"
+                android:paddingLeft="10dp"
+                android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
+                android:text="国学诗词"
+                android:textColor="@color/color_EEEEEE"
+                android:textSize="20dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="(读国粹诗书，拥有更多古人智慧)"
+                android:textColor="@color/black"
+                android:textSize="14dp"></TextView>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

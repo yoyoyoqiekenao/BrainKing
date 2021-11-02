@@ -188,7 +188,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         ButterKnife.bind(this);
 
         EventBus.getDefault().register(this);
-        mediaPlayer = MediaPlayer.create(this, R.raw.shuangren_music);
+        mediaPlayer = MediaPlayer.create(this, R.raw.more_music);
         // 设置媒体流类型
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         //设置循环播放

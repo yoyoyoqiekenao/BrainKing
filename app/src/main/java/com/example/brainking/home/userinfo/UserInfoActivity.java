@@ -119,7 +119,7 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
                     Toast.makeText(UserInfoActivity.this, "请输入昵称", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                createPresenter().updateUserInfo(ed_name.getText().toString(), ed_code.getText().toString(), mImg, mRemark);
+                createPresenter().updateUserInfo(ed_name.getText().toString(), ed_code.getText().toString(), "", mRemark);
                 break;
             default:
         }
@@ -291,7 +291,7 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
 
     @Override
     public void fail(String err) {
-
+        Log.d("xuwudi", "err===" + err);
     }
 
     @Override

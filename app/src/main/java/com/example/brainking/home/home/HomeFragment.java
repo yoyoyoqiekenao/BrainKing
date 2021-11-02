@@ -2,7 +2,9 @@ package com.example.brainking.home.home;
 
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -69,6 +71,10 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     ImageView iv_edit;
     @BindView(R.id.rl_playAbout)
     RelativeLayout rl_playAbout;
+    @BindView(R.id.tv_math)
+    TextView tv_math;
+    @BindView(R.id.tv_poem)
+    TextView tv_poem;
 
     private PopupWindow mPop;
     private LearnListAdapter_math mAdapter_match;
@@ -103,6 +109,10 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         iv_edit.setOnClickListener(this);
         rl_playAbout.setOnClickListener(this);
 
+         AssetManager mgr = getContext().getAssets();
+         Typeface tf = Typeface.createFromAsset(mgr, "fonts/type_1.ttf");
+         tv_math.setTypeface(tf);
+        tv_poem.setTypeface(tf);
 
         //createPresenter().getUserInfo();
     }
