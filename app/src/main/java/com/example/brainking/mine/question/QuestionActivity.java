@@ -44,8 +44,17 @@ public class QuestionActivity extends BrainActivity<QuestionPresenter> implement
     ImageView iv_3;
     @BindView(R.id.iv_4)
     ImageView iv_4;
+    @BindView(R.id.tv_1)
+    TextView tv_1;
+    @BindView(R.id.tv_2)
+    TextView tv_2;
+    @BindView(R.id.tv_3)
+    TextView tv_3;
+    @BindView(R.id.tv_4)
+    TextView tv_4;
 
     private String mRight;
+    private String mType;
 
     @Override
     protected QuestionPresenter createPresenter() {
@@ -61,17 +70,51 @@ public class QuestionActivity extends BrainActivity<QuestionPresenter> implement
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
 
+        mType = "1";
+
         rl_back.setOnClickListener(this);
         tv_submit.setOnClickListener(this);
         iv_1.setOnClickListener(this);
         iv_2.setOnClickListener(this);
         iv_3.setOnClickListener(this);
         iv_4.setOnClickListener(this);
+        tv_1.setOnClickListener(this);
+        tv_2.setOnClickListener(this);
+        tv_3.setOnClickListener(this);
+        tv_4.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_1:
+                mType = "1";
+                tv_1.setBackgroundResource(R.color.color_FF637F);
+                tv_2.setBackgroundResource(R.color.color_ffffff);
+                tv_3.setBackgroundResource(R.color.color_ffffff);
+                tv_4.setBackgroundResource(R.color.color_ffffff);
+                break;
+            case R.id.tv_2:
+                mType = "2";
+                tv_1.setBackgroundResource(R.color.color_ffffff);
+                tv_2.setBackgroundResource(R.color.color_FF637F);
+                tv_3.setBackgroundResource(R.color.color_ffffff);
+                tv_4.setBackgroundResource(R.color.color_ffffff);
+                break;
+            case R.id.tv_3:
+                mType = "3";
+                tv_1.setBackgroundResource(R.color.color_ffffff);
+                tv_2.setBackgroundResource(R.color.color_ffffff);
+                tv_3.setBackgroundResource(R.color.color_FF637F);
+                tv_4.setBackgroundResource(R.color.color_ffffff);
+                break;
+            case R.id.tv_4:
+                mType = "4";
+                tv_1.setBackgroundResource(R.color.color_ffffff);
+                tv_2.setBackgroundResource(R.color.color_ffffff);
+                tv_3.setBackgroundResource(R.color.color_ffffff);
+                tv_4.setBackgroundResource(R.color.color_FF637F);
+                break;
             case R.id.iv_1:
                 mRight = "1";
                 iv_1.setImageResource(R.mipmap.iv_question_select);
@@ -124,8 +167,13 @@ public class QuestionActivity extends BrainActivity<QuestionPresenter> implement
                     Toast.makeText(QuestionActivity.this, "请输入选项D", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (TextUtils.isEmpty(mRight)) {
+                    Toast.makeText(QuestionActivity.this, "请选择正确答案", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 createPresenter().MakeQuestion(ed_content.getText().toString(), ed_a.getText().toString()
-                        , ed_b.getText().toString(), ed_c.getText().toString(), ed_d.getText().toString(), 0, mRight);
+                        , ed_b.getText().toString(), ed_c.getText().toString(), ed_d.getText().toString(), mType, mRight);
                 break;
             default:
         }

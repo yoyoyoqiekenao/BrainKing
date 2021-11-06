@@ -3,8 +3,8 @@ package com.example.brainking.json;
 import java.util.List;
 
 public class QuestionJson {
-    private List<String> list;
-    private int quType;
+    private List<String> options;
+    private String quType;
     private String title;
     private String right;
 
@@ -17,18 +17,18 @@ public class QuestionJson {
     }
 
     public List<String> getList() {
-        return list;
+        return options;
     }
 
     public void setList(List<String> list) {
-        this.list = list;
+        this.options = list;
     }
 
-    public int getQuType() {
+    public String getQuType() {
         return quType;
     }
 
-    public void setQuType(int quType) {
+    public void setQuType(String quType) {
         this.quType = quType;
     }
 

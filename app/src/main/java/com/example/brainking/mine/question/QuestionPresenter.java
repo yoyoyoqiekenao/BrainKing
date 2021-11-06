@@ -13,14 +13,16 @@ public class QuestionPresenter extends BasePresenter<QuestionView> {
         attachView(view);
     }
 
-    public void MakeQuestion(String content, String a, String b, String c, String d, int type,String right) {
+    public void MakeQuestion(String content, String a, String b, String c, String d, String type, String right) {
         baseView.showLoading();
         QuestionJson json = new QuestionJson();
         List<String> list = new ArrayList<>();
+
         list.add(a);
         list.add(b);
         list.add(c);
         list.add(d);
+
         json.setList(list);
         json.setTitle(content);
         json.setQuType(type);
