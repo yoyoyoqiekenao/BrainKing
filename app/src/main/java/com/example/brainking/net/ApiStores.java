@@ -35,15 +35,18 @@ import com.example.brainking.model.NewDetailModel;
 import com.example.brainking.model.PoemListModel;
 import com.example.brainking.model.PoemsDetailModel;
 import com.example.brainking.model.QuestionModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.model.SearchHistoryModel;
 import com.example.brainking.model.SearchModel;
 import com.example.brainking.model.SearchPoemDetailModel;
 import com.example.brainking.model.SendMsgModel;
 import com.example.brainking.model.UpdateUserInfoModel;
+import com.example.brainking.model.UploadModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.model.VerCodeModel;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -60,9 +63,9 @@ import retrofit2.http.Query;
  */
 public interface ApiStores {
 
-    public static final String BASE_URL = "http://42.192.234.149:8080/";
+    //public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    //public static final String BASE_URL = "http://192.168.1.107:8080/";
+    public static final String BASE_URL = "http://192.168.1.107:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
@@ -399,11 +402,19 @@ public interface ApiStores {
 
     /**
      * 上传File
-     * @param body
+     *
+     * @param
      * @return
      */
     @Multipart
     @POST("common/upload")
-    Observable<DelAllHistoryModel> getFile(@Part("file") RequestBody body);
+    Observable<UploadModel> getFile(@Part MultipartBody.Part file);
+
+    /**
+     * 重新连接
+     * @return
+     */
+    @GET("match/reconnect")
+    Observable<ReConnectModel> reConnect();
 }
 
