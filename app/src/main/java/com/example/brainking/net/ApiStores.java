@@ -27,6 +27,7 @@ import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.LoginModel;
 import com.example.brainking.model.LoginOutModel;
 import com.example.brainking.model.MatchAnswerModel;
+import com.example.brainking.model.MatchScoreModel;
 import com.example.brainking.model.MatchStartModel;
 import com.example.brainking.model.MathDetailModel;
 import com.example.brainking.model.MessageListModel;
@@ -412,9 +413,17 @@ public interface ApiStores {
 
     /**
      * 重新连接
+     *
      * @return
      */
     @GET("match/reconnect")
     Observable<ReConnectModel> reConnect();
+
+    /**
+     * 晋级赛页面初始化数据
+     * @return
+     */
+    @GET("match/double/battle/init")
+    Observable<MatchScoreModel> getMatchScore();
 }
 
