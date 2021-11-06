@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.adapter.BattleDetailAdapter;
 import com.example.brainking.base.BrainActivity;
@@ -24,9 +26,11 @@ import com.example.brainking.events.MatchStartEvent;
 import com.example.brainking.model.BattleDetailModel;
 import com.example.brainking.model.BattleNormalModel;
 import com.example.brainking.model.MatchAnswerModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
 import com.example.brainking.mqttmodel.MqttOptionModel;
 import com.example.brainking.mqttmodel.MqttResultModel;
+import com.example.brainking.util.SpUtils;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -89,6 +93,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
 
+    private String mType;
 
     private BattleDetailAdapter mAdapter;
 
@@ -119,6 +124,11 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
+
+        mType = getIntent().getStringExtra("type");
+        if (!TextUtils.isEmpty(mType)) {
+            basePresenter.reConnect();
+        }
 
         mediaPlayer = MediaPlayer.create(this, R.raw.more_music);
         // 设置媒体流类型
@@ -151,11 +161,11 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
         normalModels = (List<BattleNormalModel>) getIntent().getSerializableExtra("list");
         mRoomId = getIntent().getStringExtra("roomId");
-
-
-        for (int i = 0; i < normalModels.size(); i++) {
-            BattleDetailModel model = new BattleDetailModel(normalModels.get(i).getName(), normalModels.get(i).getImg(), "0", normalModels.get(i).getUserId());
-            mList.add(model);
+        if (!TextUtils.isEmpty(mRoomId)) {
+            for (int i = 0; i < normalModels.size(); i++) {
+                BattleDetailModel model = new BattleDetailModel(normalModels.get(i).getName(), normalModels.get(i).getImg(), "0", normalModels.get(i).getUserId());
+                mList.add(model);
+            }
         }
 
         mAdapter = new BattleDetailAdapter();
@@ -374,6 +384,45 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
     @Override
     public void fail(String err) {
+
+    }
+
+    @Override
+    public void reConnectSuccess(ReConnectModel model) {
+        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"), model.getData().getRoomId());
+        for (int i = 0; i < model.getData().getPlayers().size(); i++) {
+            BattleDetailModel model_battle = new BattleDetailModel(model.getData().getPlayers().get(i).getNickName(), model.getData().getPlayers().get(i).getAvatar(), String.valueOf(model.getData().getPlayers().get(i).getTotalScore()), String.valueOf(model.getData().getPlayers().get(i).getUserId()));
+            mList.add(model_battle);
+        }
+        mAdapter.setList(mList);
+
+
+        for (int i = 0; i < model.getData().getSubject().getOption().size(); i++) {
+            if (model.getData().getSubject().getOption().get(i).getRight()) {
+                mAnswer = model.getData().getSubject().getOption().get(i).getId();
+            }
+        }
+
+        tv_title.setText(model.getData().getSubject().getTitle());
+        tv_answer_1.setText(model.getData().getSubject().getOption().get(0).getContent());
+        tv_answer_2.setText(model.getData().getSubject().getOption().get(1).getContent());
+        tv_answer_3.setText(model.getData().getSubject().getOption().get(2).getContent());
+        tv_answer_4.setText(model.getData().getSubject().getOption().get(3).getContent());
+
+        mAnswer_1 = model.getData().getSubject().getOption().get(0).getId();
+        mAnswer_2 = model.getData().getSubject().getOption().get(1).getId();
+        mAnswer_3 = model.getData().getSubject().getOption().get(2).getId();
+        mAnswer_4 = model.getData().getSubject().getOption().get(3).getId();
+
+        tv_answer_1.setClickable(true);
+        tv_answer_2.setClickable(true);
+        tv_answer_3.setClickable(true);
+        tv_answer_4.setClickable(true);
+
+        tv_answer_1.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_2.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_3.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_4.setBackgroundResource(R.drawable.rectangle_ffffff_50);
 
     }
 }

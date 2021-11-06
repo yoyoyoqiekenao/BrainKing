@@ -3,6 +3,7 @@ package com.example.brainking.battle.battledetail;
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.json.MatchAnswerJson;
 import com.example.brainking.model.MatchAnswerModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.net.ApiCallback;
 
 import java.util.ArrayList;
@@ -11,6 +12,28 @@ import java.util.List;
 public class BattleDetailPresenter extends BasePresenter<BattleDetailView> {
     public BattleDetailPresenter(BattleDetailView view) {
         attachView(view);
+    }
+
+    public void reConnect() {
+        addSubscription(apiStores.reConnect(), new ApiCallback<ReConnectModel>() {
+            @Override
+            public void onSuccess(ReConnectModel model) {
+
+                if (200 == model.getCode()) {
+                    baseView.reConnectSuccess(model);
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 
     public void matchAnswer(String id, String roomId) {

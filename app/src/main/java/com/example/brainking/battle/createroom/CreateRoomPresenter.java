@@ -27,8 +27,8 @@ public class CreateRoomPresenter extends BasePresenter<CreateRoomView> {
             public void onSuccess(CreateRoomModel model) {
                 if (200 == model.getCode()) {
                     baseView.matchStartSuccess(model);
-                } else {
-                    baseView.fail(model.getMsg());
+                } else if (602 == model.getCode()) {
+                    baseView.reConnect();
                 }
             }
 

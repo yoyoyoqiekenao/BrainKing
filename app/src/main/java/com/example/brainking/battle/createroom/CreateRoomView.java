@@ -9,4 +9,6 @@ public interface CreateRoomView extends BaseView {
     void matchStartSuccess(CreateRoomModel matchStartModel);
 
     void fail(String err);
+
+    void reConnect();
 }

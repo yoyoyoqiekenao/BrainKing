@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
 import com.example.brainking.base.BrainActivity;
+import com.example.brainking.battle.battledetail.BattleDetailActivity;
 import com.example.brainking.battle.battleready.BattleReadyActivity;
 import com.example.brainking.model.CreateRoomModel;
 import com.example.brainking.util.SpUtils;
@@ -154,6 +156,7 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
         Intent intent = new Intent(this, BattleReadyActivity.class);
         intent.putExtra("num", ed_num.getText().toString());
         intent.putExtra("roomId", matchStartModel.getData());
+        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"), matchStartModel.getData());
         startActivity(intent);
         finish();
     }
@@ -161,6 +164,14 @@ public class CreateRoomActivity extends BrainActivity<CreateRoomPresenter> imple
     @Override
     public void fail(String err) {
         Toast.makeText(this, "创建失败" + err, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void reConnect() {
+        Intent intent = new Intent(this, BattleDetailActivity.class);
+        intent.putExtra("type", "reConnect");
+        startActivity(intent);
+        finish();
     }
 
 
