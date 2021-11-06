@@ -63,10 +63,38 @@
             android:layout_toLeftOf="@id/iv_close"
             android:background="@null"
             android:hint="请输入昵称"
+            android:singleLine="true"
             android:textSize="16dp"></EditText>
 
     </RelativeLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/color_EEEEEE"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp">
+
+
+        <EditText
+            android:id="@+id/ed_remark"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:hint="请输入签名"
+            android:singleLine="true"
+            android:textSize="16dp"></EditText>
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -90,6 +118,7 @@
             android:layout_height="40dp"
             android:background="@null"
             android:hint="邀请码(非必填)"
+            android:singleLine="true"
             android:textSize="16dp"></EditText>
 
     </RelativeLayout>

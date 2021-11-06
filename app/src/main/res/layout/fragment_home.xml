@@ -153,17 +153,29 @@
                 android:layout_width="150dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/rectangle_3b4dd0_8"
                 app:layout_constraintBottom_toBottomOf="@id/tv_level"
                 app:layout_constraintLeft_toRightOf="@id/tv_level"
                 app:layout_constraintTop_toTopOf="@id/tv_level">
 
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rectangle_f2cb51_8"></View>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:background="@drawable/rectangle_3b4dd0_8"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <View
+                        android:id="@+id/view_fighting"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/rectangle_f2cb51_8"></View>
+
+                </LinearLayout>
+
 
                 <TextView
+                    android:id="@+id/tv_fighting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

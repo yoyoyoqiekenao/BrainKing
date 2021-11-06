@@ -55,11 +55,13 @@ public class UserInfoModel {
         @SerializedName("location")
         private Object location;
         @SerializedName("level")
-        private Integer level;
+        private String level;
+        //分子
         @SerializedName("fightinga")
-        private Integer fightinga;
+        private String fightinga;
+        //分母
         @SerializedName("fightingb")
-        private Integer fightingb;
+        private String fightingb;
         @SerializedName("remark")
         private String remark;
 
@@ -135,27 +137,27 @@ public class UserInfoModel {
             this.location = location;
         }
 
-        public Integer getLevel() {
+        public String getLevel() {
             return level;
         }
 
-        public void setLevel(Integer level) {
+        public void setLevel(String level) {
             this.level = level;
         }
 
-        public Integer getFightinga() {
+        public String getFightinga() {
             return fightinga;
         }
 
-        public void setFightinga(Integer fightinga) {
+        public void setFightinga(String fightinga) {
             this.fightinga = fightinga;
         }
 
-        public Integer getFightingb() {
+        public String getFightingb() {
             return fightingb;
         }
 
-        public void setFightingb(Integer fightingb) {
+        public void setFightingb(String fightingb) {
             this.fightingb = fightingb;
         }
 
