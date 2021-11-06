@@ -9,7 +9,7 @@ public class MatchStartModel {
     @SerializedName("code")
     private Integer code;
     @SerializedName("data")
-    private Boolean data;
+    private String data;
 
     public String getMsg() {
         return msg;
@@ -27,11 +27,11 @@ public class MatchStartModel {
         this.code = code;
     }
 
-    public Boolean isData() {
+    public String isData() {
         return data;
     }
 
-    public void setData(Boolean data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

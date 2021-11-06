@@ -1,7 +1,10 @@
 package com.example.brainking.match.match_detail;
 
+import android.util.Log;
+
 import com.example.brainking.base.BasePresenter;
 import com.example.brainking.model.MatchStartModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.net.ApiCallback;
 
 public class MatchDetailPresenter extends BasePresenter<MatchDetailView> {
@@ -17,8 +20,8 @@ public class MatchDetailPresenter extends BasePresenter<MatchDetailView> {
             public void onSuccess(MatchStartModel model) {
                 if (200 == model.getCode()) {
                     baseView.matchStartSuccess(model);
-                } else {
-                    baseView.fail(model.getMsg());
+                } else if (602 == model.getCode()) {
+                    baseView.reConnect();
                 }
             }
 

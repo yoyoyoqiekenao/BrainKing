@@ -29,6 +29,7 @@ import com.example.brainking.base.BrainActivity;
 import com.example.brainking.events.MatchStartEvent;
 import com.example.brainking.model.MatchAnswerModel;
 import com.example.brainking.model.MatchStartModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
 import com.example.brainking.mqttmodel.MqttOptionModel;
 import com.example.brainking.mqttmodel.MqttResultModel;
@@ -41,9 +42,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,6 +136,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private int mVoiceId_right;
     private int mVoiceId_error;
 
+    private String mType;
     private String mRoomId = "";
 
     private boolean isReallyExit = false;
@@ -221,13 +222,20 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         mRoomId = getIntent().getStringExtra("roomId");
         mName = getIntent().getStringExtra("name");
         mImg = getIntent().getStringExtra("img");
+        mType = getIntent().getStringExtra("type");
 
         Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
         tv_name_left.setText(SpUtils.getInstance().getString("name"));
         Glide.with(this).load(mImg).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_right);
         tv_name_right.setText(mName + "");
 
-        basePresenter.ready(mRoomId);
+        if (mRoomId != null) {
+            basePresenter.ready(mRoomId);
+        }
+        if (mType != null) {
+            Log.d("xuwudi", "开始重连");
+            basePresenter.reConnect();
+        }
 
         tv_answer_1.setOnClickListener(this);
         tv_answer_2.setOnClickListener(this);
@@ -384,7 +392,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
 
     @Override
     public void fail(String err) {
-        Toast.makeText(this, err, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, err, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -396,6 +404,51 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     @Override
     public void matchAnswerSuccess(MatchAnswerModel matchAnswerModel) {
         //tv_score_left.setText(matchAnswerModel.getData().getTotalScore() + "");
+    }
+
+    @Override
+    public void reConnectSuccess(ReConnectModel model) {
+        //Log.d("xuwudi", "roomId====" + model.getData().getRoomId());
+        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"), model.getData().getRoomId());
+
+        Glide.with(this).load(model.getData().getPlayers().get(0).getAvatar()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_right);
+        tv_name_right.setText(model.getData().getPlayers().get(0).getNickName() + "");
+
+        tv_score_left.setText(model.getData().getPlayers().get(1).getTotalScore() + "");
+        tv_score_right.setText(model.getData().getPlayers().get(0).getTotalScore() + "");
+        tv_title.setText(model.getData().getSubject().getTitle());
+
+        mHandler.removeCallbacksAndMessages(null);
+        mTime = 10;
+        mHandler.sendEmptyMessageDelayed(1, 1000);
+
+        for (int i = 0; i < model.getData().getSubject().getOption().size(); i++) {
+            if (model.getData().getSubject().getOption().get(i).getRight()) {
+                mAnswer = model.getData().getSubject().getOption().get(i).getId();
+            }
+        }
+
+        mRoomId = model.getData().getRoomId();
+
+        tv_answer_1.setText(model.getData().getSubject().getOption().get(0).getContent());
+        tv_answer_2.setText(model.getData().getSubject().getOption().get(1).getContent());
+        tv_answer_3.setText(model.getData().getSubject().getOption().get(2).getContent());
+        tv_answer_4.setText(model.getData().getSubject().getOption().get(3).getContent());
+
+        mAnswer_1 = model.getData().getSubject().getOption().get(0).getId();
+        mAnswer_2 = model.getData().getSubject().getOption().get(1).getId();
+        mAnswer_3 = model.getData().getSubject().getOption().get(2).getId();
+        mAnswer_4 = model.getData().getSubject().getOption().get(3).getId();
+
+        tv_answer_1.setClickable(true);
+        tv_answer_2.setClickable(true);
+        tv_answer_3.setClickable(true);
+        tv_answer_4.setClickable(true);
+
+        tv_answer_1.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_2.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_3.setBackgroundResource(R.drawable.rectangle_ffffff_50);
+        tv_answer_4.setBackgroundResource(R.drawable.rectangle_ffffff_50);
     }
 
     @Override

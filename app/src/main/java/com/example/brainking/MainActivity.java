@@ -203,7 +203,7 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
         SpUtils.getInstance().putString("name", model.getData().getNickName());
         SpUtils.getInstance().putString("headImg", model.getData().getAvatar());
 
-        MyMqttService.startService(this, SpUtils.getInstance().getString("userId"));
+        //MyMqttService.startService(this, SpUtils.getInstance().getString("userId"));
     }
 
     @Override

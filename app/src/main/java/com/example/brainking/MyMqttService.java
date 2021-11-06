@@ -40,6 +40,7 @@ public class MyMqttService extends Service {
     public static String RESPONSE_TOPIC = "/public/TEST/";//响应主题
 
     private String mUserId;
+    private String mRoomId;
 
     public String CLIENTID = "";
     /*public String CLIENTID = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
@@ -53,16 +54,18 @@ public class MyMqttService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent!=null){
+        if (intent != null) {
             if (!TextUtils.isEmpty(intent.getStringExtra("userId"))) {
                 mUserId = intent.getStringExtra("userId");
+                mRoomId = intent.getStringExtra("roomId");
+                Log.i(TAG, "user数据===：" + mUserId + "=========" + mRoomId);
             }
         }
 
 
-        PUBLISH_TOPIC = "/public/TEST/" + mUserId;
-        RESPONSE_TOPIC = "/public/TEST/" + mUserId;
-        CLIENTID = mUserId;
+        PUBLISH_TOPIC = "/public/TEST/" + mUserId + "/" + mRoomId;
+        RESPONSE_TOPIC = "/public/TEST/" + mUserId + "/" + mRoomId;
+        CLIENTID = mUserId + "/" + mRoomId;
         init();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -70,9 +73,10 @@ public class MyMqttService extends Service {
     /**
      * 开启服务
      */
-    public static void startService(Context mContext, String userId) {
+    public static void startService(Context mContext, String userId, String roomId) {
         Intent intent = new Intent(mContext, MyMqttService.class);
         intent.putExtra("userId", userId);
+        intent.putExtra("roomId", roomId);
         mContext.startService(intent);
     }
 
@@ -194,9 +198,8 @@ public class MyMqttService extends Service {
 
         @Override
         public void onSuccess(IMqttToken arg0) {
-            Log.i(TAG, "连接成功 ");
+            Log.i(TAG, "连接成功 " + PUBLISH_TOPIC);
             try {
-                Log.d("xuwudi", "dddddddddd==" + PUBLISH_TOPIC);
                 mqttAndroidClient.subscribe(PUBLISH_TOPIC, 2);//订阅主题，参数：主题、服务质量
             } catch (MqttException e) {
                 e.printStackTrace();
@@ -254,7 +257,7 @@ public class MyMqttService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d("xuwudi","退出了");
+        Log.d("xuwudi", "退出了");
         if (mqttAndroidClient != null && mqttAndroidClient.isConnected()) {
             try {
                 mqttAndroidClient.disconnect(); //断开连接

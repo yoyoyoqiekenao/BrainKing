@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.dynamicanimation.animation.DynamicAnimation;
@@ -32,6 +33,7 @@ import com.example.brainking.base.BrainActivity;
 import com.example.brainking.events.MatchStartEvent;
 import com.example.brainking.match.match_battle.MatchBattleActivity;
 import com.example.brainking.model.MatchStartModel;
+import com.example.brainking.model.ReConnectModel;
 import com.example.brainking.mqttmodel.MqttMatchStartModel;
 import com.example.brainking.mqttmodel.MqttReadyModel;
 import com.example.brainking.util.SpUtils;
@@ -235,13 +237,30 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
     @Override
     public void matchStartSuccess(MatchStartModel matchStartModel) {
+        if (!TextUtils.isEmpty(matchStartModel.isData())) {
+            MyMqttService.startService(this, SpUtils.getInstance().getString("userId"), matchStartModel.isData());
+        } else {
+            Toast.makeText(MatchDetailActivity.this, "mqtt连接失败,请重新连接", Toast.LENGTH_SHORT);
+        }
 
     }
 
     @Override
     public void fail(String msg) {
-
+        Toast.makeText(MatchDetailActivity.this, msg, Toast.LENGTH_SHORT);
     }
+
+    @Override
+    public void reConnect() {
+        Intent intent = new Intent(MatchDetailActivity.this, MatchBattleActivity.class);
+        intent.putExtra("type", "reconnect");
+        intent.putExtra("img", mImg);
+        intent.putExtra("name", mName);
+        startActivity(intent);
+        finish();
+    }
+
+
 
 
 }
