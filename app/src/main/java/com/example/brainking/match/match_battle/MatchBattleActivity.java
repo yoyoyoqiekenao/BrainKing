@@ -117,6 +117,8 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     ImageView iv_right;
     @BindView(R.id.tv_fees)
     TextView tv_fees;
+    @BindView(R.id.tv_num)
+    TextView tv_num;
 
 
     private String mAnswer_1;
@@ -288,6 +290,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         if ("subject".equals(new Gson().fromJson(str, MqttOptionModel.class).getType())) {
             MqttOptionModel optionModel = new Gson().fromJson(str, MqttOptionModel.class);
             tv_title.setText(optionModel.getTitle());
+            tv_num.setText(optionModel.getCurrentIndex() + "/" + optionModel.getTotal());
 
             for (int i = 0; i < optionModel.getOption().size(); i++) {
                 if (optionModel.getOption().get(i).isRight) {
@@ -338,6 +341,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             ll_view.setVisibility(View.GONE);
             tv_score_right.setVisibility(View.GONE);
             tv_score_left.setVisibility(View.GONE);
+            tv_num.setVisibility(View.GONE);
             mHandler.sendEmptyMessage(2);
 
             MqttResultModel mqttResultModel = new Gson().fromJson(str, MqttResultModel.class);

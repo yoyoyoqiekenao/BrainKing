@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -78,6 +79,8 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
 
     private ObjectAnimator mObjectAnimator_1, mObjectAnimator_2;
 
+
+    public MediaPlayer mediaPlayer;
     private SoundPool mSoundPool;
     private int mVoiceId;
 
@@ -126,6 +129,13 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         ImmersionBar.with(this).statusBarView(mView).init();
         ButterKnife.bind(this);
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.more_load);
+        // 设置媒体流类型
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        //设置循环播放
+        mediaPlayer.setLooping(true);
+        playMusic();
+
         EventBus.getDefault().register(this);
 
         Glide.with(this).load(SpUtils.getInstance().getString("headImg")).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_left);
@@ -172,6 +182,31 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         mVoiceId = mSoundPool.load(this, R.raw.shuangren_load, 1);
     }
 
+    private void playMusic() {
+
+
+        mediaPlayer.start();
+
+        mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    rePlay();
+                }
+                return false;
+            }
+        });
+    }
+
+    //重新播放
+    private void rePlay() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(0);
+            return;
+        }
+        playMusic();
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.rl_back) {
@@ -208,6 +243,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
             animatorSet_2.playTogether(mObjectAnimator_2);
             mObjectAnimator_2.start();
 
+            mediaPlayer.stop();
             mSoundPool.play(mVoiceId, 1, 1, 1, 0, 1);
 
 
@@ -230,6 +266,12 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         }
         if (mSoundPool != null) {
             mSoundPool.release();
+        }
+
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
         EventBus.getDefault().unregister(this);
 
@@ -259,8 +301,6 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         startActivity(intent);
         finish();
     }
-
-
 
 
 }

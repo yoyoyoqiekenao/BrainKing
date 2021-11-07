@@ -147,8 +147,8 @@
 
                 <ImageView
                     android:id="@+id/iv_result"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="200dp"
+                    android:layout_height="178dp"
                     android:layout_centerInParent="true"
                     android:src="@mipmap/iv_win"
                     android:visibility="gone"></ImageView>
@@ -254,14 +254,24 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="23dp"
+
+                android:textColor="@color/white"
+                android:textSize="16dp"></TextView>
+
+            <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="21dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="21dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:textColor="@color/white"
                 android:textSize="16dp"></TextView>
 

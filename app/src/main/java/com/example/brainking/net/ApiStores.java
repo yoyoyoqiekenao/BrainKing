@@ -64,9 +64,9 @@ import retrofit2.http.Query;
  */
 public interface ApiStores {
 
-    //public static final String BASE_URL = "http://42.192.234.149:8080/";
+    public static final String BASE_URL = "http://42.192.234.149:8080/";
     //测试环境
-    public static final String BASE_URL = "http://192.168.1.107:8080/";
+    //public static final String BASE_URL = "http://192.168.1.107:8080/";
     //public static final String BASE_URL = "http://devojiang.kmdns.net:8081/";
 
 
@@ -421,6 +421,7 @@ public interface ApiStores {
 
     /**
      * 晋级赛页面初始化数据
+     *
      * @return
      */
     @GET("match/double/battle/init")

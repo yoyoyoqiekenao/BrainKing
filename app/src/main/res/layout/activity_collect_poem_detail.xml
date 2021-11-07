@@ -119,22 +119,35 @@
                 android:layout_marginTop="50dp"
                 android:background="@color/color_EEEEEE"></View>
 
-            <TextView
-                android:id="@+id/tv_notes"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_notes"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_line"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="17dp"
-                android:text="【注释】"
-                android:textColor="@color/color_FFA533"
-                android:textSize="14dp"></TextView>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_notes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="【注释】"
+                    android:textColor="@color/color_FFA533"
+                    android:textSize="14dp"></TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/iv_notes_voice"></ImageView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_annotation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_notes"
+                android:layout_below="@id/ll_notes"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="7dp"
                 android:textColor="@color/color_333333"

@@ -2,6 +2,7 @@ package com.example.brainking.mqttmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 //题库
@@ -17,6 +18,26 @@ public class MqttOptionModel {
     public String type;
     @SerializedName("option")
     public List<OptionDTO> option;
+    @SerializedName("currentIndex")
+    private String currentIndex;
+    @SerializedName("total")
+    private String total;
+
+    public String getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(String currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
 
     public String getId() {
         return id;

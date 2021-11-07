@@ -89,6 +89,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     LinearLayout ll_fee;
     @BindView(R.id.tv_fees)
     TextView tv_fees;
+    @BindView(R.id.tv_num)
+    TextView tv_num;
 
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
@@ -220,6 +222,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             tv_finish.setVisibility(View.VISIBLE);
             iv_result.setVisibility(View.VISIBLE);
             ll_fee.setVisibility(View.VISIBLE);
+            tv_num.setVisibility(View.GONE);
             MqttResultModel model = new Gson().fromJson(event.getMsg(), MqttResultModel.class);
             if ("win".equals(model.getResultType())) {
                 iv_result.setImageResource(R.mipmap.iv_win);
@@ -232,6 +235,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
             MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
+
+            tv_num.setText(model.getCurrentIndex() + "/" + model.getTotal());
 
             for (int i = 0; i < model.getOption().size(); i++) {
                 if (model.getOption().get(i).isRight) {
