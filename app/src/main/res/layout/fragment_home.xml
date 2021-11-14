@@ -87,15 +87,23 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/rectangle_ffffff_8">
 
-            <ImageView
-                android:id="@+id/iv_head"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
+            <RelativeLayout
+                android:id="@+id/rl_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
                 android:layout_marginTop="25dp"
-                android:src="@mipmap/iv_head"
+                android:background="@drawable/bg_stork_6c20e6"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="2dp"></ImageView>
+            </RelativeLayout>
+
 
             <ImageView
                 android:id="@+id/iv_level"
@@ -103,9 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:src="@mipmap/iv_level_1"
-                app:layout_constraintLeft_toLeftOf="@id/iv_head"
-                app:layout_constraintRight_toRightOf="@id/iv_head"
-                app:layout_constraintTop_toTopOf="@id/iv_head"></ImageView>
+                app:layout_constraintLeft_toLeftOf="@id/rl_head"
+                app:layout_constraintRight_toRightOf="@id/rl_head"
+                app:layout_constraintTop_toTopOf="@id/rl_head"></ImageView>
 
             <TextView
                 android:id="@+id/tv_name"
@@ -116,8 +124,8 @@
                 android:text="森巴拉巴鲁比啦"
                 android:textColor="@color/color_333333"
                 android:textSize="22dp"
-                app:layout_constraintLeft_toRightOf="@id/iv_head"
-                app:layout_constraintTop_toTopOf="@id/iv_head"></TextView>
+                app:layout_constraintLeft_toRightOf="@id/rl_head"
+                app:layout_constraintTop_toTopOf="@id/rl_head"></TextView>
 
             <ImageView
                 android:id="@+id/iv_update"
@@ -147,7 +155,7 @@
                 android:textColor="@color/color_333333"
                 android:textSize="14dp"
                 app:layout_constraintLeft_toLeftOf="@id/tv_name"
-                app:layout_constraintTop_toBottomOf="@id/iv_head"></TextView>
+                app:layout_constraintTop_toBottomOf="@id/rl_head"></TextView>
 
             <RelativeLayout
                 android:layout_width="150dp"
@@ -179,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="8/10"
+
                     android:textColor="@color/white"
                     android:textSize="10dp"></TextView>
             </RelativeLayout>
@@ -238,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="(每天十分钟，养成一个最强大脑)"
+                android:text="[每天十分钟，养成一个最强大脑]"
                 android:textColor="@color/black"
                 android:textSize="14dp"></TextView>
         </LinearLayout>
@@ -279,7 +287,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="(读国粹诗书，拥有更多古人智慧)"
+                android:text="[读国粹诗书，拥有更多古人智慧]"
                 android:textColor="@color/black"
                 android:textSize="14dp"></TextView>
 

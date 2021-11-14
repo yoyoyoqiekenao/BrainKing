@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="小学数学"
+            android:text="脑力训练"
             android:textColor="@color/color_ffffff"
             android:textSize="18dp"></TextView>
     </RelativeLayout>
@@ -633,7 +633,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/rectangle_e1f7ff_8"
                             android:gravity="center"
-                            android:text="自动切题"
+                            android:text="手动模式"
                             android:textSize="14dp"></TextView>
 
                     </LinearLayout>
@@ -644,7 +644,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
-                        android:text="本题解析"
+                        android:text="脑力解密"
                         android:textColor="@color/color_00AEE9"
                         android:textSize="14dp"></TextView>
 

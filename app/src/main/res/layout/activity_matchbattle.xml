@@ -273,7 +273,7 @@
                 android:layout_marginRight="21dp"
                 android:gravity="left"
                 android:textColor="@color/white"
-                android:textSize="16dp"></TextView>
+                android:textSize="19dp"></TextView>
 
             <TextView
                 android:id="@+id/tv_next"

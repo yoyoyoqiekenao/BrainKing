@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ import com.example.brainking.mine.timeteam.TimeTeamActivity;
 import com.example.brainking.model.LoginOutModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.util.SpUtils;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +69,12 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     ImageView iv_edit;
     @BindView(R.id.iv_level)
     ImageView iv_level;
+    @BindView(R.id.view_fighting)
+    View view_fighting;
+    @BindView(R.id.tv_fighting)
+    TextView tv_fighting;
+
+
 
     private String mImg;
     private String mName;
@@ -139,6 +148,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         mImg = model.getData().getAvatar();
         mName = model.getData().getNickName();
         mRemark = model.getData().getRemark();
+        tv_fighting.setText(model.getData().getFightinga()+"/"+model.getData().getFightingb());
+        view_fighting.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, (float) div(Double.valueOf(model.getData().getFightinga()), Double.valueOf(model.getData().getFightingb()), 2)));
     }
 
     @Override
@@ -167,5 +178,24 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     @Override
     public void hideLoading() {
 
+    }
+
+    /**
+     * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指
+     * 定精度，以后的数字四舍五入。
+     *
+     * @param v1    被除数
+     * @param v2    除数
+     * @param scale 表示表示需要精确到小数点以后几位。
+     * @return 两个参数的商
+     */
+    public static double div(double v1, double v2, int scale) {
+        if (scale < 0) {
+            throw new IllegalArgumentException(
+                    "The scale must be a positive integer or zero");
+        }
+        BigDecimal b1 = new BigDecimal(Double.toString(v1));
+        BigDecimal b2 = new BigDecimal(Double.toString(v2));
+        return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue() * 10;
     }
 }

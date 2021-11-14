@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -649,9 +650,11 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
         } else if (v.getId() == R.id.tv_auto) {
             if (isAuto) {
                 isAuto = false;
+                tv_auto.setText("手动模式");
                 tv_auto.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
             } else {
                 isAuto = true;
+                tv_auto.setText("自动模式");
                 tv_auto.setBackgroundResource(R.drawable.rectangle_00aee9_8);
             }
 
@@ -663,7 +666,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             case 1:
                 //判断题
                 if (mJudgeAnswer_.equals(mJudgeAnswer)) {
-                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     mJudgeAnswer_ = "";
                     mJudgeAnswer = "";
                     mSoundPool.play(mVoiceId_right, 1, 1, 1, 0, 1);
@@ -679,7 +684,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             case 2:
                 //单选题
                 if (mSingleAnswer.equals(mSingleAnswer_)) {
-                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     mSingleAnswer_ = "";
                     mSingleAnswer = "";
                     tv_chooseA_single.setBackgroundResource(R.drawable.rectangle_e1f7ff_8);
@@ -719,7 +726,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             case 4:
                 //填空题
                 if (mCompletionAnswer.equals(mCompletionAnswer_)) {
-                    Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     mCompletionAnswer_ = "";
                     mCompletionAnswer = "";
                     tv_answer_completion.setText("");
