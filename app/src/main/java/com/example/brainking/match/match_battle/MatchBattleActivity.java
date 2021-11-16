@@ -137,6 +137,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private SoundPool mSoundPool;
     private int mVoiceId_right;
     private int mVoiceId_error;
+    private int mVoiceId_win;
+    private int mVoiceId_lose;
+    private int mVoiceId_equals;
 
     private String mType;
     private String mRoomId = "";
@@ -219,6 +222,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         }
         mVoiceId_right = mSoundPool.load(this, R.raw.right_voice, 1);
         mVoiceId_error = mSoundPool.load(this, R.raw.error_voice, 1);
+        mVoiceId_win = mSoundPool.load(this, R.raw.win, 1);
+        mVoiceId_lose = mSoundPool.load(this, R.raw.lose, 1);
+        mVoiceId_equals = mSoundPool.load(this, R.raw.equals, 1);
 
 
         mRoomId = getIntent().getStringExtra("roomId");
@@ -347,9 +353,12 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             MqttResultModel mqttResultModel = new Gson().fromJson(str, MqttResultModel.class);
             if (mqttResultModel.getResultType().equals("win")) {
                 iv_result.setImageResource(R.mipmap.iv_win);
+                mSoundPool.play(mVoiceId_win, 1, 1, 1, 0, 1);
             } else if (mqttResultModel.getResultType().equals("lose")) {
                 iv_result.setImageResource(R.mipmap.iv_lose);
+                mSoundPool.play(mVoiceId_lose, 1, 1, 1, 0, 1);
             } else {
+                mSoundPool.play(mVoiceId_equals, 1, 1, 1, 0, 1);
                 iv_result.setImageResource(R.mipmap.iv_equal);
             }
             tv_fees.setText(mqttResultModel.getAddScore() + "");

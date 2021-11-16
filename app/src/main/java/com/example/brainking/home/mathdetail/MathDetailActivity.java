@@ -667,7 +667,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 //判断题
                 if (mJudgeAnswer_.equals(mJudgeAnswer)) {
                     Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.TOP, 0, 0);
                     toast.show();
                     mJudgeAnswer_ = "";
                     mJudgeAnswer = "";
@@ -685,7 +685,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 //单选题
                 if (mSingleAnswer.equals(mSingleAnswer_)) {
                     Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.TOP, 0, 0);
                     toast.show();
                     mSingleAnswer_ = "";
                     mSingleAnswer = "";
@@ -727,7 +727,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 //填空题
                 if (mCompletionAnswer.equals(mCompletionAnswer_)) {
                     Toast toast = Toast.makeText(this, "答题正确", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.TOP, 0, 0);
                     toast.show();
                     mCompletionAnswer_ = "";
                     mCompletionAnswer = "";
