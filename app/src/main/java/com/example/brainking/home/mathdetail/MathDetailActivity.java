@@ -186,6 +186,9 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                     mTime = 600;
                     mHandler.sendEmptyMessageDelayed(1, 1000);
                     break;
+                case 3:
+                    nextMatch(mType);
+                    break;
                 default:
             }
 
@@ -389,7 +392,8 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+
+
                 }
             }
         } else if (v.getId() == R.id.tv_1) {
@@ -398,7 +402,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
 
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_2) {
@@ -406,7 +410,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_3) {
@@ -415,7 +419,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_4) {
@@ -424,7 +428,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_5) {
@@ -433,7 +437,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_6) {
@@ -442,7 +446,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_7) {
@@ -451,7 +455,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_8) {
@@ -460,7 +464,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_9) {
@@ -469,7 +473,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
         } else if (v.getId() == R.id.tv_point) {
@@ -477,7 +481,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_answer_completion.setText(mCompletionAnswer_);
             if (mCompletionAnswer_.length() == mCompletionAnswer.length()) {
                 if (isAuto) {
-                    nextMatch(mType);
+                    mHandler.sendEmptyMessageDelayed(3, 500);
                 }
             }
             /*//首位不能是.
@@ -516,7 +520,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_judge_b.setTextColor(getResources().getColor(R.color.color_00AEE9));
 
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
 
         } else if (v.getId() == R.id.tv_judge_b) {
@@ -528,7 +532,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_judge_a.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_judge_b.setTextColor(getResources().getColor(R.color.color_ffffff));
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseA_single) {
             mSingleAnswer = "A";
@@ -543,7 +547,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseB_single) {
             mSingleAnswer = "B";
@@ -558,7 +562,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseC_single) {
             mSingleAnswer = "C";
@@ -573,7 +577,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_ffffff));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseD_single) {
             mSingleAnswer = "D";
@@ -588,7 +592,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
             tv_chooseC_single.setTextColor(getResources().getColor(R.color.color_00AEE9));
             tv_chooseD_single.setTextColor(getResources().getColor(R.color.color_ffffff));
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.rl_back) {
             finish();
@@ -603,7 +607,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 isCheckA = false;
             }
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseB_multiple) {
 
@@ -617,7 +621,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 isCheckB = false;
             }
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseC_multiple) {
             if (isCheckC == false) {
@@ -630,7 +634,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 isCheckC = false;
             }
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.tv_chooseB_multiple) {
             if (isCheckD == false) {
@@ -643,7 +647,7 @@ public class MathDetailActivity extends BrainActivity<MathDetailPresenter> imple
                 isCheckD = false;
             }
             if (isAuto) {
-                nextMatch(mType);
+                mHandler.sendEmptyMessageDelayed(3, 500);
             }
         } else if (v.getId() == R.id.iv_isCollect) {
 

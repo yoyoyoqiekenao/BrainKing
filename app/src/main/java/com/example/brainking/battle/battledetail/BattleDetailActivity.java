@@ -230,6 +230,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             ll_fee.setVisibility(View.VISIBLE);
             tv_num.setVisibility(View.GONE);
             MqttResultModel model = new Gson().fromJson(event.getMsg(), MqttResultModel.class);
+            mediaPlayer.stop();
             if ("win".equals(model.getResultType())) {
                 iv_result.setImageResource(R.mipmap.iv_win);
                 mSoundPool.play(mVoiceId_win, 1, 1, 1, 0, 1);

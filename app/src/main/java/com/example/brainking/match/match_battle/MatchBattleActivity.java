@@ -351,6 +351,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             mHandler.sendEmptyMessage(2);
 
             MqttResultModel mqttResultModel = new Gson().fromJson(str, MqttResultModel.class);
+            mediaPlayer.stop();
             if (mqttResultModel.getResultType().equals("win")) {
                 iv_result.setImageResource(R.mipmap.iv_win);
                 mSoundPool.play(mVoiceId_win, 1, 1, 1, 0, 1);
