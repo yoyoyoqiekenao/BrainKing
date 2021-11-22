@@ -232,7 +232,8 @@ public class MyMqttService extends Service {
             //response("message arrived");
             //BaseMqttModel mqttModel = new BaseMqttModel();
             //mqttModel.setObject(message.getPayload());
-            Log.d("xuwudi", "msg===" + message.toString());
+           // Log.d("xuwudi", "msg===" + message.toString());
+            Log.d("开始发送mqtt数据", "msg===" + message.toString());
             MatchStartEvent event = new MatchStartEvent();
             event.setMsg(message.toString());
             EventBus.getDefault().post(event);

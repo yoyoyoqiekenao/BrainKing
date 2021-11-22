@@ -144,6 +144,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
     private String mType;
     private String mRoomId = "";
 
+    private int position = 1;
     private boolean isReallyExit = false;
     private int mTime = 10;
     private Handler mHandler = new Handler() {
@@ -242,7 +243,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         }
         if (mType != null) {
             Log.d("xuwudi", "开始重连");
-            basePresenter.reConnect();
+           // basePresenter.reConnect();
         }
 
         tv_answer_1.setOnClickListener(this);
@@ -317,6 +318,9 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
             mAnswer_2 = optionModel.getOption().get(1).getId();
             mAnswer_3 = optionModel.getOption().get(2).getId();
             mAnswer_4 = optionModel.getOption().get(3).getId();
+
+            Log.d("xuwudi33", "第" + position + "个答案" + mAnswer_1);
+            position = position + 1;
 
             tv_answer_1.setClickable(true);
             tv_answer_2.setClickable(true);
@@ -453,6 +457,7 @@ public class MatchBattleActivity extends BrainActivity<MatchBattlePresenter> imp
         mAnswer_2 = model.getData().getSubject().getOption().get(1).getId();
         mAnswer_3 = model.getData().getSubject().getOption().get(2).getId();
         mAnswer_4 = model.getData().getSubject().getOption().get(3).getId();
+
 
         tv_answer_1.setClickable(true);
         tv_answer_2.setClickable(true);
