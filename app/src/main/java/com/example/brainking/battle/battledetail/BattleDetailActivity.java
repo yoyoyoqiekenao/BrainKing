@@ -31,6 +31,7 @@ import com.example.brainking.mqttmodel.MqttAnswerNoticeModel;
 import com.example.brainking.mqttmodel.MqttOptionModel;
 import com.example.brainking.mqttmodel.MqttResultModel;
 import com.example.brainking.util.SpUtils;
+import com.example.brainking.views.CountDownView;
 import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -91,6 +92,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
     TextView tv_fees;
     @BindView(R.id.tv_num)
     TextView tv_num;
+    @BindView(R.id.Downview)
+    CountDownView Downview;
 
     private List<BattleNormalModel> normalModels = new ArrayList<>();
     private List<BattleDetailModel> mList = new ArrayList<>();
@@ -129,6 +132,15 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarView(mView).init();
+
+        Downview.setCountdownTime(10);
+        Downview.setAddCountDownListener(new CountDownView.OnCountDownFinishListener() {
+            @Override
+            public void countDownFinished() {
+                Downview.setVisibility(View.GONE);
+            }
+        });
+
 
         mType = getIntent().getStringExtra("type");
         if (!TextUtils.isEmpty(mType)) {
@@ -223,6 +235,7 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
 
 
         if ("FinalResult".equals(new Gson().fromJson(event.getMsg(), MqttResultModel.class).getType())) {
+            Downview.setVisibility(View.GONE);
             tv_title.setVisibility(View.INVISIBLE);
             ll_answer.setVisibility(View.INVISIBLE);
             tv_finish.setVisibility(View.VISIBLE);
@@ -244,6 +257,8 @@ public class BattleDetailActivity extends BrainActivity<BattleDetailPresenter> i
             tv_fees.setText(model.getAddScore() + "");
         }
         if ("subject".equals(new Gson().fromJson(event.getMsg(), MqttOptionModel.class).getType())) {
+            Downview.setVisibility(View.VISIBLE);
+            Downview.startCountDown();
             MqttOptionModel model = new Gson().fromJson(event.getMsg(), MqttOptionModel.class);
 
             tv_num.setText(model.getCurrentIndex() + "/" + model.getTotal());

@@ -42,6 +42,7 @@ import com.example.brainking.mine.playabout.PlayAboutActivity;
 import com.example.brainking.model.LearnListModel;
 import com.example.brainking.model.UserInfoModel;
 import com.example.brainking.util.SpUtils;
+import com.example.brainking.views.CountDownView;
 import com.gyf.immersionbar.ImmersionBar;
 
 
@@ -83,6 +84,7 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     @BindView(R.id.view_fighting)
     View view_fighting;
 
+
     private PopupWindow mPop;
     private LearnListAdapter_math mAdapter_match;
 
@@ -108,6 +110,8 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         ImmersionBar.with(getActivity()).statusBarView(mView).init();
+
+
 
         rl_math.setOnClickListener(this);
         rl_poems.setOnClickListener(this);

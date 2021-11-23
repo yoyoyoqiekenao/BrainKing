@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,6 +37,7 @@
             android:text="答题比赛"
             android:textColor="@color/color_ffffff"
             android:textSize="18dp"></TextView>
+
     </RelativeLayout>
 
     <View
@@ -52,22 +54,39 @@
         android:layout_below="@id/rl_title"
         android:layout_marginTop="8dp"></androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/tv_num"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rl_num"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rc"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:textSize="16dp"></TextView>
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16dp"></TextView>
+
+        <com.example.brainking.views.CountDownView
+            android:id="@+id/Downview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="20dp"
+            app:ringWidth="5"></com.example.brainking.views.CountDownView>
+
+
+    </RelativeLayout>
 
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_num"
+        android:layout_below="@id/rl_num"
         android:layout_gravity="center"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="8dp"
