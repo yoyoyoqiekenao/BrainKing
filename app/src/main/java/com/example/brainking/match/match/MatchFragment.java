@@ -71,13 +71,22 @@ public class MatchFragment extends BrainFragment<MatchPresenter> implements Matc
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.rl_idiom) {
-            startActivity(new Intent(getContext(), MatchDetailActivity.class));
+            Intent intent = new Intent(getContext(), MatchDetailActivity.class);
+            intent.putExtra("id", "3");
+            startActivity(intent);
+
         } else if (v.getId() == R.id.rl_math) {
-            startActivity(new Intent(getContext(), MatchDetailActivity.class));
+            Intent intent = new Intent(getContext(), MatchDetailActivity.class);
+            intent.putExtra("id", "1");
+            startActivity(intent);
         } else if (v.getId() == R.id.rl_poem) {
-            startActivity(new Intent(getContext(), MatchDetailActivity.class));
+            Intent intent = new Intent(getContext(), MatchDetailActivity.class);
+            intent.putExtra("id", "2");
+            startActivity(intent);
         } else if (v.getId() == R.id.rl_time) {
-            startActivity(new Intent(getContext(), MatchDetailActivity.class));
+            Intent intent = new Intent(getContext(), MatchDetailActivity.class);
+            intent.putExtra("id", "4");
+            startActivity(intent);
         }
     }
 

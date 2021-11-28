@@ -12,8 +12,8 @@ public class MatchDetailPresenter extends BasePresenter<MatchDetailView> {
         attachView(view);
     }
 
-    public void createRoom() {
-        addSubscription(apiStores.matchStart(), new ApiCallback<MatchStartModel>() {
+    public void createRoom(String battleType) {
+        addSubscription(apiStores.matchStart(battleType), new ApiCallback<MatchStartModel>() {
 
 
             @Override

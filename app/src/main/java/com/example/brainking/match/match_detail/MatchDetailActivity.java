@@ -92,6 +92,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
     private String mRoomId;
     private String mName;
     private String mImg;
+    private String mId;
 
 
     private Handler mHandler = new Handler() {
@@ -128,6 +129,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         setContentView(R.layout.activity_matchdetail);
         ImmersionBar.with(this).statusBarView(mView).init();
         ButterKnife.bind(this);
+        mId = getIntent().getStringExtra("id");
 
         mediaPlayer = MediaPlayer.create(this, R.raw.more_load);
         // 设置媒体流类型
@@ -159,7 +161,7 @@ public class MatchDetailActivity extends BrainActivity<MatchDetailPresenter> imp
         timer.schedule(task, 1000, 1000);
 
 
-        basePresenter.createRoom();
+        basePresenter.createRoom(mId);
         if (Build.VERSION.SDK_INT >= 21) {
             SoundPool.Builder builder = new SoundPool.Builder();
             //传入最多播放音频数量,
