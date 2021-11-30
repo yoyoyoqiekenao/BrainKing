@@ -77,5 +77,41 @@
             android:text="拥有一批专业化的编辑团队,放眼全球工控和自动化领域的先进技术和发展趋势,为用户全面报道国内外最新技术趋势、市场动态和产品信息,为中国控制工程师以及管理人员提供了..."
             android:textColor="@color/color_333333"
             android:textSize="12dp"></TextView>
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#F3F5F7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="15dp"
+                android:text="隐私协议"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"></TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#F3F5F7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="15dp"
+                android:text="用户协议"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"></TextView>
+        </RelativeLayout>
+
     </LinearLayout>
+
 </LinearLayout>
