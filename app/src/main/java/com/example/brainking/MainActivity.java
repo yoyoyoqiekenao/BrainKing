@@ -4,7 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import razerdp.basepopup.BasePopupWindow;
 
 public class MainActivity extends BrainActivity<MainPresenter> implements MainView, View.OnClickListener {
 
@@ -69,6 +72,11 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
     @BindView(R.id.iv_mine)
     ImageView iv_mine;
 
+    @BindView(R.id.rootView)
+    RelativeLayout rootView;
+
+    private PrivacyPop mPop;
+
     private static final String[] CHANNELS = new String[]{"首页", "晋级赛", "对战大厅", "消息", "我的"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
     private ExamplePagerAdapter mExamplePagerAdapter;
@@ -90,17 +98,36 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        if (SpUtils.getInstance().getBoolean("isAgree", false)) {
+        } else {
+            showPop();
+        }
+
         initMagicIndicator();
 
-         createPresenter().getUserInfo();
+        createPresenter().getUserInfo();
+    }
+
+    private void showPop() {
+        mPop = new PrivacyPop(this, new PrivacyPop.onClick() {
+            @Override
+            public void click() {
+                mPop.dismiss();
+                finish();
+            }
+        });
+        mPop.setPopupGravity(Gravity.CENTER);
+        mPop.setOutSideDismiss(false);
+        mPop.setOutSideTouchable(false);
+        mPop.setBackPressEnable(false);
+        mPop.showPopupWindow();
+
     }
 
     @Override
     protected MainPresenter createPresenter() {
         return new MainPresenter(this);
     }
-
-
 
 
     private void initMagicIndicator() {

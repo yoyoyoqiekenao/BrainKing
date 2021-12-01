@@ -18,7 +18,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         app = getApplicationContext();
+
         Bugly.init(getApplicationContext(), "a4b778ca17", false);
 
     }
+
+
 }
