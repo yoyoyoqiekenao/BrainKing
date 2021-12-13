@@ -13,6 +13,16 @@ public class UploadModel {
     @SerializedName("url")
     public String url;
 
+    @Override
+    public String toString() {
+        return "UploadModel{" +
+                "msg='" + msg + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", code=" + code +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
     public String getMsg() {
         return msg;
     }

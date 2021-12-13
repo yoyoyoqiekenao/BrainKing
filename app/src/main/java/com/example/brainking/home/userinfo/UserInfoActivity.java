@@ -33,9 +33,14 @@ import com.example.brainking.model.UpdateUserInfoModel;
 import com.example.brainking.model.UploadModel;
 import com.example.brainking.util.GlideCacheEngine;
 import com.example.brainking.util.GlideEngine;
+import com.example.brainking.util.SpUtils;
 import com.example.brainking.views.BottomPopWinPhoto;
 import com.example.brainking.views.BottomPotSelectLinstener;
+import com.google.gson.Gson;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -43,10 +48,19 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implements UserInfoView, View.OnClickListener {
 
@@ -104,10 +118,32 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
         iv_submit.setOnClickListener(this);
         iv_head.setOnClickListener(this);
 
-        //判断是否获得权限
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            //获取权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        XXPermissions.with(this)
+                .permission(Permission.CAMERA)
+                .permission(Permission.READ_EXTERNAL_STORAGE)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE)
+                .request(new OnPermissionCallback() {
+
+                    @Override
+                    public void onGranted(List<String> permissions, boolean all) {
+                        if (all) {
+
+                        }
+                    }
+                });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(UserInfoActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //没有权限则申请权限
+                ActivityCompat.requestPermissions(UserInfoActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            } else {
+                //有权限直接执行,docode()不用做处理
+
+
+            }
+        } else {
+            //小于6.0，不用申请权限，直接执行
+
         }
 
     }
@@ -116,6 +152,7 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_head:
+
                 selectPho(SelectPhoTypeFront1, SelectPhoTypeFront2);
                 break;
             case R.id.rl_back:
@@ -349,8 +386,37 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
             Log.i(TAG, "Size: " + media.getSize());
             // TODO 可以通过PictureSelectorExternalUtils.getExifInterface();方法获取一些额外的资源信息，如旋转角度、经纬度等信息
             System.out.println("打印监听输出---拍照或相册选择图片路径=" + media.getCutPath());
-            createPresenter().getFile(new File(media.getCutPath()));
+            //createPresenter().getFile(new File(media.getCutPath()));
+            uploadImg(media.getCutPath());
         }
+    }
+
+    private void uploadImg(String str) {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        File file = new File(str);
+        RequestBody image = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", str, image)
+                .build();
+        Request request = new Request.Builder()
+                .url("https://www.wdsd66.cn/api/common/upload")
+                .header("Authorization", SpUtils.getInstance().getString("token"))
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Gson gson = new Gson();
+                UploadModel bean = gson.fromJson(response.body().string(), UploadModel.class);
+                Log.d("xuwudi", "图片===" + bean.toString());
+            }
+        });
     }
 
     public static File uriToFile(Uri uri, Context context) {

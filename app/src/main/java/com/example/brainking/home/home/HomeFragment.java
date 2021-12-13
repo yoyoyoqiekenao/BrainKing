@@ -144,11 +144,11 @@ public class HomeFragment extends BrainFragment<HomePresenter> implements HomeVi
         } else if (view.getId() == R.id.rl_search) {
             startActivity(new Intent(getContext(), SearchActivity.class));
         } else if (view.getId() == R.id.iv_edit) {
-            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            /*Intent intent = new Intent(getContext(), UserInfoActivity.class);
             intent.putExtra("img", mImg);
             intent.putExtra("name", mName);
             intent.putExtra("remark", mRemark);
-            startActivity(intent);
+            startActivity(intent);*/
         } else if (view.getId() == R.id.rl_playAbout) {
             startActivity(new Intent(getContext(), PlayAboutActivity.class));
         }
