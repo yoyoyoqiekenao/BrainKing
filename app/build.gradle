@@ -124,6 +124,7 @@ dependencies {
     implementation 'io.github.razerdp:BasePopup:3.2.0'
     implementation 'com.github.getActivity:XXPermissions:13.2'
 
+
 }
 
 
