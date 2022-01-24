@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -87,6 +90,20 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
     private int SelectPhoTypeFront1 = 3;
     //选择相册
     private int SelectPhoTypeFront2 = 4;
+
+    private Handler mHandler =new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    Glide.with(UserInfoActivity.this).load(mImg)
+                            .error(R.mipmap.iv_head)
+                            .apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
+                    break;
+                default:
+            }
+        }
+    };
 
     @Override
     protected UserInfoPresenter createPresenter() {
@@ -291,13 +308,12 @@ public class UserInfoActivity extends BrainActivity<UserInfoPresenter> implement
                 Gson gson = new Gson();
                 UploadModel bean = gson.fromJson(response.body().string(), UploadModel.class);
                 mImg = bean.getUrl();
-
+                mHandler.sendEmptyMessage(1);
 
             }
         });
-        Glide.with(UserInfoActivity.this).load(mImg).
-                error(R.mipmap.iv_head)
-                .apply(RequestOptions.bitmapTransform(new CircleCrop())).into(iv_head);
+
+
     }
 
     public static File uriToFile(Uri uri, Context context) {

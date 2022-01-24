@@ -427,5 +427,13 @@ public interface ApiStores {
      */
     @GET("match/double/battle/init")
     Observable<MatchScoreModel> getMatchScore();
+
+    /**
+     * 退出登陆
+     *
+     * @return
+     */
+    @POST("logoff")
+    Observable<LoginOutModel> logOff();
 }
 

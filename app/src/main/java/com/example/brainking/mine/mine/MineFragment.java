@@ -18,8 +18,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.brainking.MyMqttService;
 import com.example.brainking.R;
-import com.example.brainking.base.BaseFragment;
-import com.example.brainking.base.BasePresenter;
 import com.example.brainking.base.BrainFragment;
 import com.example.brainking.home.userinfo.UserInfoActivity;
 import com.example.brainking.login.LoginActivity;
@@ -38,8 +36,6 @@ import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
 
 public class MineFragment extends BrainFragment<MinePresenter> implements MineView, View.OnClickListener {
 
@@ -73,6 +69,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
     View view_fighting;
     @BindView(R.id.tv_fighting)
     TextView tv_fighting;
+    @BindView(R.id.rl_loginOff)
+    RelativeLayout rl_loginOff;
 
 
 
@@ -102,6 +100,7 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
         rl_loginOut.setOnClickListener(this);
         rl_question.setOnClickListener(this);
         iv_edit.setOnClickListener(this);
+        rl_loginOff.setOnClickListener(this);
 
         createPresenter().getUserInfo();
     }
@@ -131,6 +130,8 @@ public class MineFragment extends BrainFragment<MinePresenter> implements MineVi
             intent.putExtra("name", mName);
             intent.putExtra("remark", mRemark);
             startActivity(intent);
+        }else if(view.getId()==R.id.rl_loginOff){
+            createPresenter().loginOff();
         }
     }
 

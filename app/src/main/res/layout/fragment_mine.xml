@@ -504,6 +504,42 @@
                     android:layout_alignParentBottom="true"
                     android:background="#F5F5F5"></View>
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_loginOff"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="18dp"
+                    android:visibility="invisible"
+                    android:src="@mipmap/iv_friend"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="50dp"
+                    android:text="注销账号"
+                    android:textColor="@color/color_black"
+                    android:textSize="15dp"></TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="17dp"
+                    android:src="@mipmap/iv_next"></ImageView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#F5F5F5"></View>
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

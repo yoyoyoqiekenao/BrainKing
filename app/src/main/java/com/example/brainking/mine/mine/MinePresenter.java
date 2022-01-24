@@ -11,11 +11,32 @@ public class MinePresenter extends BasePresenter<MineView> {
         attachView(view);
     }
 
+    public void loginOff(){
+        baseView.showLoading();
+        addSubscription(apiStores.logOff(), new ApiCallback<LoginOutModel>() {
+            @Override
+            public void onSuccess(LoginOutModel model) {
+                if (model.getCode() == 200) {
+                    baseView.loginOutSuccess(model);
+                } else {
+                    baseView.loginOutFail(model.getMsg());
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                baseView.loginOutFail(msg);
+            }
+
+            @Override
+            public void onFinish() {
+                baseView.hideLoading();
+            }
+        });
+    }
     public void loginOut() {
         baseView.showLoading();
         addSubscription(apiStores.logOut(), new ApiCallback<LoginOutModel>() {
-
-
             @Override
             public void onSuccess(LoginOutModel model) {
                 if (model.getCode() == 200) {
