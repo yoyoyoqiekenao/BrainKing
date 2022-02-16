@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -114,6 +115,14 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
             public void click() {
                 mPop.dismiss();
                 finish();
+            }
+
+            @Override
+            public void gotoWeb(String url,String  title) {
+                Intent intent=new Intent(MainActivity.this,MyWebActivity.class);
+                intent.putExtra("url", url);
+                intent.putExtra("title", title);
+                startActivity(intent);
             }
         });
         mPop.setPopupGravity(Gravity.CENTER);
