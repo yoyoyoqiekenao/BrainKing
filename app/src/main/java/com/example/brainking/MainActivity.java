@@ -76,7 +76,7 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
     @BindView(R.id.rootView)
     RelativeLayout rootView;
 
-    private PrivacyPop mPop;
+
 
     private static final String[] CHANNELS = new String[]{"首页", "晋级赛", "对战大厅", "消息", "我的"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
@@ -99,39 +99,14 @@ public class MainActivity extends BrainActivity<MainPresenter> implements MainVi
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        if (SpUtils.getInstance().getBoolean("isAgree", false)) {
-        } else {
-            showPop();
-        }
+
 
         initMagicIndicator();
 
         createPresenter().getUserInfo();
     }
 
-    private void showPop() {
-        mPop = new PrivacyPop(this, new PrivacyPop.onClick() {
-            @Override
-            public void click() {
-                mPop.dismiss();
-                finish();
-            }
 
-            @Override
-            public void gotoWeb(String url,String  title) {
-                Intent intent=new Intent(MainActivity.this,MyWebActivity.class);
-                intent.putExtra("url", url);
-                intent.putExtra("title", title);
-                startActivity(intent);
-            }
-        });
-        mPop.setPopupGravity(Gravity.CENTER);
-        mPop.setOutSideDismiss(false);
-        mPop.setOutSideTouchable(false);
-        mPop.setBackPressEnable(false);
-        mPop.showPopupWindow();
-
-    }
 
     @Override
     protected MainPresenter createPresenter() {

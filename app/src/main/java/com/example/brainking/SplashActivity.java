@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,6 +49,7 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
     TextView tv_2;
 
     private boolean isAgree = false;
+    private PrivacyPop mPop;
 
     private Handler mHandler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -70,6 +72,11 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+
+        if (SpUtils.getInstance().getBoolean("isAgree", false)) {
+        } else {
+            showPop();
+        }
 
         rl_phone.setOnClickListener(this);
         if (!TextUtils.isEmpty(SpUtils.getInstance().getString("token"))) {
@@ -98,6 +105,30 @@ public class SplashActivity extends BrainActivity implements View.OnClickListene
         tv_2.setOnClickListener(this);
     }
 
+
+    private void showPop() {
+        mPop = new PrivacyPop(this, new PrivacyPop.onClick() {
+            @Override
+            public void click() {
+                mPop.dismiss();
+                finish();
+            }
+
+            @Override
+            public void gotoWeb(String url,String  title) {
+                Intent intent=new Intent(SplashActivity.this,MyWebActivity.class);
+                intent.putExtra("url", url);
+                intent.putExtra("title", title);
+                startActivity(intent);
+            }
+        });
+        mPop.setPopupGravity(Gravity.CENTER);
+        mPop.setOutSideDismiss(false);
+        mPop.setOutSideTouchable(false);
+        mPop.setBackPressEnable(false);
+        mPop.showPopupWindow();
+
+    }
 
     @Optional
     @Override

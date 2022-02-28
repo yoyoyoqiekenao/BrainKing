@@ -8,8 +8,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.253125" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.2667572463768116" />
         <entry key="app/src/main/res/layout/fragment_mine.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/layout/pop_grade.xml" value="0.253125" />
+        <entry key="app/src/main/res/layout/pop_privacy.xml" value="0.253125" />
       </map>
     </option>
   </component>
